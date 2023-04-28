@@ -3,4 +3,6 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 
-# just a test to commit from code anywhereß
+# just a test to commit from code anywhere
+
+# just a test to commit from vscode  
