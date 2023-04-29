@@ -78,12 +78,12 @@ As a first-time user...
         <td> 5  </td>
     </tr>
     <tr>
-        <td > Send reminders to participants who have confirmed assistance (24hrs before meeting)   </td>
+        <td >  Add notes to a meeting    </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
     <tr>
-        <td style="max-width:200px"> send reminders to oneself if participant has not confirmed  (24hrs before meeting)   </td>
+        <td style="max-width:200px"> Send reminders to participants who have not confirmed assistance (24hrs before meeting)   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
@@ -108,7 +108,7 @@ As a first-time user...
         <td> 4 </td>
     </tr>
      <tr>
-        <td> see availability of participants when choosing a time ( i.e. by using Microsoft Outlook Calender) </td>
+        <td> connect to a web app to check availability of participants when choosing a time ( i.e. by using Microsoft Outlook Calender) </td>
         <td> 2 </td>
         <td> 2 </td>
     </tr>
