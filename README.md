@@ -43,11 +43,68 @@ As a first-time user...
 
 ### Opportunities 
 
-| Description                            | Impact | Feasibility | 
-|----------------------------------------|--------|-------------|
-| Item1                                  | 5      | 5           | 
-| Item1                                  | 5      | 5           | 
 
+<table  style="margin: 0 auto; width: 80%">
+    <tr >
+        <th > Description </th>
+        <th> Impact </th>
+        <th> Feasibility </th>
+    </tr>
+    <tr>
+        <td> Create a new meeting  </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+    <tr>
+        <td> Delete a meeting  </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+     <tr>
+        <td> Add participants to meeting   </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+        <tr>
+        <td>  Remove participants from meeting   </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+    <tr>
+        <td > Send reminders to participants who have confirmed assistance (24hrs before meeting)   </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+    <tr>
+        <td style="max-width:200px"> send reminders to oneself if participant has not confirmed  (24hrs before meeting)   </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+     <tr>
+        <td>Send reminders to oneself if meeting itself has not been confirmed  (24hrs before meeting)  </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+  <tr>
+        <td> Display list upcoming meetings and allow to browse details </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+     <tr>
+        <td> allow to turn on/off notifications for each meeting and/or participant </td>
+        <td> 3  </td>
+        <td> 4  </td>
+    </tr>
+     <tr>
+        <td> connect to a web app that checks Microsoft Outlook Calender </td>
+        <td> 2 </td>
+        <td> 4 </td>
+    </tr>
+
+</table>
+
+
+--- 
 
 ### Feature selection
 
