@@ -26,9 +26,10 @@ As a first-time user...
     <li> I want to be able to create and delete meetings </li>
     <li> I want to be able to see all my upcoming meetings in the following week or day</li>
     <li> I want to be able to modify meetings details of an upcoming meeting</li>
+    <li> I want to be add notes to a meeting</li>
     <li> I want to to be able to add and remove particpants from the meeting </li>
     <li> I want to to be able to turn on and off notifications for a meeting </li>
-    <li> I want to automatically receive a notification email if the meeting itself has not been confirmed (24h prior meeting)  </li>
+    <li> I want to send a notification email to the participants who have not confirmed (24h prior meeting)  </li>
     <li> I want to automatically receive a notification email if a participant has not confirmed his assistance (24h prior meeting)  </li>
     <li> I want to automatically send reminder emails to all particpants who have confirmed assistance (24h prior meeting)</li>
 </ol>
@@ -92,7 +93,7 @@ As a first-time user...
         <td> 5  </td>
     </tr>
   <tr>
-        <td> Display list upcoming meetings and allow to browse details </td>
+        <td> Display list of upcoming meetings and allow to browse details </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
@@ -106,6 +107,12 @@ As a first-time user...
         <td> 2 </td>
         <td> 4 </td>
     </tr>
+     <tr>
+        <td> see availability of participants when choosing a time ( i.e. by using Microsoft Outlook Calender) </td>
+        <td> 2 </td>
+        <td> 2 </td>
+    </tr>
+    
 
 </table>
 
