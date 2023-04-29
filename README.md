@@ -23,15 +23,21 @@ Link to the live terminal : TO DO
 
 As a first-time user...
 <ol>
-    <li> I want to ....</li>
-    <li> I want to ....</li>
+    <li> I want to be able to create and delete meetings </li>
+    <li> I want to be able to see all my upcoming meetings in the following week or day</li>
+    <li> I want to be able to modify meetings details of an upcoming meeting</li>
+    <li> I want to to be able to add and remove particpants from the meeting </li>
+    <li> I want to to be able to turn on and off notifications for a meeting </li>
+    <li> I want to automatically receive a notification email if the meeting itself has not been confirmed (24h prior meeting)  </li>
+    <li> I want to automatically receive a notification email if a participant has not confirmed his assistance (24h prior meeting)  </li>
+    <li> I want to automatically send reminder emails to all particpants who have confirmed assistance (24h prior meeting)</li>
 </ol>
 
 ### Website Aims
 
 <ul>
-    <li> This is a great aim</li>
-    <li> This is another great aim</li>
+    <li> add an automation task that requires low-level attention to repeating events or meetings </li>
+    <li>  reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
 </ul>
 
 
