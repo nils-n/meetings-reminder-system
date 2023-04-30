@@ -134,6 +134,17 @@ As a first-time user...
 
 ### Program Flow Chart
 
+The functionality of the python program is displayed below. 
+
+<table style="width:90%">
+    <tr>
+        <th style='text-align:center'> Flow Chart - Python</th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/flowchart-reminder-system.png"; alt="flowchart of the python objects" >  </td>
+    </tr>
+</table>
+
 
 ----- 
 
