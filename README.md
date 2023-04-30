@@ -231,6 +231,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 ### Code Used
 
 - How to write emails from python [Link](https://towardsdatascience.com/how-to-easily-automate-emails-with-python-8b476045c151)
+- How to schedule a python task on Heroku [Link](https://www.youtube.com/watch?v=qn3Obj56wfA)
 
 ### Content 
 
