@@ -1,9 +1,8 @@
 # Meetings reminder system 
 
-This python-based web app is designed to keep track of open meetings, send reminder meetings to participants, and reminder to oneself if the meeting itself, or one of the participants, has not confirmed his or her assistance.
+This python-based web app is designed to automize meeting reminders. It automizes a specific  repetitive task that commerical solutions such as Outlook currently don't offer. The system keeps track of open meetings, sends emails to participants to either confirm their assistance (if they haven't confirmed 24hrs prior to the meeting) or a default reminder if they have already confirmed. It also automatically sends an email to the facility management if the availability of the meeting room has not been confirmed 24hrs prior to the meeting.
 
 Link to the live terminal : TO DO 
-
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -151,7 +150,8 @@ As a first-time user...
 ## Technologies Used 
 
 -  Git / [Github](https://github.com/)  for Version Control 
-- [VS Code ](https://code.visualstudio.com/) as IDE for local devlopment  
+- [VS Code ](https://code.visualstudio.com/) as local IDE  
+- [ Code Anywhere ](.codeanywhere.com) as cloud IDE 
 - [Figma](https://www.figma.com/) for the Flowchart 
 - [W3 Validation Tools](https://validator.w3.org/) for Testing
 - [Shields.io](https://shields.io/) for Readme badges
@@ -169,8 +169,11 @@ As a first-time user...
 
 ### Frameworks Used
 
-- [pytest](https://docs.pytest.org/en/7.3.x/) for unit tests 
+### Python Packages Used
 
+- `ssl` to securely connect to email server 
+- `email` to send emails from python
+- `pytest` for unit tests 
 
 ----- 
 
@@ -215,6 +218,8 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 ## Credits 
 
 ### Code Used
+
+- How to write emails from python [Link](https://towardsdatascience.com/how-to-easily-automate-emails-with-python-8b476045c151)
 
 ### Content 
 
