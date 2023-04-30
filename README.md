@@ -136,7 +136,7 @@ As a first-time user...
 
 The functionality of the python program is displayed below. 
 
-<table style="width:90%">
+<table>
     <tr>
         <th style='text-align:center'> Flow Chart - Python</th>
     </tr>
