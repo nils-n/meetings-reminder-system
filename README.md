@@ -147,20 +147,7 @@ The functionality of the python program is displayed below.
 
 --- 
 
-### Python Classes 
-
-Two main classes will be used to describe the workflow
--  Meeting Class: to describe details of the meeting (that consists of participants)
--  Participant Class: to describe details of the participant
-
-<table style='max-width:60%; text-align: center'>
-    <tr>
-        <th style='text-align:center'> Flow Chart - Python</th>
-    </tr>
-    <tr>
-        <td> <img src="./assets/images/classes-python.png"; alt="outline of python classes for this project" >  </td>
-    </tr>
-</table>
+### Data Structures
 
 The information about meetings and participants will be stored using Google sheets: 
 
@@ -179,6 +166,22 @@ The information about meetings and participants will be stored using Google shee
     </tr>
 </table>
 
+--- 
+
+### Implementation in Python  
+
+Two main classes will be used to describe the workflow
+-  Meeting Class: to describe details of the meeting (that consists of participants)
+-  Participant Class: to describe details of the participant
+
+<table style='max-width:60%; text-align: center'>
+    <tr>
+        <th style='text-align:center'> Flow Chart - Python</th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/classes-python.png"; alt="outline of python classes for this project" >  </td>
+    </tr>
+</table>
 
 
 
