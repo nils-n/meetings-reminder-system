@@ -145,6 +145,42 @@ The functionality of the python program is displayed below.
     </tr>
 </table>
 
+--- 
+
+### Python Classes 
+
+Two main classes will be used to describe the workflow
+-  Meeting Class: to describe details of the meeting (that consists of participants)
+-  Participant Class: to describe details of the participant
+
+<table style='max-width:60%; text-align: center'>
+    <tr>
+        <th style='text-align:center'> Flow Chart - Python</th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/classes-python.png"; alt="outline of python classes for this project" >  </td>
+    </tr>
+</table>
+
+The information about meetings and participants will be stored using Google sheets: 
+
+<table style='max-width:80%; text-align: center'>
+    <tr>
+        <th style='text-align:center'> Python Class</th>
+        <th style='text-align:center'> Flow Chart - Python</th>
+    </tr>
+    <tr>
+        <td> Meeting Data </td>
+        <td> <img src="./assets/images/google-sheet-example-1.png"; alt="example data of thr meetings as stored in google sheets " >  </td>
+    </tr>
+   <tr>
+        <td> Particiant Data </td>
+        <td> <img src="./assets/images/google-sheet-example-2.png"; alt="example data of the participants as stored in google sheets " >  </td>
+    </tr>
+</table>
+
+
+
 
 ----- 
 
