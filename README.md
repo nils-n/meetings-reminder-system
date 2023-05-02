@@ -207,7 +207,7 @@ Two main classes will be used to describe the workflow
 - convert markdown tables to html via [HTML Table Converter](https://tableconvert.com/markdown-to-html)
 - Markdown [TOC Generator](https://ecotrust-canada.github.io/markdown-toc/)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) VS Code formatter 
-
+- [Pseudo](https://marketplace.visualstudio.com/items?itemName=willumz.generic-pseudocode) VS Code plugin to write pseudocode
 
 
 ### Languages Used
