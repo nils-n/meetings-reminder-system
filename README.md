@@ -171,8 +171,9 @@ The information about meetings and participants will be stored using Google shee
 ### Implementation in Python  
 
 Two main classes will be used to describe the workflow
--  Meeting Class: to describe details of the meeting (that consists of participants)
--  Participant Class: to describe details of the participant
+- Meeting Class: to describe details of the meeting (that consists of participants)
+- Participant Class: to describe details of the participant
+- ReminderSystem Class: to handle I/O of meetings to google sheets   
 
 <table style='max-width:70%'>
     <tr>
