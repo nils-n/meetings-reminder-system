@@ -288,7 +288,8 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 - Teaching and Support from Code Insitute [Code Insitute](https://codeinstitute.net/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
-- tutoria;s for unit python unit testing with pytest (update this once you started using it) 
+- tutorias for unit python unit testing with pytest (update this once you started using it) 
+    - Pytest Unit Testing Tutorial - How to test your Python code [Youtube link](https://www.youtube.com/watch?v=YbpKMIUjvK8)
 - Talks from Dylan Israel about Unit Testing: [Link - Clean Coding](https://youtu.be/YQsU2Zq2Zis) 
 - Last but not least : Thanks to my mentor Ronan (Code Institute) for his advices and clear feedback 
 
