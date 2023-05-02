@@ -20,17 +20,22 @@ Link to the live terminal : TO DO
 
 ### User Stories 
 
-As a first-time user...
+As a user...
 <ol>
-    <li> I want to be able to create and delete meetings </li>
-    <li> I want to be able to see all my upcoming meetings in the following week or day</li>
-    <li> I want to be able to modify meetings details of an upcoming meeting</li>
-    <li> I want to be add notes to a meeting</li>
-    <li> I want to to be able to add and remove particpants from the meeting </li>
-    <li> I want to to be able to turn on and off notifications for a meeting </li>
-    <li> I want to send a notification email to the participants who have not confirmed (24h prior meeting)  </li>
-    <li> I want to automatically receive a notification email if a participant has not confirmed his assistance (24h prior meeting)  </li>
-    <li> I want to automatically send reminder emails to all particpants who have confirmed assistance (24h prior meeting)</li>
+    <li> I want to be create a new meeting </li>
+    <li> I want to delete a meeting that i have created before </li>
+    <li> I want to see all my upcoming meetings</li>
+    <li> I want to modify the meeting time of an upcoming meeting</li>
+    <li> I want to add a participant to an upcoming meeting</li>
+    <li> I want to remove a participant from an upcoming meeting</li>
+    <li> I want to add a note to a meeting</li>
+    <li> I want to remove a note from a meeting</li>
+    <li> I want to modify a meeting note</li>
+    <li> I want turn notifications off for a meeting where they were switched on </li>
+    <li> I want turn notifications on for a meeting where they were switched off </li>
+    <li> I want all participants of my meeting to automatically receive a notification email if they have not confirmed his assistance (12:00 on a day before the meetings)  </li>
+    <li> I want all participants of my meeting to automatically receive a reminder email if they have confirmed his assistance (12:00 on a day before the meetings)  </li>
+    <li> I want the system to automatically send a reminder email to the facility manager if the meeting room has not been confirmed (12:00 a day before the meeting)</li>
 </ol>
 
 ### Website Aims
