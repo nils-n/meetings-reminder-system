@@ -20,22 +20,19 @@ Link to the live terminal : TO DO
 
 ### User Stories 
 
-As a user...
+As a first-time user...
 <ol>
-    <li> I want to be create a new meeting </li>
-    <li> I want to delete a meeting that i have created before </li>
-    <li> I want to see all my upcoming meetings</li>
-    <li> I want to modify the meeting time of an upcoming meeting</li>
-    <li> I want to add a participant to an upcoming meeting</li>
-    <li> I want to remove a participant from an upcoming meeting</li>
-    <li> I want to add a note to a meeting</li>
-    <li> I want to remove a note from a meeting</li>
-    <li> I want to modify a meeting note</li>
-    <li> I want turn notifications off for a meeting where they were switched on </li>
-    <li> I want turn notifications on for a meeting where they were switched off </li>
-    <li> I want all participants of my meeting to automatically receive a notification email if they have not confirmed his assistance (12:00 on a day before the meetings)  </li>
-    <li> I want all participants of my meeting to automatically receive a reminder email if they have confirmed his assistance (12:00 on a day before the meetings)  </li>
-    <li> I want the system to automatically send a reminder email to the facility manager if the meeting room has not been confirmed (12:00 a day before the meeting)</li>
+    <li> I have many meetings and need a automation tool to handle organization details. The setup of this meeting manager should not be too difficult and time-consuming.  Once it's setup I want it to work intuitive, fast and reliable. </li>
+     <li> I want to create a first meeting and test if the participants receive a reminder email. 
+     </li>
+   
+</ol>
+
+As a recurring user...
+<ol>
+    <li> I want to be able to see, create, delete or update all my upcoming meetings. This includes adding and removing participants, updating the meeting time and date. I also want to be able to add/modify/remove a note to a meeting that will be sent along the reminder. I also want to be able to turn meeting notifications on/off</li>
+    <li> I want all meeting participants to automatically receive a notification emails. If a participant has not confirmed or declined his or her assistance (12:00 on a day before the meetings), I want him/her to receive a reminder email to confirm or decline. If a participant has already confirmed its assistance, i want him or her to receive a short reminder email (12:00 on a day before the meeting) to ensure that she/he shows up.</li>
+    <li> I want to automatically send an email to the facility manager if the meeting room has not been confirmed (12:00 a day before the meeting)</li>
 </ol>
 
 ### Website Aims
@@ -43,6 +40,7 @@ As a user...
 <ul>
     <li> add an automation task that requires low-level attention to repeating events or meetings </li>
     <li>  reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
+
 </ul>
 
 
@@ -62,27 +60,17 @@ As a user...
         <th> Feasibility </th>
     </tr>
     <tr>
-        <td> Create a new meeting  </td>
-        <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-    <tr>
-        <td> Delete a meeting  </td>
+        <td> Create / Delete / Update / View meeting details </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
      <tr>
-        <td> Add participants to meeting   </td>
-        <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-        <tr>
-        <td>  Remove participants from meeting   </td>
+        <td> Add/remove participants from a meeting   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
     <tr>
-        <td >  Add notes to a meeting    </td>
+        <td >  Add / remove / update notes attached to the meeting details and the reminder email   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
@@ -92,7 +80,7 @@ As a user...
         <td> 5  </td>
     </tr>
      <tr>
-        <td>Send reminders to oneself if meeting itself has not been confirmed  (24hrs before meeting)  </td>
+        <td>Send reminders to the admin if meeting itself has not been confirmed  (24hrs before meeting)  </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
@@ -106,16 +94,7 @@ As a user...
         <td> 3  </td>
         <td> 4  </td>
     </tr>
-     <tr>
-        <td> connect to a web app that checks Microsoft Outlook Calender </td>
-        <td> 2 </td>
-        <td> 4 </td>
-    </tr>
-     <tr>
-        <td> connect to a web app to check availability of participants when choosing a time ( i.e. by using Microsoft Outlook Calender) </td>
-        <td> 2 </td>
-        <td> 2 </td>
-    </tr>
+
     
 
 </table>
