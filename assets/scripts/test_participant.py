@@ -10,7 +10,7 @@ A ssert
 """
 from contextlib import nullcontext as does_not_raise
 from participant import Participant
-from email_validator import validate_email, EmailNotValidError
+from email_validator import EmailNotValidError
 import pytest
 
 def test_can_create_new_participant():
@@ -19,7 +19,7 @@ def test_can_create_new_participant():
     random_email = 'hansolo@fakemail.com'
     random_id = 1
 
-    model =  Participant(random_name, random_email, random_id)
+    model =  Participant(random_name, random_email, random_id, False)
 
     assert isinstance(model, Participant)
 
@@ -36,6 +36,6 @@ def test_invalid_emails_raise_error(example_input, expectation):
     """test various correct and incorrect participant email addresses"""
     random_name = 'Han Solo'
     random_id = 1
+
     with expectation:
-        model =  Participant(random_name, example_input, random_id)
-        validate_email( model.email)
+        model =  Participant(random_name, example_input, random_id, False)
