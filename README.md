@@ -184,7 +184,7 @@ Two main classes will be used to describe the workflow
 
 <table style='max-width:70%'>
     <tr>
-        <th style='text-align:center'> Flow Chart - Python</th>
+        <th style='text-align:center'> Python : Classes</th>
     </tr>
     <tr>
         <td> <img src="./assets/images/classes-python.png"; alt="outline of python classes for this project" >  </td>
@@ -290,6 +290,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
 - tutorias for unit python unit testing with pytest (update this once you started using it) 
     - Pytest Unit Testing Tutorial - How to test your Python code [Youtube link](https://www.youtube.com/watch?v=YbpKMIUjvK8)
+    - why to use dataclass decorators [Youtube - mCoding ](https://www.youtube.com/watch?v=vBH6GRJ1REM)
 - Talks from Dylan Israel about Unit Testing: [Link - Clean Coding](https://youtu.be/YQsU2Zq2Zis) 
 - Last but not least : Thanks to my mentor Ronan (Code Institute) for his advices and clear feedback 
 
