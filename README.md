@@ -218,18 +218,43 @@ Two main classes will be used to describe the workflow
 - [Pseudo](https://marketplace.visualstudio.com/items?itemName=willumz.generic-pseudocode) VS Code plugin to write pseudocode
 
 
-### Languages Used
+### Languages 
 
 - HTML 
 - Python
 
-### Frameworks Used
+### Frameworks 
 
-### Python Packages Used
+-  
 
-- `ssl` to securely connect to email server 
-- `email` to send emails from python
-- `pytest` for unit tests 
+### Python Packages 
+
+
+<table style='max-width:70%'>
+    <tr>
+        <th style='text-align:center'>  Name</th>
+        <th> Purpose </th>
+    </tr>
+    <tr>
+        <td> ssl </td>
+        <td> to securely connect to email server  </td>
+    </tr>
+    <tr>
+        <td> email / ezgmail  </td>
+        <td>  to send emails from python  </td>
+    </tr>
+     <tr>
+        <td> pytest </td>
+        <td>   for unit tests  </td>
+    </tr>  
+       <tr>
+        <td> email_validator </td>
+        <td>   to validate that email has correct form  </td>
+    </tr>  
+    
+</table>
+
+
 
 ----- 
 
