@@ -39,20 +39,19 @@ def test_invalid_email_raises_error(example_input, expectation):
         Participant(random_name, example_input, random_id, False)
 
 @pytest.mark.parametrize(
-    "example_input,expectation",
+    "fixture_name, example_input,expectation",
     [
-        ('Han Solo', does_not_raise()),
-        ('Chewbakka', does_not_raise()),
-        ('Darth Vader', does_not_raise()),
-        (1, pytest.raises(TypeError)),
-        (None, pytest.raises(TypeError)),
-        ( ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+        ("init_values", 'Han Solo', does_not_raise()),
+        ("init_values", 'Chewbakka', does_not_raise()),
+        ("init_values", 'Darth Vader', does_not_raise()),
+        ("init_values", 1, pytest.raises(TypeError)),
+        ("init_values", None, pytest.raises(TypeError)),
+        ("init_values",  ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
     ],
 )
-def test_invalid_name_raises_error(example_input, expectation):
+def test_invalid_name_raises_error(fixture_name, example_input, expectation, request):
     """test various correct and incorrect participant names"""
-    random_email= "hansolo@fakemail.com"
-    random_id = 1
+    _ , random_email, random_id = request.getfixturevalue(fixture_name)
 
     with expectation:
         Participant(example_input, random_email, random_id, False)
@@ -71,8 +70,7 @@ def test_invalid_name_raises_error(example_input, expectation):
 )
 def test_invalid_meeting_id_raises_error(fixture_name, example_input, expectation, request):
     """test wether meeting id a positive integer"""
-    init_values = request.getfixturevalue(fixture_name)
-    random_name,  random_email, random_id = init_values
+    random_name,  random_email, _ = request.getfixturevalue(fixture_name)
     
     with expectation:
         Participant(random_name, random_email, example_input, False)
