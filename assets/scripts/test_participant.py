@@ -13,11 +13,9 @@ from participant import Participant
 from email_validator import EmailNotValidError
 import pytest
 
-def test_can_create_new_participant():
+def test_can_create_new_participant(init_values) -> None:
     """test if a new participant can be created"""
-    random_name = 'Han Solo'
-    random_email = 'hansolo@fakemail.com'
-    random_id = 1
+    random_name,  random_email, random_id = init_values
 
     model =  Participant(random_name, random_email, random_id, False)
 
@@ -60,21 +58,26 @@ def test_invalid_name_raises_error(example_input, expectation):
         Participant(example_input, random_email, random_id, False)
 
 @pytest.mark.parametrize(
-    "example_input,expectation",
+    "fixture_name,example_input,expectation",
     [
-        ( 1, does_not_raise()),
-        ( 2 , does_not_raise()),
-        ( 42, does_not_raise()),
-        ("42", pytest.raises(TypeError)),
-        (-1, pytest.raises(ValueError)),
-        (None, pytest.raises(TypeError)),
-        ( ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+        ("init_values", 1, does_not_raise()),
+        ("init_values", 2 , does_not_raise()),
+        ("init_values", 42, does_not_raise()),
+        ("init_values", "42", pytest.raises(TypeError)),
+        ("init_values", -1, pytest.raises(ValueError)),
+        ("init_values", None, pytest.raises(TypeError)),
+        ("init_values", ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
     ],
 )
-def test_invalid_meeting_id_raises_error(example_input, expectation):
+def test_invalid_meeting_id_raises_error(fixture_name, example_input, expectation, request):
     """test wether meeting id a positive integer"""
+    init_values = request.getfixturevalue(fixture_name)
+    random_name,  random_email, random_id = init_values
+    
+    with expectation:
+        Participant(random_name, random_email, example_input, False)
+
+def test_can_update_participant_name():
     random_name = 'Han Solo'
     random_email= "hansolo@fakemail.com"
 
-    with expectation:
-        Participant(random_name, random_email, example_input, False)
