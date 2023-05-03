@@ -58,3 +58,23 @@ def test_invalid_name_raises_error(example_input, expectation):
 
     with expectation:
         Participant(example_input, random_email, random_id, False)
+
+@pytest.mark.parametrize(
+    "example_input,expectation",
+    [
+        ( 1, does_not_raise()),
+        ( 2 , does_not_raise()),
+        ( 42, does_not_raise()),
+        ("42", pytest.raises(TypeError)),
+        (-1, pytest.raises(ValueError)),
+        (None, pytest.raises(TypeError)),
+        ( ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+    ],
+)
+def test_invalid_meeting_id_raises_error(example_input, expectation):
+    """test wether meeting id a positive integer"""
+    random_name = 'Han Solo'
+    random_email= "hansolo@fakemail.com"
+
+    with expectation:
+        Participant(random_name, random_email, example_input, False)
