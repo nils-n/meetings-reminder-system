@@ -32,10 +32,29 @@ def test_can_create_new_participant():
         ('hansolo@fakemailcom', pytest.raises(EmailNotValidError)),
     ],
 )
-def test_invalid_emails_raise_error(example_input, expectation):
+def test_invalid_email_raises_error(example_input, expectation):
     """test various correct and incorrect participant email addresses"""
     random_name = 'Han Solo'
     random_id = 1
 
     with expectation:
-        model =  Participant(random_name, example_input, random_id, False)
+        Participant(random_name, example_input, random_id, False)
+
+@pytest.mark.parametrize(
+    "example_input,expectation",
+    [
+        ('Han Solo', does_not_raise()),
+        ('Chewbakka', does_not_raise()),
+        ('Darth Vader', does_not_raise()),
+        (1, pytest.raises(TypeError)),
+        (None, pytest.raises(TypeError)),
+        ( ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+    ],
+)
+def test_invalid_name_raises_error(example_input, expectation):
+    """test various correct and incorrect participant names"""
+    random_email= "hansolo@fakemail.com"
+    random_id = 1
+
+    with expectation:
+        Participant(example_input, random_email, random_id, False)

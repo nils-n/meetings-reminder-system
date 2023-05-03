@@ -11,10 +11,15 @@ class Participant :
     has_valid_email: bool
 
     def __post_init__(self):
-        """validate that the email is has correct form"""
+        """validate that the attributes have correct form"""
         validate_email( self.email )
+        self.validate_name(  self.name )
 
 
+    def validate_name(self, name):
+        """validate that name is a string"""
+        if not type(name) is str:
+            raise(TypeError(f"Participant Name should be a string ( {name} is not a string)")) 
 
 def main() -> None :
     """test if a participant can be created"""
