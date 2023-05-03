@@ -313,10 +313,13 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 - Teaching and Support from Code Insitute [Code Insitute](https://codeinstitute.net/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
-- tutorias for unit python unit testing with pytest (update this once you started using it) 
-    - Pytest Unit Testing Tutorial - How to test your Python code [Youtube link](https://www.youtube.com/watch?v=YbpKMIUjvK8)
-    - why to use dataclass decorators [Youtube - mCoding ](https://www.youtube.com/watch?v=vBH6GRJ1REM)
-- Talks from Dylan Israel about Unit Testing: [Link - Clean Coding](https://youtu.be/YQsU2Zq2Zis) 
+- examples from pytest about parametrized tests [pytest docs](https://docs.pytest.org/en/7.1.x/example/parametrize.html) 
+- tutorials for unit python unit testing with pytest (update this once you started using it) 
+    - Pytest Unit Testing Tutorial - How to test your Python code [pixegami (Youtube)](https://www.youtube.com/watch?v=YbpKMIUjvK8)
+    - why to use dataclass decorators [mCoding (Youtube)](https://www.youtube.com/watch?v=vBH6GRJ1REM)
+    - Automated Testing in Python with pytest, tox, and GitHub Actions
+[mCoding (Youtube) ](https://www.youtube.com/watch?v=DhUpxWjOhME)
+- Talks from Dylan Israel about Unit Testing: [Clean Code (Youtube)](https://youtu.be/YQsU2Zq2Zis) 
 - Last but not least : Thanks to my mentor Ronan (Code Institute) for his advices and clear feedback 
 
 
