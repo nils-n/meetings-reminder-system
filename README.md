@@ -199,6 +199,11 @@ Two main classes will be used to describe the workflow
 
 ### Future Implementations
 
+- Add option for recurring meetings 
+- Add option to connect to a calendar (Gmail, Outlook) to check for availability of participants
+- send a calender invite (for simplicity, this project sends currently only emails) 
+- create options for virutal meetings (i.e. add options for zoom)
+
 ### Accessibility
 
 --- 
