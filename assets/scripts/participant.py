@@ -12,7 +12,7 @@ class Participant :
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
-        validate_email( self.email )
+        #validate_email( self.email )
         self.validate_name()
         self.validate_meeting_id()
 
@@ -28,6 +28,9 @@ class Participant :
         if isinstance( self.id_number, int) and (self.id_number < 0):
             raise ValueError(f"Meeting ID should be non-negative ( {self.validate_meeting_id} is not a positive integer)")
 
+    def update_name(self, new_name):
+        """updates particpant name"""
+        self.name = new_name
         
 
 

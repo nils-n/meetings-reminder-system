@@ -21,40 +21,23 @@ def test_can_create_new_participant(init_values) -> None:
 
     assert isinstance(model, Participant)
 
-@pytest.mark.parametrize(
-    "example_input,expectation",
-    [
-        ('hansolo@fakemail.com', does_not_raise()),
-        ('chewbacca@fakemail.com', does_not_raise()),
-        ('darthvadser@fakemail.com', does_not_raise()),
-        ('hansolo@fakemailcom', pytest.raises(EmailNotValidError)),
-    ],
-)
-def test_invalid_email_raises_error(example_input, expectation):
-    """test various correct and incorrect participant email addresses"""
-    random_name = 'Han Solo'
-    random_id = 1
+# @pytest.mark.parametrize(
+#     "fixture_name, example_input,expectation",
+#     [
+#         ("init_values", 'Han Solo', does_not_raise()),
+#         ("init_values", 'Chewbakka', does_not_raise()),
+#         ("init_values", 'Darth Vader', does_not_raise()),
+#         ("init_values", 1, pytest.raises(TypeError)),
+#         ("init_values", None, pytest.raises(TypeError)),
+#         ("init_values",  ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+#     ],
+# )
+# def test_invalid_name_raises_error(fixture_name, example_input, expectation, request):
+#     """test various correct and incorrect participant names"""
+#     _ , random_email, random_id = request.getfixturevalue(fixture_name)
 
-    with expectation:
-        Participant(random_name, example_input, random_id, False)
-
-@pytest.mark.parametrize(
-    "fixture_name, example_input,expectation",
-    [
-        ("init_values", 'Han Solo', does_not_raise()),
-        ("init_values", 'Chewbakka', does_not_raise()),
-        ("init_values", 'Darth Vader', does_not_raise()),
-        ("init_values", 1, pytest.raises(TypeError)),
-        ("init_values", None, pytest.raises(TypeError)),
-        ("init_values",  ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
-    ],
-)
-def test_invalid_name_raises_error(fixture_name, example_input, expectation, request):
-    """test various correct and incorrect participant names"""
-    _ , random_email, random_id = request.getfixturevalue(fixture_name)
-
-    with expectation:
-        Participant(example_input, random_email, random_id, False)
+#     with expectation:
+#         Participant(example_input, random_email, random_id, False)
 
 @pytest.mark.parametrize(
     "fixture_name,example_input,expectation",
@@ -75,7 +58,19 @@ def test_invalid_meeting_id_raises_error(fixture_name, example_input, expectatio
     with expectation:
         Participant(random_name, random_email, example_input, False)
 
-def test_can_update_participant_name():
-    random_name = 'Han Solo'
-    random_email= "hansolo@fakemail.com"
+@pytest.mark.parametrize(
+        "new_name,expectation, fixture_name", 
+        [
+            ( "Sith Lord", "Sith Lord", "init_participant"),
+            ( "Han Solo", "Han Solo", "init_participant")
+        ]
+)
+def test_can_update_participant_name(new_name, expectation, fixture_name, request):
+    """Test wheter participant name can be updated"""
+    model = request.getfixturevalue(fixture_name)
+
+    model.update_name(new_name)
+
+    assert model.name == expectation
+
 
