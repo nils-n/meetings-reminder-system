@@ -36,6 +36,10 @@ class Participant :
         """updates participant email address"""
         self.email = new_email   
 
+    def update_id(self, new_id):
+        """updates participant id"""
+        self.id_number =  new_id  
+
 
 def main() -> None :
     """test if a participant can be created"""

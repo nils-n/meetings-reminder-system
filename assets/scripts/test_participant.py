@@ -89,3 +89,18 @@ def test_can_update_participant_email( new_email, expectation, fixture_name, req
 
     assert model.email == expectation
 
+@pytest.mark.parametrize(
+    "new_id, expectation, fixture_name", 
+    [
+        (42, 42, "init_participant"),
+        (1, 1, "init_participant"),
+        #("42", pytest.raises(TypeError), "init_participant")
+    ]
+)
+def test_can_update_participant_id( new_id, expectation, fixture_name, request):
+    """Test wheter participant id can be updated """
+    model = request.getfixturevalue( fixture_name)
+
+    model.update_id( new_id)
+
+    assert model.id_number == expectation
