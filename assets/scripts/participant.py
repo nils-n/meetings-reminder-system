@@ -32,6 +32,9 @@ class Participant :
         """updates particpant name"""
         self.name = new_name
         
+    def update_email(self, new_email):
+        """updates participant email address"""
+        self.email = new_email   
 
 
 def main() -> None :

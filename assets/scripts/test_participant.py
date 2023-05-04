@@ -73,4 +73,19 @@ def test_can_update_participant_name(new_name, expectation, fixture_name, reques
 
     assert model.name == expectation
 
+@pytest.mark.parametrize(
+    "new_email, expectation, fixture_name",
+    [
+        ("sithlord@fakemail.com", "sithlord@fakemail.com",  "init_participant"),
+        ("hansolo@fakemail.com", "hansolo@fakemail.com",  "init_participant"),
+        ("chewbacca@fakemail.com", "chewbacca@fakemail.com",  "init_participant")
+    ]
+)
+def test_can_update_participant_email( new_email, expectation, fixture_name, request):
+    """Test whether participant email can be updated"""
+    model = request.getfixturevalue( fixture_name)
+
+    model.update_email(new_email)
+
+    assert model.email == expectation
 
