@@ -54,7 +54,7 @@ def test_invalid_name_raises_error(fixture_name, example_input, expectation, req
 def test_invalid_meeting_id_raises_error(fixture_name, example_input, expectation, request):
     """test wether meeting id a positive integer"""
     random_name,  random_email, _ = request.getfixturevalue(fixture_name)
-    
+
     with expectation:
         Participant(random_name, random_email, example_input, False)
 
@@ -106,16 +106,14 @@ def test_can_update_participant_id( new_id, expectation, fixture_name, request):
 
 @pytest.mark.parametrize(
         "new_id, expectation, fixture_name",
-        [ 
+        [
             ("42", pytest.raises(TypeError), "init_participant")
         ]
 )
-def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_name, request): 
+
+def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_name, request):
     """Test wheter wrong input of new meeting id raises exception"""
     model = request.getfixturevalue( fixture_name)
 
     with expectation:
         model.update_id( new_id)
-
-
-

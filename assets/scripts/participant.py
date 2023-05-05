@@ -24,22 +24,24 @@ class Participant :
     def validate_meeting_id(self, id_number):
         """validate that meeting id is an positive integer"""
         if not isinstance( id_number, int):
-            raise TypeError(f"Participant Name should be an integer ( {self.validate_meeting_id} is not an integer)")
+            raise TypeError(f"Participant Name should be an integer \
+                             ( {self.validate_meeting_id} is not an integer)")
         if isinstance( id_number, int) and (id_number < 0):
-            raise ValueError(f"Meeting ID should be non-negative ( {self.validate_meeting_id} is not a positive integer)")
+            raise ValueError(f"Meeting ID should be non-negative \
+                             ( {self.validate_meeting_id} is not a positive integer)")
 
     def update_name(self, new_name):
         """updates particpant name"""
         self.name = new_name
-        
+
     def update_email(self, new_email):
         """updates participant email address"""
-        self.email = new_email   
+        self.email = new_email
 
     def update_id(self, new_id):
         """updates participant id"""
         self.validate_meeting_id(new_id)
-        self.id_number =  new_id  
+        self.id_number =  new_id
 
 
 def main() -> None :
