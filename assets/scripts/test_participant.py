@@ -134,3 +134,16 @@ def test_wrong_email_raises_type_error( new_email, expectation, fixture_name, re
 
     with expectation:
         model.update_email( new_email)
+
+@pytest.mark.parametrize(
+    "new_name, expectation, fixture_name",
+    [
+        ( 42, pytest.raises(TypeError), "init_participant")
+    ]
+)
+def test_wrong_name_raises_type_error( new_name, expectation, fixture_name, request):
+    """Test wheter wrong input of name raises exception"""
+    model = request.getfixturevalue( fixture_name)
+
+    with expectation:
+        model.update_name( new_name)
