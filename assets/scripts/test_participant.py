@@ -109,7 +109,9 @@ def test_can_update_participant_id( new_id, expectation, fixture_name, request):
         [
             ("42", pytest.raises(TypeError), "init_participant"),
             ([42], pytest.raises(TypeError), "init_participant"),
-            ((42,), pytest.raises(TypeError), "init_participant")
+            ((42,), pytest.raises(TypeError), "init_participant"),
+            (None, pytest.raises(TypeError), "init_participant"),
+
         ]
 )
 def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_name, request):
@@ -125,7 +127,8 @@ def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_na
         ("hansolo@fakemailcom", pytest.raises(EmailNotValidError), "init_participant"),
         ("hansolofakemail.com", pytest.raises(EmailNotValidError), "init_participant"),
         ("hansolo@@fakemail.com", pytest.raises(EmailNotValidError), "init_participant"),
-        ( ["hansolo@fakemail.com"], pytest.raises(AttributeError), "init_participant")
+        ( ["hansolo@fakemail.com"], pytest.raises(AttributeError), "init_participant"),
+        ( None , pytest.raises(AttributeError), "init_participant")
     ]
 )
 def test_wrong_email_raises_type_error( new_email, expectation, fixture_name, request):
@@ -138,7 +141,10 @@ def test_wrong_email_raises_type_error( new_email, expectation, fixture_name, re
 @pytest.mark.parametrize(
     "new_name, expectation, fixture_name",
     [
-        ( 42, pytest.raises(TypeError), "init_participant")
+        ( 42, pytest.raises(TypeError), "init_participant"),
+        ( ["Han", "Solo"], pytest.raises(TypeError), "init_participant"),
+        ( ("Han", "Solo"), pytest.raises(TypeError), "init_participant"),
+        (  None, pytest.raises(TypeError), "init_participant")
     ]
 )
 def test_wrong_name_raises_type_error( new_name, expectation, fixture_name, request):
