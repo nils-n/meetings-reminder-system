@@ -12,7 +12,7 @@ class Participant :
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
-        #validate_email( self.email )
+        validate_email( self.email )
         self.validate_name()
         self.validate_meeting_id(self.id_number)
 
@@ -36,6 +36,7 @@ class Participant :
 
     def update_email(self, new_email):
         """updates participant email address"""
+        validate_email( new_email)
         self.email = new_email
 
     def update_id(self, new_id):

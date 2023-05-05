@@ -110,10 +110,22 @@ def test_can_update_participant_id( new_id, expectation, fixture_name, request):
             ("42", pytest.raises(TypeError), "init_participant")
         ]
 )
-
 def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_name, request):
     """Test wheter wrong input of new meeting id raises exception"""
     model = request.getfixturevalue( fixture_name)
 
     with expectation:
         model.update_id( new_id)
+
+@pytest.mark.parametrize(
+    "new_email, expectation, fixture_name",
+    [
+        ("hansolo@gmailcom", pytest.raises(EmailNotValidError), "init_participant")
+    ]
+)
+def test_wrong_email_raises_type_error( new_email, expectation, fixture_name, request):
+    """Test wheter wrong input of email raises exception"""
+    model = request.getfixturevalue( fixture_name)
+
+    with expectation:
+        model.update_email( new_email)
