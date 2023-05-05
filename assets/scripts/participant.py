@@ -13,13 +13,13 @@ class Participant :
     def __post_init__(self):
         """validate that the attributes have correct form"""
         validate_email( self.email )
-        self.validate_name()
+        self.validate_name( self.name)
         self.validate_meeting_id(self.id_number)
 
-    def validate_name(self):
+    def validate_name(self, name):
         """validate that name is a string"""
-        if not isinstance( self.name, str):
-            raise TypeError(f"Participant Name should be a string ( {self.name} is not a string)")
+        if not isinstance( name, str):
+            raise TypeError(f"Participant Name should be a string ( {name} is not a string)")
 
     def validate_meeting_id(self, id_number):
         """validate that meeting id is an positive integer"""
@@ -32,6 +32,7 @@ class Participant :
 
     def update_name(self, new_name):
         """updates particpant name"""
+        self.validate_name( new_name)
         self.name = new_name
 
     def update_email(self, new_email):
