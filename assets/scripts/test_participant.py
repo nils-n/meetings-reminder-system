@@ -21,23 +21,23 @@ def test_can_create_new_participant(init_values) -> None:
 
     assert isinstance(model, Participant)
 
-# @pytest.mark.parametrize(
-#     "fixture_name, example_input,expectation",
-#     [
-#         ("init_values", 'Han Solo', does_not_raise()),
-#         ("init_values", 'Chewbakka', does_not_raise()),
-#         ("init_values", 'Darth Vader', does_not_raise()),
-#         ("init_values", 1, pytest.raises(TypeError)),
-#         ("init_values", None, pytest.raises(TypeError)),
-#         ("init_values",  ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
-#     ],
-# )
-# def test_invalid_name_raises_error(fixture_name, example_input, expectation, request):
-#     """test various correct and incorrect participant names"""
-#     _ , random_email, random_id = request.getfixturevalue(fixture_name)
+@pytest.mark.parametrize(
+    "fixture_name, example_input,expectation",
+    [
+        ("init_values", 'Han Solo', does_not_raise()),
+        ("init_values", 'Chewbakka', does_not_raise()),
+        ("init_values", 'Darth Vader', does_not_raise()),
+        ("init_values", 1, pytest.raises(TypeError)),
+        ("init_values", None, pytest.raises(TypeError)),
+        ("init_values",  ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
+    ],
+)
+def test_invalid_name_raises_error(fixture_name, example_input, expectation, request):
+    """test various correct and incorrect participant names"""
+    _ , random_email, random_id = request.getfixturevalue(fixture_name)
 
-#     with expectation:
-#         Participant(example_input, random_email, random_id, False)
+    with expectation:
+        Participant(example_input, random_email, random_id, False)
 
 @pytest.mark.parametrize(
     "fixture_name,example_input,expectation",
@@ -93,8 +93,7 @@ def test_can_update_participant_email( new_email, expectation, fixture_name, req
     "new_id, expectation, fixture_name", 
     [
         (42, 42, "init_participant"),
-        (1, 1, "init_participant"),
-        #("42", pytest.raises(TypeError), "init_participant")
+        (1, 1, "init_participant")
     ]
 )
 def test_can_update_participant_id( new_id, expectation, fixture_name, request):
@@ -104,3 +103,19 @@ def test_can_update_participant_id( new_id, expectation, fixture_name, request):
     model.update_id( new_id)
 
     assert model.id_number == expectation
+
+@pytest.mark.parametrize(
+        "new_id, expectation, fixture_name",
+        [ 
+            ("42", pytest.raises(TypeError), "init_participant")
+        ]
+)
+def test_wrong_participant_id_raises_type_error( new_id, expectation, fixture_name, request): 
+    """Test wheter wrong input of new meeting id raises exception"""
+    model = request.getfixturevalue( fixture_name)
+
+    with expectation:
+        model.update_id( new_id)
+
+
+

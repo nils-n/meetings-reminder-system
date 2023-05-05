@@ -14,18 +14,18 @@ class Participant :
         """validate that the attributes have correct form"""
         #validate_email( self.email )
         self.validate_name()
-        self.validate_meeting_id()
+        self.validate_meeting_id(self.id_number)
 
     def validate_name(self):
         """validate that name is a string"""
         if not isinstance( self.name, str):
             raise TypeError(f"Participant Name should be a string ( {self.name} is not a string)")
 
-    def validate_meeting_id(self):
+    def validate_meeting_id(self, id_number):
         """validate that meeting id is an positive integer"""
-        if not isinstance( self.id_number, int):
+        if not isinstance( id_number, int):
             raise TypeError(f"Participant Name should be an integer ( {self.validate_meeting_id} is not an integer)")
-        if isinstance( self.id_number, int) and (self.id_number < 0):
+        if isinstance( id_number, int) and (id_number < 0):
             raise ValueError(f"Meeting ID should be non-negative ( {self.validate_meeting_id} is not a positive integer)")
 
     def update_name(self, new_name):
@@ -38,6 +38,7 @@ class Participant :
 
     def update_id(self, new_id):
         """updates participant id"""
+        self.validate_meeting_id(new_id)
         self.id_number =  new_id  
 
 
