@@ -72,6 +72,7 @@ def test_invalid_id_raises_type_error( fixture_name, new_id, expectation, reques
     [
         ('create_random_participants', True, does_not_raise()),
         ('create_random_participants', "True", pytest.raises(TypeError)),
+        ('create_random_participants', [True, ], pytest.raises(TypeError))
     ]
 )
 def test_invalid_notification_flag_raises_type_error( fixture_name, notification_value, \
