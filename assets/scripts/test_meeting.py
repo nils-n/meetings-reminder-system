@@ -133,3 +133,24 @@ def test_invalid_room_flag_raises_type_error( fixture_name, new_room_flag, expec
     with expectation:
         Meeting( random_meeting_id, random_name, random_time, True, new_room_flag, \
                 participants, random_meeting_notes)
+
+@pytest.mark.parametrize(
+        "fixture_name, new_notes, expectation", 
+        [
+            ('create_random_participants', "" , does_not_raise()),
+            ('create_random_participants', "This is a note" , does_not_raise()),
+            ('create_random_participants', "This is also a note" , does_not_raise()),
+            ('create_random_participants', None , pytest.raises(TypeError)),
+            ('create_random_participants', 1 , pytest.raises(TypeError)),
+        ]
+)
+def test_invalid_meeting_notes_raises_type_error( fixture_name, new_notes, expectation, request):
+    """test that invalid meeting notes raise type error """
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_time =  datetime.now()
+
+    with expectation:
+        Meeting( random_meeting_id, random_name, random_time, True, True, \
+                participants, new_notes)
