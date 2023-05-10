@@ -66,3 +66,23 @@ def test_invalid_id_raises_type_error( fixture_name, new_id, expectation, reques
     with expectation:
         Meeting( new_id, random_name, random_date_time, True, True, \
                 participants, random_meeting_notes)
+
+@pytest.mark.parametrize(
+    "fixture_name, notification_value, expectation", 
+    [
+        ('create_random_participants', True, does_not_raise()),
+        ('create_random_participants', "True", pytest.raises(TypeError)),
+    ]
+)
+def test_invalid_notification_flag_raises_type_error( fixture_name, notification_value, \
+                                                     expectation, request):
+    """ensure that notification flag is a bool type"""
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_date_time = datetime.now()
+    random_meeting_notes = 'This is a random note for this meeting.'
+
+    with expectation:
+        Meeting( random_meeting_id, random_name, random_date_time, notification_value, True, \
+                participants, random_meeting_notes)
