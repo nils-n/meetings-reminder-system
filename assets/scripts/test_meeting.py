@@ -92,7 +92,9 @@ def test_invalid_notification_flag_raises_type_error( fixture_name, notification
 @pytest.mark.parametrize(
         "fixture_name, new_time, expectation",
         [
-            ('create_random_participants', datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M") , does_not_raise()),
+            ('create_random_participants', datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M") \
+              , does_not_raise()),
+            ('create_random_participants', datetime.now() , does_not_raise()),
             ('create_random_participants', "21/11/06 16:30" , pytest.raises(TypeError))
         ]
 )
@@ -103,7 +105,7 @@ def test_invalid_time_raises_type_error( fixture_name, new_time, \
     random_name = "R2D2"
     random_meeting_id = 42
     random_meeting_notes = 'This is a random note for this meeting.'
- 
+
     with expectation:
-         Meeting( random_meeting_id, random_name, new_time, True, True, \
+        Meeting( random_meeting_id, random_name, new_time, True, True, \
                 participants, random_meeting_notes)
