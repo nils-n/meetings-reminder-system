@@ -45,3 +45,23 @@ def test_invalid_name_raises_type_error(fixture_name, new_name, expectation, req
     with expectation:
         Meeting(random_meeting_id, new_name, random_date_time, True, True, \
                      participants, random_meeting_notes)
+
+@pytest.mark.parametrize(
+    "fixture_name, new_id, expectation", 
+    [
+        ('create_random_participants', 1, does_not_raise()),
+        ('create_random_participants', 1044, does_not_raise()),
+        ('create_random_participants', "42", pytest.raises(TypeError)),
+        ('create_random_participants', None, pytest.raises(TypeError))
+    ]
+)
+def test_invalid_id_raises_type_error( fixture_name, new_id, expectation, request):
+    """test various correct and incorrect meeting IDs"""
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_date_time = datetime.now()
+    random_meeting_notes = 'This is a random note for this meeting.'
+
+    with expectation:
+        Meeting( new_id, random_name, random_date_time, True, True, \
+                participants, random_meeting_notes)
