@@ -109,3 +109,27 @@ def test_invalid_time_raises_type_error( fixture_name, new_time, \
     with expectation:
         Meeting( random_meeting_id, random_name, new_time, True, True, \
                 participants, random_meeting_notes)
+
+@pytest.mark.parametrize(
+    "fixture_name, new_room_flag, expectation", 
+    [
+            ('create_random_participants', True , does_not_raise()),
+            ('create_random_participants', False , does_not_raise()),
+            ('create_random_participants', [True, ] , pytest.raises(TypeError)),
+            ('create_random_participants', None , pytest.raises(TypeError)),
+            ('create_random_participants', 42 , pytest.raises(TypeError)),
+            ('create_random_participants', ["A", "List", "of", "strings"] , \
+             pytest.raises(TypeError))
+    ]
+)
+def test_invalid_room_flag_raises_type_error( fixture_name, new_room_flag, expectation, request):
+    """ensure that room flag is a bool type"""
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_time =  datetime.now()
+    random_meeting_notes = 'This is a random note for this meeting.'
+
+    with expectation:
+        Meeting( random_meeting_id, random_name, random_time, True, new_room_flag, \
+                participants, random_meeting_notes)
