@@ -52,7 +52,8 @@ def test_invalid_name_raises_type_error(fixture_name, new_name, expectation, req
         ('create_random_participants', 1, does_not_raise()),
         ('create_random_participants', 1044, does_not_raise()),
         ('create_random_participants', "42", pytest.raises(TypeError)),
-        ('create_random_participants', None, pytest.raises(TypeError))
+        ('create_random_participants', None, pytest.raises(TypeError)),
+        ('create_random_participants', -1, pytest.raises(ValueError))
     ]
 )
 def test_invalid_id_raises_type_error( fixture_name, new_id, expectation, request):

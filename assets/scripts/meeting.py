@@ -17,10 +17,19 @@ class Meeting :
     def __post_init__(self):
         """validate that the attributes have correct form"""
         self.validate_name( self.name)
+        self.validate_id(self.meeting_id)
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
         if not isinstance(new_name, str):
             raise TypeError(f'The meeting name should be of type string \
                              ( {new_name} is not a string)')
-        
+
+    def validate_id( self, new_id):
+        """validate that new id is a positive integer"""
+        if not isinstance(new_id, int):
+            raise TypeError(f"Meeting ID should be of type integer \
+                            ( {new_id} is not and integer)")
+        if isinstance(new_id, int) and (new_id < 0):
+            raise ValueError( f"Meeting ID should be non-negative number\
+                            ( {new_id} is not a positive number)")
