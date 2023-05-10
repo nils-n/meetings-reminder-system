@@ -21,6 +21,7 @@ class Meeting :
         self.validate_notification_flag(self.send_notifications)
         self.validate_meeting_time( self.datetime)
         self.validate_meeting_room_flag( self.room_confirmed)
+        self.validate_meeting_note(self.meeting_notes)
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
@@ -54,3 +55,9 @@ class Meeting :
         if not isinstance( new_room_flag, bool):
             raise TypeError( f"Meeting room flag should be a boolean\
                             ( {new_room_flag} is not a boolean)")
+    
+    def validate_meeting_note( self, new_note):
+        """validate that meeting not is a string type"""
+        if not isinstance( new_note, str):
+            raise TypeError( f"Meeting notes should be a str type \
+                            ( {new_note} is not a string)")
