@@ -72,7 +72,8 @@ def test_invalid_id_raises_type_error( fixture_name, new_id, expectation, reques
     [
         ('create_random_participants', True, does_not_raise()),
         ('create_random_participants', "True", pytest.raises(TypeError)),
-        ('create_random_participants', [True, ], pytest.raises(TypeError))
+        ('create_random_participants', [True, ], pytest.raises(TypeError)),
+        ('create_random_participants', None, pytest.raises(TypeError))
     ]
 )
 def test_invalid_notification_flag_raises_type_error( fixture_name, notification_value, \
@@ -86,4 +87,23 @@ def test_invalid_notification_flag_raises_type_error( fixture_name, notification
 
     with expectation:
         Meeting( random_meeting_id, random_name, random_date_time, notification_value, True, \
+                participants, random_meeting_notes)
+
+@pytest.mark.parametrize(
+        "fixture_name, new_time, expectation",
+        [
+            ('create_random_participants', datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M") , does_not_raise()),
+            ('create_random_participants', "21/11/06 16:30" , pytest.raises(TypeError))
+        ]
+)
+def test_invalid_time_raises_type_error( fixture_name, new_time, \
+                                        expectation, request):
+    """ensure that meeting time is correct datetime type"""
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_meeting_notes = 'This is a random note for this meeting.'
+ 
+    with expectation:
+         Meeting( random_meeting_id, random_name, new_time, True, True, \
                 participants, random_meeting_notes)
