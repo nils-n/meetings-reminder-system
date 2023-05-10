@@ -12,4 +12,4 @@ class Meeting :
     send_notifications: bool = True
     room_confirmed: bool = False
     participants: list[Participant] = field( default_factory=list)
-    meeting_notes : str
+    meeting_notes : str = ""
