@@ -55,7 +55,7 @@ class Meeting :
         if not isinstance( new_room_flag, bool):
             raise TypeError( f"Meeting room flag should be a boolean\
                             ( {new_room_flag} is not a boolean)")
-    
+
     def validate_meeting_note( self, new_note):
         """validate that meeting not is a string type"""
         if not isinstance( new_note, str):
