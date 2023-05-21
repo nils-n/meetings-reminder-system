@@ -222,9 +222,9 @@ These are the classes that will model the behaviour:
         <th style='text-align:center'>  Name</th>
         <th> Purpose </th>
     </tr>
-    <tr>
-        <td> ssl </td>
-        <td> to securely connect to email server  </td>
+        <tr>
+        <td> textual / rich </td>
+        <td> to create a terminal user interface</td>
     </tr>
     <tr>
         <td> email / ezgmail  </td>
@@ -289,6 +289,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 
 - How to write emails from python [Link](https://towardsdatascience.com/how-to-easily-automate-emails-with-python-8b476045c151)
 - How to schedule a python task on Heroku [Link](https://www.youtube.com/watch?v=qn3Obj56wfA)
+- Textual Tutorial : Stopwatch Application [Link](https://textual.textualize.io/tutorial/)
 
 ### Content 
 
@@ -298,6 +299,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 ## Acknowledgements
 
 - Teaching and Support from Code Insitute [Code Insitute](https://codeinstitute.net/)
+- Console-based User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
 - examples from pytest about parametrized tests [pytest docs](https://docs.pytest.org/en/7.1.x/example/parametrize.html) 
