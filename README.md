@@ -154,12 +154,15 @@ The information about meetings and participants will be stored using Google shee
 
 ### Implementation in Python  
 
-Two main classes will be used to describe the workflow
+The implementation will be divided into two Apps:
+-  TerminalApp : User Terminal Application where the user can interact with the Meeting schedule
+-  ReminderApp : A small worker application that sends reminders based on the Meeting schedule
+
+These are the classes that will model the behaviour:
 - Meeting Class: to describe details of the meeting (that consists of participants)
 - Participant Class: to describe details of the participant
-- UserManager Class: to handle user inputs from the terminal 
-- ReminderManager Class: to handle email reminders to the participants 
-- WorksheetHandler Class : to implement common I/O functions with google sheets
+- Worksheet Class : describes interaction with Google Sheets (read/write)
+- Schedule Class : to store and handle all scheduled Meetings 
 
 <table style='max-width:70%'>
     <tr>
