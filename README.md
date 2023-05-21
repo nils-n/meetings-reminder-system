@@ -1,6 +1,6 @@
 # Meetings reminder system 
 
-This python-based web app is designed to automize meeting reminders. It automizes a specific  repetitive task that commerical solutions such as Outlook currently don't offer. The system keeps track of open meetings, sends emails to participants to either confirm their assistance (if they haven't confirmed 24hrs prior to the meeting) or a default reminder if they have already confirmed. It also automatically sends an email to the facility management if the availability of the meeting room has not been confirmed 24hrs prior to the meeting.
+This python-based terminal app is designed to organize meeting reminders. The goal is to free the user of low-level attention tasks that are associated with organizing meetings and keeping track that participants show up to the meeting. This is achieved by automatizing the process of sending meeting invitations and reminder emails.
 
 Link to the live terminal : TO DO 
 
@@ -20,27 +20,24 @@ Link to the live terminal : TO DO
 
 ### User Stories 
 
-As a first-time user...
+As a user of this terminal application...
 <ol>
     <li> I have many meetings and need a automation tool to handle organization details. The setup of this meeting manager should not be too difficult and time-consuming.  Once it's setup I want it to work intuitive, fast and reliable. </li>
-     <li> I want to create a first meeting and test if the participants receive a reminder email. 
-     </li>
-   
-</ol>
-
-As a recurring user...
-<ol>
-    <li> I want to be able to see, create, delete or update all my upcoming meetings. This includes adding and removing participants, updating the meeting time and date. I also want to be able to add/modify/remove a note to a meeting that will be sent along the reminder. I also want to be able to turn meeting notifications on/off</li>
-    <li> I want all meeting participants to automatically receive a notification emails. If a participant has not confirmed or declined his or her assistance (12:00 on a day before the meetings), I want him/her to receive a reminder email to confirm or decline. If a participant has already confirmed its assistance, i want him or her to receive a short reminder email (12:00 on a day before the meeting) to ensure that she/he shows up.</li>
-    <li> I want to automatically send an email to the facility manager if the meeting room has not been confirmed (12:00 a day before the meeting)</li>
+    <li> I want to see all my scheduled meetings on a first glance.</li>
+    <li> I want to be able to create, read, update, delete a meeting.</li>
+    <li> I want to be able to add or delete participants from a particular meeting.</li>
+    <li> I want to be able to update information of a meeting, such as time+place, or the meeting notes.</li>
+    <li> I want to be able to send a reminder email manually with just a button press to all participants of a single meeting.</li>
+    <li> I want to ensure that a reminder email is sent only once per participant (even if i press the send button multiple times manually).</li>
+     <li> If I did not send the reminder email manually 24hrs before the meeting, i want the system to send an automatic reminder email instead.</li>
+    <li> When a meeting is in the past, i do not want to have it displayed with the other meetings</li>
 </ol>
 
 ### Website Aims
 
 <ul>
-    <li> add an automation task that requires low-level attention to repeating events or meetings </li>
-    <li>  reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
-
+    <li> add an automation task that requires low-level attention to organzing an event or meetings </li>
+    <li> reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
 </ul>
 
 
@@ -60,27 +57,27 @@ As a recurring user...
         <th> Feasibility </th>
     </tr>
     <tr>
-        <td> Create / Delete / Update / View meeting details </td>
+        <td> Create,Read ,Update or Delete a meeting  </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
      <tr>
-        <td> Add/remove participants from a meeting   </td>
+        <td> Create, Read, Update and Delete a participant of a meeting   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
     <tr>
-        <td >  Add / remove / update notes attached to the meeting details and the reminder email   </td>
-        <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-    <tr>
-        <td style="max-width:200px"> Send reminders to participants who have not confirmed assistance (24hrs before meeting)   </td>
+        <td >  Add, remove and update notes attached to the reminder email   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
      <tr>
-        <td>Send reminders to the admin if meeting itself has not been confirmed  (24hrs before meeting)  </td>
+        <td style="max-width:200px"> Send a reminder to participants with a button press  </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
+    <tr>
+        <td style="max-width:200px"> Send automatic reminder to participants who have not received a manual reminder email 24hrs before meeting   </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
@@ -90,7 +87,7 @@ As a recurring user...
         <td> 5  </td>
     </tr>
      <tr>
-        <td> allow to turn on/off notifications for each meeting and/or participant </td>
+        <td> allow to turn on/off notifications for each meeting and participant </td>
         <td> 3  </td>
         <td> 4  </td>
     </tr>
@@ -115,6 +112,7 @@ As a recurring user...
 ---
 
 ## Wireframes
+
 
 ### Program Flow Chart
 
