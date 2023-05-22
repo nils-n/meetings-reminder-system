@@ -19,8 +19,8 @@ class MeetingDisplay(Static):
         yield Label('Name')
         yield Label('Time')
         yield Label('Info')
-        yield Button('Update', id='update')
-        yield Button('Add Participants', id='add')
+        yield Button('Update', id='update', variant='primary')
+        yield Button('Add Participants', id='add', variant='primary')
 
 class MeetingsApp(App):
     """
