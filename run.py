@@ -1,6 +1,9 @@
 from textual.app import App, ComposeResult
 from textual.containers import ScrollableContainer
 from textual.widgets import Button, Footer, Header, Static, Label
+from textual.widget import Widget
+from textual.reactive import reactive
+from textual.widgets import Input
 
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
@@ -11,6 +14,16 @@ from textual.widgets import Button, Footer, Header, Static, Label
 
 # just a test to commit from vscode
 
+class Name(Widget):
+    """Generates a greeting."""
+
+    who = reactive("name", layout=True)  
+
+    def render(self) -> str:
+        return f"{self.who}"
+    
+
+
 class MeetingDisplay(Static):
     """A widget to display a scheduled meeting"""
 
@@ -19,8 +32,14 @@ class MeetingDisplay(Static):
         yield Label('Name')
         yield Label('Time')
         yield Label('Info')
+        yield Input(placeholder="Enter your name")
+        yield Name()
         yield Button('Update', id='update', variant='primary')
         yield Button('Add Participants', id='add', variant='primary')
+    
+    def on_input_changed(self, event: Input.Changed) -> None:
+        self.query_one(Name).who = event.value
+        
 
 class MeetingsApp(App):
     """

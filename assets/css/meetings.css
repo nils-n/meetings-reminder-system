@@ -27,3 +27,13 @@ MeetingDisplay {
 #add {
     dock: right
 }
+
+Input {
+    width: 20;
+}
+
+Name {
+    width: 20;
+    height: 3;
+    border: heavy $secondary;
+}
