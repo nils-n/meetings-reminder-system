@@ -13,8 +13,6 @@ EXAMPLE_MARKDOWN = """\
 
 This is a Terminal Application to help you organize your upcoming meetings. (Press 'L' to load your meetings)
 
-## Upcoming Meetings
-
 """
 
 cursors = cycle(["column", "row", "cell"])
