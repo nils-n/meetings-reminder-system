@@ -10,16 +10,36 @@ from textual.widgets import Input
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 
-class Schedule():
-    """eventually this class will be imported. For now, this is just a placeholder"""
+class MockMeeting():
+    """
+    mocks a Meeting class 
+    eventually this class will be imported. For now, this is just a placeholder
+    """
+    def __init__(self, name, ) -> None:
+        self.name = name
+        self.num_participants = 0
+        self.participants = []
+
+
+class MockSchedule():
+    """
+    mocks a Schedule class 
+    eventually this class will be imported. For now, this is just a placeholder
+    """
 
     def __init__(self, name, ) -> None:
         self.name = name
         self.num_meetings = 0
+        self.meetings = []
+        self.load_meetings()
 
     def change_name(self, new_name):
         """ just to test if this method can be called from the main App """
         self.name = new_name
+
+    def load_meetings(self):
+        """ create mock list of meetings just for testing of the display """
+        self.meetings.append(MockMeeting('Journal Club'))
 
 class Name(Widget):
     """Generates a greeting."""
@@ -27,26 +47,21 @@ class Name(Widget):
     who = reactive("name", layout=True)  
 
     def render(self) -> str:
-        return self.app.schedule.name
+        return self.app.schedule.meetings[0].name
     
-
 
 class MeetingDisplay(Static):
     """A widget to display a scheduled meeting"""
 
     def compose(self) -> ComposeResult:
         """Items of a meeting"""
-        yield Label('Name')
-        yield Label('Time')
-        yield Label('Info')
         yield Input(placeholder="Enter your name")
         yield Name()
         yield Button('Update', id='update', variant='primary')
-        yield Button('Add Participants', id='add', variant='primary')
     
     def on_input_changed(self, event: Input.Changed) -> None:
         self.query_one(Name).who = event.value
-        self.app.schedule.name = "My new Meetings"
+        self.app.schedule.meetings[0].name = "Lab Meeting"
         
 
 class MeetingsApp(App):
@@ -57,7 +72,7 @@ class MeetingsApp(App):
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
     CSS_PATH = "./assets/css/meetings.css"
 
-    schedule = reactive( Schedule("My Meetings"))
+    schedule = reactive( MockSchedule("A Mock Schedule"))
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
