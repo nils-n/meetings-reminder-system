@@ -4,11 +4,30 @@ from textual.widgets import Button, Footer, Header, Static, Label
 from textual.widget import Widget
 from textual.reactive import reactive
 from textual.widgets import Input
+from itertools import cycle
+from textual.app import App, ComposeResult
+from textual.widgets import DataTable
+
 
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+# this is just the test how to work with Data tables in textualize - and how they would look like on heroku
+ROWS = [
+    ("lane", "swimmer", "country", "time"),
+    (4, "Joseph Schooling", "Singapore", 50.39),
+    (2, "Michael Phelps", "United States", 51.14),
+    (5, "Chad le Clos", "South Africa", 51.14),
+    (6, "László Cseh", "Hungary", 51.14),
+    (3, "Li Zhuhao", "China", 51.26),
+    (8, "Mehdy Metella", "France", 51.58),
+    (7, "Tom Shields", "United States", 51.73),
+    (1, "Aleksandr Sadovnikov", "Russia", 51.84),
+    (10, "Darren Burns", "Scotland", 51.84),
+]
+
+cursors = cycle(["column", "row", "cell"])
 
 class MockMeeting():
     """
@@ -78,8 +97,19 @@ class MeetingsApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Footer()
-        yield ScrollableContainer(MeetingDisplay(), MeetingDisplay(), MeetingDisplay())
+        yield MeetingDisplay()
+        yield DataTable()
 
+    def on_mount(self) -> None:
+        table = self.query_one(DataTable)
+        table.cursor_type = next(cursors)
+        table.zebra_stripes = True
+        table.add_columns(*ROWS[0])
+        table.add_rows(ROWS[1:])
+
+    def key_c(self):
+        table = self.query_one(DataTable)
+        table.cursor_type = next(cursors)
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
