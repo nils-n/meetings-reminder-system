@@ -22,13 +22,13 @@ Link to the live terminal : TO DO
 
 As a user of this terminal application...
 <ol>
-    <li> I have many meetings and need a automation tool to handle organization details. The setup of this meeting manager should not be too difficult and time-consuming.  Once it's setup I want it to work intuitive, fast and reliable. </li>
     <li> I want to see all my scheduled meetings on a first glance.</li>
     <li> I want to be able to create, read, update, delete a meeting.</li>
     <li> I want to be able to add or delete participants from a particular meeting.</li>
-    <li> I want to be able to update information of a meeting, such as time+place, or the meeting notes.</li>
-    <li> I want to be able to send a reminder email manually with just a button press to all participants of a single meeting.</li>
-    <li> I want to ensure that a reminder email is sent only once per participant (even if i press the send button multiple times manually).</li>
+    <li> I want to be able to update information of a meeting, such as: time, place or the meeting notes.</li>
+    <li> I want every participant to receive a reminder email at least 24hrs before the meeting.</li>
+    <li> I want to have the option to turned notification off for individual participants or entire meetings (opt-out principle)</li>
+    <li> I want to ensure that a reminder email is sent only once per participant.</li>
      <li> If I did not send the reminder email manually 24hrs before the meeting, i want the system to send an automatic reminder email instead.</li>
     <li> When a meeting is in the past, i do not want to have it displayed with the other meetings</li>
 </ol>
@@ -109,24 +109,6 @@ As a user of this terminal application...
 ### Imagery
 
 
----
-
-## Wireframes
-
-
-### Program Flow Chart
-
-The functionality of the python program is displayed below. 
-
-<table>
-    <tr>
-        <th style='text-align:center'> Flow Chart - Python</th>
-    </tr>
-    <tr>
-        <td> <img src="./assets/images/flowchart-reminder-system.png"; alt="flowchart of the python objects" >  </td>
-    </tr>
-</table>
-
 --- 
 
 ### Data Structures
@@ -173,6 +155,26 @@ These are the classes that will model the behaviour:
 
 ----- 
 
+
+
+## Wireframes
+
+
+### Program Flow Chart
+
+The functionality of the python program is displayed below. 
+
+<table>
+    <tr>
+        <th style='text-align:center'> Flow Chart - Python</th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/flowchart-reminder-system.png"; alt="flowchart of the python objects" >  </td>
+    </tr>
+</table>
+
+-----
+
 ## Features
 
 ### General Features 
@@ -187,6 +189,8 @@ These are the classes that will model the behaviour:
 ### Accessibility
 
 --- 
+
+
 
 ## Technologies Used 
 
@@ -210,7 +214,7 @@ These are the classes that will model the behaviour:
 
 ### Frameworks 
 
--  
+- 
 
 ### Python Packages 
 
@@ -297,7 +301,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 ## Acknowledgements
 
 - Teaching and Support from Code Insitute [Code Insitute](https://codeinstitute.net/)
-- Console-based User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
+- Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
 - examples from pytest about parametrized tests [pytest docs](https://docs.pytest.org/en/7.1.x/example/parametrize.html) 
