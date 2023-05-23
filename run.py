@@ -10,9 +10,16 @@ from textual.widgets import Input
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 
-# just a test to commit from code anywhere
+class Schedule():
+    """eventually this class will be imported. For now, this is just a placeholder"""
 
-# just a test to commit from vscode
+    def __init__(self, name, ) -> None:
+        self.name = name
+        self.num_meetings = 0
+
+    def change_name(self, new_name):
+        """ just to test if this method can be called from the main App """
+        self.name = new_name
 
 class Name(Widget):
     """Generates a greeting."""
@@ -20,7 +27,7 @@ class Name(Widget):
     who = reactive("name", layout=True)  
 
     def render(self) -> str:
-        return f"{self.who}"
+        return self.app.schedule.name
     
 
 
@@ -39,6 +46,7 @@ class MeetingDisplay(Static):
     
     def on_input_changed(self, event: Input.Changed) -> None:
         self.query_one(Name).who = event.value
+        self.app.schedule.name = "My new Meetings"
         
 
 class MeetingsApp(App):
@@ -48,6 +56,8 @@ class MeetingsApp(App):
 
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
     CSS_PATH = "./assets/css/meetings.css"
+
+    schedule = reactive( Schedule("My Meetings"))
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
