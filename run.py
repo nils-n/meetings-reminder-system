@@ -1,31 +1,21 @@
 from textual.app import App, ComposeResult
-from textual.containers import ScrollableContainer
-from textual.widgets import Button, Footer, Header, Static, Label
-from textual.widget import Widget
+from textual.widgets import  Footer, Header, Input, DataTable, Markdown
 from textual.reactive import reactive
-from textual.widgets import Input
-from itertools import cycle
 from textual.app import App, ComposeResult
-from textual.widgets import DataTable
-
+from itertools import cycle
 
 # Your code goes here.
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
-# this is just the test how to work with Data tables in textualize - and how they would look like on heroku
-# ROWS = [
-#     ("lane", "swimmer", "country", "time"),
-#     (4, "Joseph Schooling", "Singapore", 50.39),
-#     (2, "Michael Phelps", "United States", 51.14),
-#     (5, "Chad le Clos", "South Africa", 51.14),
-#     (6, "László Cseh", "Hungary", 51.14),
-#     (3, "Li Zhuhao", "China", 51.26),
-#     (8, "Mehdy Metella", "France", 51.58),
-#     (7, "Tom Shields", "United States", 51.73),
-#     (1, "Aleksandr Sadovnikov", "Russia", 51.84),
-#     (10, "Darren Burns", "Scotland", 51.84),
-# ]
+EXAMPLE_MARKDOWN = """\
+# Meeting Reminders
+
+This is a Terminal Application to help you organize your upcoming meetings. (Press 'L' to load your meetings)
+
+## Upcoming Meetings
+
+"""
 
 cursors = cycle(["column", "row", "cell"])
 
@@ -96,11 +86,12 @@ class MeetingsApp(App):
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
         yield Header()
+        yield Markdown(EXAMPLE_MARKDOWN)
+        yield DataTable(id='meetings-table')
         yield Footer()
-        yield DataTable()
 
     def action_load_meetings(self) -> None:
-        table = self.query_one(DataTable)
+        table = self.query_one('#meetings-table')
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
         ROWS = self.app.schedule.table_rows
