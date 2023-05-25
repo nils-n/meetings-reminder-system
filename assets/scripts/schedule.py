@@ -17,6 +17,7 @@ class Schedule ():
 
     def __post_init__(self):
         self.load_meetings()
+        self.convert_meetings_to_table()
 
     def load_meetings(self):
         """
@@ -25,10 +26,13 @@ class Schedule ():
         """
         self.meetings = []
         self.meetings.append( Meeting( 0, "Journal Club", datetime.now(), True, True, [], "" ))
-        self.meetings.append( Meeting( 0, "Lab Meeting", datetime.now(), True, True, [], "" ))
+        self.meetings.append( Meeting( 1, "Lab Meeting", datetime.now(), True, True, [], "" ))
 
     def convert_meetings_to_table(self):
         """
         convert the meetings object into a table format that the TUI can display and update
         """
-        pass
+        self.table_rows = []
+        self.table_rows.append( ("ID", "Name", "Time", "invited", "confirmed" ))
+        for meeting in self.meetings:
+            self.table_rows.append( ( meeting.meeting_id, meeting.name, meeting.datetime, 42, 42))

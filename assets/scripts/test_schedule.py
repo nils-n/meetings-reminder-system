@@ -22,3 +22,15 @@ def test_can_create_new_schedule( create_random_meetings ) -> None:
 
     assert isinstance(model, Schedule)
     assert model.name == random_name
+
+def test_can_create_mock_schedule() -> None:
+    """Test if the Schedule class can create a mock schedule for testing the TUI"""
+    random_name = "Random Schedule"
+
+    model = Schedule(random_name, [], [])
+  
+    assert model.meetings[0].name == "Journal Club"
+    assert model.meetings[0].meeting_id == 0
+    assert model.meetings[1].name == "Lab Meeting"
+    assert model.meetings[1].meeting_id == 1
+    assert len(model.meetings) == 2
