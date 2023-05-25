@@ -34,3 +34,18 @@ def test_can_create_mock_schedule() -> None:
     assert model.meetings[1].name == "Lab Meeting"
     assert model.meetings[1].meeting_id == 1
     assert len(model.meetings) == 2
+
+
+def test_table_rows_match_values_of_corresponding_meetings() -> None:
+    """
+    Test if meeting values are converted correctly to table rows 
+    (which can me displayed and modified from the TUI later on as DataTable Widget)
+    """
+    random_name = "Random Schedule"
+
+    model = Schedule(random_name, [], [])
+
+    assert model.table_rows[0][0] == "ID"
+    assert model.table_rows[1][0] == model.meetings[0].meeting_id
+    assert model.table_rows[0][1] == "Name"
+    assert model.table_rows[1][1] == model.meetings[0].name
