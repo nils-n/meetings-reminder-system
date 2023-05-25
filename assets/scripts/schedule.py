@@ -1,6 +1,7 @@
 """class to describe a schedule of meetings"""
 from dataclasses import dataclass, field
 from typing import Union
+from datetime import datetime
 from meeting import Meeting
 
 @dataclass
@@ -14,12 +15,17 @@ class Schedule ():
     meetings: list[Meeting] = field( default_factory=list)
     table_rows:  list[Union[str, int]] = field( default_factory=list)
 
+    def __post_init__(self):
+        self.load_meetings()
+
     def load_meetings(self):
         """
         currently this loads a hard-coded list of mock meetings
         eventually this will be replaced by reading data from a google worksheet
         """
-        pass
+        self.meetings = []
+        self.meetings.append( Meeting( 0, "Journal Club", datetime.now(), True, True, [], "" ))
+        self.meetings.append( Meeting( 0, "Lab Meeting", datetime.now(), True, True, [], "" ))
 
     def convert_meetings_to_table(self):
         """
