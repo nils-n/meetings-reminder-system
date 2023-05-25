@@ -34,19 +34,24 @@ def create_random_participants( ) -> List[Participant]:
 
 
 @pytest.fixture(scope='session')
-def create_random_meeting( ) -> Meeting:
-    """initializes and returns a meeting with random values"""
-    random_names = [ "Han Solo", "Darth Vader" , "Chewbacca" ]
-    random_emails = ["hansolo@fakemail.com", "darthvader@fakemail.com" , "chewbacca@fakemail.com" ]
-    random_participants = []
-    for i, (name, email) in enumerate(zip(random_names, random_emails)):
-        random_participants.append( Participant( name, email, i, True))
-    random_meeting_name = "Random Meeting"
-    random_meeting_id = randint(1,100)
-    random_date_time = datetime.now()
-    random_meeting_notes = 'This is a random note for this meeting \
-        to be sent along with the reminder. '
-    random_meeting = Meeting(random_meeting_id, random_meeting_name, random_date_time, True, True, \
-                     random_participants, random_meeting_notes)
-    return random_meeting
-
+def create_random_meetings( ) -> List[Meeting]:
+    """initializes and returns a list of random meeting with random values"""
+    random_meetings = []
+    num_random_meetings = 2
+    for meeting_id in range(num_random_meetings):
+        # create random fake participants 
+        random_names = [ "Han Solo", "Darth Vader" , "Chewbacca" ]
+        random_emails = ["hansolo@fakemail.com", "darthvader@fakemail.com" , "chewbacca@fakemail.com" ]
+        random_participants = []
+        for i, (name, email) in enumerate(zip(random_names, random_emails)):
+            random_participants.append( Participant( name, email, i, True))
+        # create random fake meeting with these participants 
+        random_meeting_id = meeting_id
+        random_meeting_name = f"Random Meeting {meeting_id}"
+        random_date_time = datetime.now()
+        random_meeting_notes = 'This is a random note for this meeting \
+            to be sent along with the reminder. '
+        random_meetings.append( Meeting(random_meeting_id, random_meeting_name, \
+                                        random_date_time, True, True, \
+                                    random_participants, random_meeting_notes))
+    return random_meetings
