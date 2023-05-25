@@ -11,7 +11,7 @@ from itertools import cycle
 EXAMPLE_MARKDOWN = """\
 # Meeting Reminders
 
-This is a Terminal Application to help you organize your upcoming meetings. (Press 'L' to load your meetings)
+This Terminal Application helps you organize your upcoming meetings. (Press 'L' to load your meetings)
 
 """
 
@@ -95,7 +95,6 @@ class MeetingsApp(App):
         ROWS = self.app.schedule.table_rows
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])
-        
 
     def key_c(self):
         table = self.query_one(DataTable)
