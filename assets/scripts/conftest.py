@@ -1,6 +1,9 @@
 """add fixtures for unittest here to follow the DRY principle"""
 from typing import List
+from datetime import datetime
+from random import randint
 from participant import Participant
+from meeting import Meeting
 import pytest
 
 @pytest.fixture(scope='session')
@@ -28,3 +31,22 @@ def create_random_participants( ) -> List[Participant]:
     for i, (name, email) in enumerate(zip(random_names, random_emails)):
         participants.append( Participant( name, email, i, True))
     return participants
+
+
+@pytest.fixture(scope='session')
+def create_random_meeting( ) -> Meeting:
+    """initializes and returns a meeting with random values"""
+    random_names = [ "Han Solo", "Darth Vader" , "Chewbacca" ]
+    random_emails = ["hansolo@fakemail.com", "darthvader@fakemail.com" , "chewbacca@fakemail.com" ]
+    random_participants = []
+    for i, (name, email) in enumerate(zip(random_names, random_emails)):
+        random_participants.append( Participant( name, email, i, True))
+    random_meeting_name = "Random Meeting"
+    random_meeting_id = randint(1,100)
+    random_date_time = datetime.now()
+    random_meeting_notes = 'This is a random note for this meeting \
+        to be sent along with the reminder. '
+    random_meeting = Meeting(random_meeting_id, random_meeting_name, random_date_time, True, True, \
+                     random_participants, random_meeting_notes)
+    return random_meeting
+
