@@ -293,14 +293,21 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 - How to schedule a python task on Heroku [Link](https://www.youtube.com/watch?v=qn3Obj56wfA)
 - Textual Tutorial : Stopwatch Application [Link](https://textual.textualize.io/tutorial/)
 
+
 ### Content 
 
 - All of the content was written by myself.
-- Externally used code (such as code snippets from stackoverflow) in this project are referenced in this Readme and inside the html or python source code. 
+- Externally used code (such as code snippets from stackoverflow or from tutorials) in this project are referenced in this Readme and inside the html or python source code. 
 
 ## Acknowledgements
 
 - Teaching and Support from Code Insitute [Code Insitute](https://codeinstitute.net/)
+- How to setup python packages that are testable with pytest 
+    - Good Integration Practices for pytest [Link](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html)
+    - Packaging Python Projects [Link](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+    - James' Murphys Yotube Tutorial for unit testing with python [Link](https://youtu.be/DhUpxWjOhME)
+    - Effective Python Testing with Pytest [Link](https://realpython.com/pytest-python-testing/)
+    - Okken, Brian. "Python Testing with pytest." Pragmatic Bookshelf, 2022.
 - Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
