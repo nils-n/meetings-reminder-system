@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 from typing import Union
 from datetime import datetime
-from meeting import Meeting
+from reminding.meeting import Meeting
 
 @dataclass
 class Schedule ():

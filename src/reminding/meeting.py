@@ -1,7 +1,7 @@
 """Class to describe details of a particular meeting """
 from dataclasses import dataclass, field
 from datetime import datetime
-from participant import Participant
+from reminding.participant import Participant
 
 @dataclass(frozen=True)
 class Meeting :

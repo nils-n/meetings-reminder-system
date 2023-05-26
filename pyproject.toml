@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "reminding"
+version = "0.0.1"
+description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+testpaths = "tests"

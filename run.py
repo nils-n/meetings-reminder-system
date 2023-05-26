@@ -77,7 +77,7 @@ class MeetingsApp(App):
 
     BINDINGS = [ ("d", "toggle_dark", "Toggle dark mode"), 
                 ("l" , "load_meetings" , "Load Meetings")]
-    CSS_PATH = "./assets/css/meetings.css"
+    CSS_PATH = "./src/reminding/css/meetings.css"
 
     schedule = reactive( MockSchedule("A Mock Schedule"))
 

@@ -9,8 +9,8 @@ A ssert
 
 """
 import pytest
-from meeting import Meeting
-from schedule import Schedule
+from reminding.meeting import Meeting
+from reminding.schedule import Schedule
 
 
 def test_can_create_new_schedule( create_random_meetings ) -> None:

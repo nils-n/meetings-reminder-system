@@ -9,7 +9,7 @@ A ssert
 
 """
 from contextlib import nullcontext as does_not_raise
-from participant import Participant
+from reminding.participant import Participant
 from email_validator import EmailNotValidError
 import pytest
 

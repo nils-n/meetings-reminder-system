@@ -10,7 +10,7 @@ A ssert
 """
 from datetime import datetime
 from contextlib import nullcontext as does_not_raise
-from meeting import Meeting
+from reminding.meeting import Meeting
 import pytest
 
 def test_can_create_new_meeting( create_random_participants) -> None:

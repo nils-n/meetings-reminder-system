@@ -2,8 +2,8 @@
 from typing import List
 from datetime import datetime
 from random import randint
-from participant import Participant
-from meeting import Meeting
+from reminding.participant import Participant
+from reminding.meeting import Meeting
 import pytest
 
 @pytest.fixture(scope='session')
