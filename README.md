@@ -267,6 +267,7 @@ However, deploying on Heroku has the advantage that the meeting reminders will a
 
 ### Deployment on Heroku 
 
+- Heroku will requires public access to the `reminding` package inside your forked repository. Basically i wsee [this explanation from Heroku](https://devcenter.heroku.com/articles/python-pip) 
 - Create an account on [Heroku](https://dashboard.heroku.com/apps)
 - Log into Heroku 
 - Go to Dashboard and click on `New` > `New App`
@@ -305,7 +306,29 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 
 ### Solved Bugs 
 
+- After packaging the python code into an installable package ( so that we can use classes via `from reminding.meeting import Meeting`), the app would not deploy  on Heroku: 
+    <table style='max-width:80%; text-align: left'>
+
+    <tr>
+    <td> Error Message</td>
+    <td> <img src="./assets/images/heroku-build-error.png"; alt="
+    image of heroku error message caused by python dependencies. Here the message on the image: 
+        Running command git clone --filter=blob:none --quiet https://github.com/nils-n/meetings-reminder-system.git /app/.heroku/src/reminding
+        fatal: could not read Username for 'https://github.com': No such device or address
+        error: subprocess-exited-with-error
+        × git clone --filter=blob:none --quiet https://github.com/nils-n/meetings-reminder-system.git /app/.heroku/src/reminding did not run successfully.
+        │ exit code: 128 " >   </td>
+    </tr>
+    <tr>
+    <td> Solution</td>
+    <td> 
+    Setting the visibility of the repository from `private` to `public`. In this way, the `reminding` dependency from this repository could be installed successfully. There are other options for private repositories (see [Heroku Devcenter](https://devcenter.heroku.com/articles/python-pip) or [Stackoverflow ](https://stackoverflow.com/questions/21297755/heroku-python-dependencies-in-private-repos-without-storing-my-password)) but none of these were deemed safe or good practice (i.e. storing private SSH-KEYs as environment variable). Being mindful about the scope of this project, it was chosen to follow the easier and safer approach by setting visibility to 'public'. 
+    </td>
+    </tr>
+    </table>
+
 ### Open Bugs 
+
 
 
 ---- 
