@@ -154,3 +154,23 @@ def test_invalid_meeting_notes_raises_type_error( fixture_name, new_notes, expec
     with expectation:
         Meeting( random_meeting_id, random_name, random_time, True, True, \
                 participants, new_notes)
+
+
+
+def test_meeting_values_convert_correctly_to_table_row(create_random_participants) -> None:
+    """
+    Test if meeting values are converted correctly to DataTable row
+    """
+    participants = create_random_participants
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_time =  datetime.now()
+    random_notes =  "This is a random note"
+
+    model = Meeting( random_meeting_id, random_name, random_time, True, True, \
+        participants, random_notes)
+
+    assert model.table_row[0][0] == "ID"
+    assert model.table_row[1][0] == model.meeting_id
+    assert model.table_row[0][1] == "Name"
+    assert model.table_row[1][1] == model.name

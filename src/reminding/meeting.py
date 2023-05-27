@@ -1,9 +1,10 @@
 """Class to describe details of a particular meeting """
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Union
 from reminding.participant import Participant
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class Meeting :
     """Describes details of a meeting"""
     meeting_id : int
@@ -13,6 +14,7 @@ class Meeting :
     room_confirmed: bool = False
     participants: list[Participant] = field( default_factory=list)
     meeting_notes : str = ""
+    table_row: Union[str, int] = field( default_factory=list)
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
@@ -22,6 +24,7 @@ class Meeting :
         self.validate_meeting_time( self.datetime)
         self.validate_meeting_room_flag( self.room_confirmed)
         self.validate_meeting_note(self.meeting_notes)
+        self.convert_to_table_row()
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
@@ -61,3 +64,11 @@ class Meeting :
         if not isinstance( new_note, str):
             raise TypeError( f"Meeting notes should be a str type \
                             ( {new_note} is not a string)")
+
+    def convert_to_table_row(self):
+        """
+        convert the meetings details into a table format that the TUI can display
+        """
+        self.table_row = []
+        self.table_row.append( ("ID", "Name", "Time", "invited", "confirmed" ))
+        self.table_row.append( ( self.meeting_id, self.name, self.datetime, 84, 84))
