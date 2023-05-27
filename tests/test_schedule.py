@@ -38,8 +38,7 @@ def test_can_create_mock_schedule() -> None:
 
 def test_table_rows_match_values_of_corresponding_meetings() -> None:
     """
-    Test if meeting values are converted correctly to table rows 
-    (which can me displayed and modified from the TUI later on as DataTable Widget)
+    Test if meeting values are converted correctly to DataTable rows  
     """
     random_name = "Random Schedule"
 

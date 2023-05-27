@@ -249,13 +249,29 @@ The functionality of the python program is displayed below.
 
 ## Deployment and Local Development 
 
-### Deployment on Heroku 
-
 
 #### How to Fork
 
-
 #### How to Clone
+
+
+### Deployment on Heroku 
+
+- Create an account on [Heroku](https://dashboard.heroku.com/apps)
+- Log into Heroku 
+- Go to Dashboard and click on `New` > `New App`
+- Choose a name i.e. my-meetings and region (EU) then click on `Create App`
+- Connect with your forked repository on github
+- Switch to `Settings` Tab
+    - Config Vars and add `PORT` with value `8000`
+    -  `NOTE FOR LATER` add here more credentials when adding config vars
+    - On `Buildpacks` choose in that order (the order matters)
+        -  `heroku/python` 
+        -  `heroku/nodejs`
+-   Switch to to `Deploy` Tab 
+    - If you want to deploy just once, `Manual deply` section > Click on `Deploy Branch` 
+    - If you want to deploy automatically after each commit to your repository, choose `Enable Automatic Deploys` on `Automatic Deploys` section
+
 
 --- 
 
