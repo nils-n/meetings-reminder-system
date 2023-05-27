@@ -6,6 +6,8 @@ from itertools import cycle
 from reminding.schedule import Schedule
 from textual.widgets import Button, Footer, Header, Label
 from textual.containers import Grid
+from textual.widgets import Input,  Pretty
+
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -18,6 +20,25 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
+class InputName(Screen):
+    """Screen with Input Dialog to enter a Name"""
+
+    def compose(self) -> ComposeResult:
+        yield Label("Enter an Name for the Meeting.")
+        yield Input(
+            placeholder="Enter a name...",
+        )
+        #yield Pretty([])
+
+    def on_input_submitted(self) -> None:
+        """
+        This needs an implmentation
+        To retrieve and then validate input
+        --> For now, just display the screen
+        """
+        self.app.pop_screen()
+
+
 class UpdateScreen(Screen):
     """Screen with a dialog to enter meeting details."""
 
@@ -25,12 +46,16 @@ class UpdateScreen(Screen):
         yield Grid(
             Label("Are you sure you want to quit?", id="question"),
             Button("Quit", variant="error", id="quit"),
-            Button("Cancel", variant="primary", id="cancel"),
+            Button("Input Number", variant="primary", id="input-number"),
             id="dialog",
         )
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        self.app.pop_screen()
+        if event.button.id == "input-number":
+            self.app.push_screen(InputName())
+
+        else:
+            self.app.pop_screen()
 
 class MeetingsApp(App):
     """
