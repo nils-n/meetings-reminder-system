@@ -2,7 +2,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
 from textual.reactive import reactive
-from textual.screen import Screen
+from textual.screen import ModalScreen 
 from textual.containers import Grid
 from reminding.schedule import Schedule
 from itertools import cycle
@@ -18,7 +18,7 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
-class InputName(Screen):
+class InputName(ModalScreen):
     """Screen with Input Dialog to enter a Name"""
 
     def compose(self) -> ComposeResult:
@@ -36,7 +36,7 @@ class InputName(Screen):
         self.app.pop_screen()
 
 
-class UpdateScreen(Screen):
+class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
 
     def compose(self) -> ComposeResult:
@@ -44,7 +44,7 @@ class UpdateScreen(Screen):
             Label("Are you sure you want to quit?", id="question"),
             Button("Back", variant="error", id="quit"),
             Button("Input Name", variant="primary", id="input-name"),
-            id="update-dialog",
+            id="dialog",
         )
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
