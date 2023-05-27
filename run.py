@@ -1,8 +1,11 @@
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown
 from textual.reactive import reactive
+from textual.screen import Screen
 from itertools import cycle
 from reminding.schedule import Schedule
+from textual.widgets import Button, Footer, Header, Label
+from textual.containers import Grid
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -15,6 +18,20 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
+class UpdateScreen(Screen):
+    """Screen with a dialog to enter meeting details."""
+
+    def compose(self) -> ComposeResult:
+        yield Grid(
+            Label("Are you sure you want to quit?", id="question"),
+            Button("Quit", variant="error", id="quit"),
+            Button("Cancel", variant="primary", id="cancel"),
+            id="dialog",
+        )
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        self.app.pop_screen()
+
 class MeetingsApp(App):
     """
     A Textual app to manage meetings.
@@ -22,7 +39,8 @@ class MeetingsApp(App):
     """
 
     BINDINGS = [ ("d", "toggle_dark", "Toggle dark mode"), 
-                ("l" , "load_meetings" , "Load Meetings")]
+                ("l" , "load_meetings" , "Load Meetings"), 
+                ("a" , "add_meeting" , "Add a Meeting"),]
     CSS_PATH = "./assets/css/meetings.css"
 
     schedule = reactive( Schedule("An example Schedule", [], []))
@@ -45,10 +63,14 @@ class MeetingsApp(App):
     def key_c(self):
         table = self.query_one(DataTable)
         table.cursor_type = next(cursors)
-
+        
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
         self.dark = not self.dark
+    
+    def action_add_meeting(self) -> None:
+        """an action to add a meeting """
+        self.push_screen(UpdateScreen())
 
 if __name__ == "__main__":
     app = MeetingsApp()
