@@ -249,11 +249,21 @@ The functionality of the python program is displayed below.
 
 ## Deployment and Local Development 
 
+Most of the features of this application run fine on a local computer (any interactions with the schedule such as read/delete/update meetings etc.).
+However, deploying on Heroku has the advantage that the meeting reminders will also be sent automatically on a scheduled basis.
 
 #### How to Fork
 
+- Log into GitHub and navigate to this repository  
+- Click on the "Main" Branch button and type the name of the forked branch
+- Click on "Create Branch" to confirm
+
 #### How to Clone
 
+- Click on the "Code" button and copy the link to this repository
+- open terminal on your machine and navigate to the folder you want to store a local copy
+- in the terminal, type 'git clone ' followed by the link you copied
+- press enter to confirm
 
 ### Deployment on Heroku 
 
@@ -271,7 +281,6 @@ The functionality of the python program is displayed below.
 -   Switch to to `Deploy` Tab 
     - If you want to deploy just once, `Manual deply` section > Click on `Deploy Branch` 
     - If you want to deploy automatically after each commit to your repository, choose `Enable Automatic Deploys` on `Automatic Deploys` section
-
 
 --- 
 
