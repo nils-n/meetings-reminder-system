@@ -46,8 +46,9 @@ class UpdateScreen(ModalScreen):
     def compose(self) -> ComposeResult:
        
             yield Label("Do you want to add this meeting?", id="question")
-            yield Label(f"Name: {self.new_meeting.name}\n \
-                        Time: {self.new_meeting.datetime}", id="new-meeting")
+            #yield Label(f"Name: {self.new_meeting.name}\n \
+            #            Time: {self.new_meeting.datetime}", id="new-meeting")
+            yield DataTable(id='new-meeting')
             yield Grid(
                 Button("No", variant="error", id="no",  classes="column"),
                 Button("Yes", variant="success", id="yes",  classes="column"),   
@@ -63,6 +64,14 @@ class UpdateScreen(ModalScreen):
             #     Placeholder(id="input-data", classes="column"),
             #     id='dialog'
             # )
+
+    def on_mount(self) -> None: 
+        table = self.query_one('#new-meeting')
+        table.cursor_type = next(cursors)
+        table.zebra_stripes = True
+        ROWS = self.new_meeting.table_row
+        table.add_columns(*ROWS[0])
+        table.add_rows(ROWS[1:])
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":
