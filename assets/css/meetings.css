@@ -3,26 +3,35 @@
 }
 
 UpdateScreen {
-    align: center middle;
+   align: center middle;
 }
 
+.column {
+    height: 5;
+    width: 1fr;
+}
 #dialog {
-    grid-size: 2;
-    grid-gutter: 1 2;
-    grid-rows: 1fr 3;
+    content-align: center middle;
+    grid-size: 3 1;
+    grid-gutter: 1 1;
     padding: 0 1;
-    width: 60;
-    height: 11;
+    width: 70;
+    height: 5;
     border: thick $background 80%;
     background: $surface;
 }
 
 #question {
-    column-span: 2;
-    height: 1fr;
-    width: 1fr;
-    content-align: center middle;
+    padding: 0 1;
+    height: 5;
+    width: 70;
 }
+
+#new-meeting {
+    height: 15;
+    width: 70;
+}
+
 
 Button {
     width: 100%;

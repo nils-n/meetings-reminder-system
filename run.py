@@ -1,11 +1,13 @@
 """This is the entry point for the application"""
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
+from textual.widgets import Placeholder
 from textual.reactive import reactive
 from textual.screen import ModalScreen 
-from textual.containers import Grid
-from reminding.schedule import Schedule
+from textual.containers import Grid, Horizontal, Vertical
+from reminding.schedule import Schedule, Meeting
 from itertools import cycle
+from datetime import datetime
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -39,16 +41,31 @@ class InputName(ModalScreen):
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
 
+    new_meeting = reactive ( Meeting( 42,  "New Meeting", datetime.now() , True, False, [], "") )
+
     def compose(self) -> ComposeResult:
-        yield Grid(
-            Label("Are you sure you want to quit?", id="question"),
-            Button("Back", variant="error", id="quit"),
-            Button("Input Name", variant="primary", id="input-name"),
-            id="dialog",
-        )
+       
+            yield Label("Do you want to add this meeting?", id="question")
+            yield Label(f"Name: {self.new_meeting.name}\n \
+                        Time: {self.new_meeting.datetime}", id="new-meeting")
+            yield Grid(
+                Button("No", variant="error", id="no",  classes="column"),
+                Button("Yes", variant="success", id="yes",  classes="column"),   
+                Button("Update", variant="primary", id="input-data",  classes="column"),
+                id="dialog"
+            )
+            # Button("Update", variant="primary", id="input-data"),
+            # yield Placeholder(id="question")
+            # yield Placeholder(id="new-meeting")
+            # yield Grid(
+            #     Placeholder(id="no", classes="column"),
+            #     Placeholder(id="yes", classes="column"),
+            #     Placeholder(id="input-data", classes="column"),
+            #     id='dialog'
+            # )
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id == "input-name":
+        if event.button.id == "input-data":
             self.app.push_screen(InputName())
 
         else:
