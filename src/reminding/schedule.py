@@ -25,8 +25,14 @@ class Schedule ():
         eventually this will be replaced by reading data from a google worksheet
         """
         self.meetings = []
-        self.meetings.append( Meeting( 0, "Journal Club", datetime.now(), True, True, [], "" ))
-        self.meetings.append( Meeting( 1, "Lab Meeting", datetime.now(), True, True, [], "" ))
+    
+    def add_meeting(self, new_meeting):
+        """
+        function to add a new meeting to the current schedule 
+        also updates the table rows for the User Interface
+        """
+        self.meetings.append( new_meeting)
+        self.convert_meetings_to_table()
 
     def convert_meetings_to_table(self):
         """
