@@ -18,6 +18,15 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 """
 
+
+INPUT_MARKDOWN = """\
+# Meeting Reminders
+
+Enter Details for New Meeting:
+
+"""
+
+
 cursors = cycle(["column", "row", "cell"])
 
 
@@ -40,6 +49,8 @@ class InputMeeting(ModalScreen[Meeting]):
     """Screen with Input Dialog to enter details of a new Meeting"""
 
     def compose(self) -> ComposeResult:
+        yield Header()
+        yield Markdown(INPUT_MARKDOWN)
         yield Vertical(
             Input( placeholder="Name",id="input-name", classes="columns"),
             Input( placeholder="DD/MM/YY", id="input-date", classes="columns"),
@@ -56,7 +67,7 @@ class InputMeeting(ModalScreen[Meeting]):
         new_date = self.query_one("#input-date").value
         new_time = self.query_one("#input-time").value
         new_datetime = f"{new_date} {new_time}"
-        new_meeting = Meeting(42, "Dummy Value", datetime.now(), True, False, [], "") 
+        new_meeting = Meeting(0, "New Meeting", datetime.now(), True, False, [], "") 
         new_meeting.validate_name( new_name)
         try: 
             new_meeting.validate_meeting_time_string( new_datetime)
@@ -72,7 +83,7 @@ class InputMeeting(ModalScreen[Meeting]):
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
 
-    new_meeting = reactive ( Meeting( 42,  "New Meeting", datetime.now() , True, False, [], "") )
+    new_meeting = reactive ( Meeting( 0,  "New Meeting", datetime.now() , True, False, [], "") )
 
     def compose(self) -> ComposeResult:
             yield Label("Do you want to add this meeting?", id="question")
@@ -104,8 +115,8 @@ class UpdateScreen(ModalScreen):
         table.add_rows(ROWS[1:])
 
     def on_mount(self) -> None: 
-       """Initial display of the table"""
-       self.update_table()
+        """Directly after mounting go to input screen"""
+        self.app.push_screen(InputMeeting(), self.check_input)
 
     def check_input(self, result: Meeting) ->None:
         """
