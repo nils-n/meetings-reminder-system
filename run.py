@@ -14,8 +14,10 @@ from datetime import datetime
 GREETING_MARKDOWN = """\
 # Meeting Reminders
 
-This Terminal Application helps you organize your upcoming meetings. (Press 'L' to load your meetings)
-
+This Terminal Application helps you organize your upcoming meetings. 
+- Press 'L' to load your meetings
+- Press 'A' to add a meeting
+ 
 """
 
 
