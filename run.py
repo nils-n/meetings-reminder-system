@@ -20,6 +20,20 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
+
+class WarningScreen(ModalScreen):
+    """Warning Widget that pops up when user input is invalid"""
+
+    def compose(self) -> ComposeResult:
+        #yield Label("Input is invalid", id="invalid-input-msg")
+        #Button("Back", variant="error", id="return-to-previous",  classes="column"),
+        yield Placeholder(id="invalid-input-msg")
+        yield Grid(
+                Placeholder(id="return-to-previous"),
+                classes="dialog"
+            )
+    
+
 class InputMeeting(ModalScreen[Meeting]):
     """Screen with Input Dialog to enter details of a new Meeting"""
 
@@ -30,7 +44,7 @@ class InputMeeting(ModalScreen[Meeting]):
             Input( placeholder="HH:MM", id="input-time", classes="columns"),
             id="meeting-inputs",
         )
-        
+  
     def on_input_submitted(self) -> None:
         """
         retrieve and validate values from input
@@ -45,12 +59,14 @@ class InputMeeting(ModalScreen[Meeting]):
         new_meeting.validate_name( new_name)
         try: 
             new_meeting.validate_meeting_time_string( new_datetime)
+            self.dismiss( new_meeting )
+
         except ValueError:
+            self.app.push_screen( WarningScreen() )
             # add here a widget that pops up and informs about error message.
             # for now it is just silently not updating if the format is wrong
             print('something went wrong')
-    
-        self.dismiss( new_meeting )
+
 
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
@@ -58,14 +74,13 @@ class UpdateScreen(ModalScreen):
     new_meeting = reactive ( Meeting( 42,  "New Meeting", datetime.now() , True, False, [], "") )
 
     def compose(self) -> ComposeResult:
-       
             yield Label("Do you want to add this meeting?", id="question")
             yield DataTable(id='new-meeting')
             yield Grid(
                 Button("No", variant="error", id="no",  classes="column"),
                 Button("Yes", variant="success", id="yes",  classes="column"),   
                 Button("Update", variant="primary", id="input-data",  classes="column"),
-                id="dialog"
+                classes="dialog"
             )
             # Button("Update", variant="primary", id="input-data"),
             # yield Placeholder(id="question")
@@ -101,7 +116,6 @@ class UpdateScreen(ModalScreen):
         self.new_meeting.datetime = result.datetime
         self.new_meeting.convert_to_table_row()
         self.update_table()
-
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":

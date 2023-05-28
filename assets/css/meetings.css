@@ -6,11 +6,16 @@ UpdateScreen {
    align: center middle;
 }
 
+WarningScreen {
+    align: center middle;
+ }
+ 
 .column {
     height: 5;
     width: 1fr;
 }
-#dialog {
+
+.dialog {
     content-align: center middle;
     grid-size: 3 1;
     grid-gutter: 1 1;
@@ -32,7 +37,16 @@ UpdateScreen {
     width: 70;
 }
 
-
 Button {
     width: 100%;
+}
+
+#invalid-input-msg {
+    padding: 0 1;
+    height: 5;
+    width: 70;
+}
+
+#return-to-previous {
+    column-span: 3
 }
