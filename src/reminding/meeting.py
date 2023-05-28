@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Union
 from reminding.participant import Participant
+import re 
 
 @dataclass(frozen=False)
 class Meeting :
@@ -54,6 +55,20 @@ class Meeting :
             raise TypeError( f"Meeting time should be a built-in datetime type\
                             ( {new_time} is not of type datetime)")
         self.datetime = new_time
+    
+    def validate_meeting_time_string( self, new_time_string):
+        """validate that string that contains meeting time has valid format 
+        so that it can be converted to datetime data type
+        based on: 
+        https://stackoverflow.com/questions/55486225/check-if-string-has-a-certain-format
+        https://stackoverflow.com/questions/50504500/deprecationwarning-invalid-escape-sequence-what-to-use-instead-of-d  
+        """
+        if not isinstance(new_time_string, str):
+            raise TypeError( f"Meeting time should be a built-in string type\
+                            ( {new_time_string} is not a string type)")
+        if not re.match(r'^[0-9]{2}\/[0-9]{2}\/[0-9]{2}\s[0-9]{2}\:[0-9]{2}$',new_time_string):
+            raise ValueError( 'Time Data is not in the right format DD/MM/YY HH:MM \
+                         ( ${new_time_string} is not in this format)')
 
     def validate_meeting_room_flag( self, new_room_flag):
         """validate that flag for meeting room is bool type"""
@@ -74,3 +89,4 @@ class Meeting :
         self.table_row = []
         self.table_row.append( ("ID", "Name", "Time", "invited", "confirmed" ))
         self.table_row.append( ( self.meeting_id, self.name, self.datetime, 84, 84))
+

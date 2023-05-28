@@ -155,8 +155,6 @@ def test_invalid_meeting_notes_raises_type_error( fixture_name, new_notes, expec
         Meeting( random_meeting_id, random_name, random_time, True, True, \
                 participants, new_notes)
 
-
-
 def test_meeting_values_convert_correctly_to_table_row(create_random_participants) -> None:
     """
     Test if meeting values are converted correctly to DataTable row
@@ -174,3 +172,31 @@ def test_meeting_values_convert_correctly_to_table_row(create_random_participant
     assert model.table_row[1][0] == model.meeting_id
     assert model.table_row[0][1] == "Name"
     assert model.table_row[1][1] == model.name
+
+@pytest.mark.parametrize(
+        "fixture_name, input_time_str, expectation", 
+        [
+            ('create_random_participants', "23/05/23 10:00" , does_not_raise()),
+            ('create_random_participants', "23/05/2023 10:00" , pytest.raises(ValueError)),
+            ('create_random_participants', "23/05/2023" , pytest.raises(ValueError)),
+            ('create_random_participants', "23.05.23 10:00" , pytest.raises(ValueError)),
+            ('create_random_participants', "" , pytest.raises(ValueError)),
+            ('create_random_participants', -1, pytest.raises(TypeError)),
+        ]
+)
+def test_user_input_for_meeting_time_can_be_converted_to_datetime( fixture_name, input_time_str, \
+                                                                   expectation, request ) -> None:
+    """
+    Test if wrong user input of meeting time raises correct errors
+    """
+    participants = request.getfixturevalue(fixture_name)
+    random_name = "R2D2"
+    random_meeting_id = 42
+    random_time =  datetime.now()
+    random_notes =  "This is a random note"
+    model = Meeting( random_meeting_id, random_name, random_time, True, True, \
+        participants, random_notes)
+    
+    with expectation:
+        model.validate_meeting_time_string( input_time_str)
+    

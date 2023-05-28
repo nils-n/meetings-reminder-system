@@ -43,7 +43,7 @@ class InputMeeting(ModalScreen[Meeting]):
 
         new_meeting = Meeting(42, "Dummy Value", datetime.now(), True, False, [], "") 
         new_meeting.validate_name( new_name)
-        #new_meeting.validate_meeting_time( new_time)
+        #new_meeting.validate_meeting_time_as_string( new_time)
     
         self.dismiss( new_meeting )
 
