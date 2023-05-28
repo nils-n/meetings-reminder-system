@@ -25,14 +25,16 @@ class WarningScreen(ModalScreen):
     """Warning Widget that pops up when user input is invalid"""
 
     def compose(self) -> ComposeResult:
-        #yield Label("Input is invalid", id="invalid-input-msg")
-        #Button("Back", variant="error", id="return-to-previous",  classes="column"),
-        yield Placeholder(id="invalid-input-msg")
+        yield Label("Input is invalid", id="invalid-input-msg")
         yield Grid(
-                Placeholder(id="return-to-previous"),
+                Button("Try again", variant="error", id="return-to-previous"),
                 classes="dialog"
             )
-    
+
+    def on_button_pressed(self) -> None:
+        """return to previous input screen """
+        self.app.pop_screen()
+
 
 class InputMeeting(ModalScreen[Meeting]):
     """Screen with Input Dialog to enter details of a new Meeting"""
@@ -54,7 +56,6 @@ class InputMeeting(ModalScreen[Meeting]):
         new_date = self.query_one("#input-date").value
         new_time = self.query_one("#input-time").value
         new_datetime = f"{new_date} {new_time}"
-
         new_meeting = Meeting(42, "Dummy Value", datetime.now(), True, False, [], "") 
         new_meeting.validate_name( new_name)
         try: 
