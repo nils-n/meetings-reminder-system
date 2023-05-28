@@ -24,7 +24,9 @@ This Terminal Application helps you organize your upcoming meetings.
 INPUT_MARKDOWN = """\
 # Meeting Reminders
 
-Enter Details for New Meeting:
+Enter Details for New Meeting. Note:
+- Date Format DD/MM/YY
+- Time Format HH:MM
 
 """
 
@@ -75,12 +77,8 @@ class InputMeeting(ModalScreen[Meeting]):
             new_meeting.validate_meeting_time_string( new_datetime)
             self.dismiss( new_meeting )
 
-        except ValueError:
+        except (ValueError, TypeError):
             self.app.push_screen( WarningScreen() )
-            # add here a widget that pops up and informs about error message.
-            # for now it is just silently not updating if the format is wrong
-            print('something went wrong')
-
 
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""

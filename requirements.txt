@@ -28,7 +28,7 @@ pluggy==1.0.0
 Pygments==2.15.1
 pylint==2.17.3
 pytest==7.3.1
--e git+https://github.com/nils-n/meetings-reminder-system.git@2608bdcdb180fdf9c7eff83d50f1ae696beb4f99#egg=reminding
+-e git+https://github.com/nils-n/meetings-reminder-system.git@c9cd921c1866116258d4efe8e63a58b032faad47#egg=reminding
 rich==13.3.5
 textual==0.26.0
 tomli==2.0.1
