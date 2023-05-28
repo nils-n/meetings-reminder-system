@@ -48,3 +48,19 @@ class Schedule ():
         for meeting in self.meetings:
             self.table_rows.append( ( meeting.meeting_id, meeting.name, meeting.datetime, \
                                      meeting.num_participants, meeting.num_participants))
+
+    def validate_meeting_id( self, target_id ) -> None:
+        """
+        raises a ValueError if the supplied integer does not match 
+        any of the meetings IDs in this schedule
+        """
+        print(target_id)
+        if not isinstance( target_id, int):
+            raise TypeError(f'The meeting ID should be and integer type \
+                             ( {target_id} is not a int)')
+        valid_ids = []
+        for meeting in self.meetings:
+            valid_ids.append( meeting.meeting_id)
+        if target_id not in valid_ids:
+            raise ValueError(f'The meeting ID should match an existing meeting \
+                             ( {target_id} does not match any meeting )')

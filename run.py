@@ -221,8 +221,10 @@ class MeetingsApp(App):
         """
         Callback to check which meeting the user wants to modify
         """
-        if result:
-            print('now push the screen with the selected meeting')
+        # try: 
+        #     self.validate_meeting_id( result ) 
+        # except (ValueError, TypeError):
+        #     self.app.push_screen( WarningScreen() )
     
 
 if __name__ == "__main__":

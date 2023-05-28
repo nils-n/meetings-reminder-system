@@ -29,7 +29,8 @@ class Meeting :
         self.validate_meeting_note(self.meeting_notes)
         self.convert_to_table_row()
         self.num_participants = 0
-        self.meeting_id = randint(0,1000)
+        if self.meeting_id == 0:
+            self.meeting_id = randint(0,1000) # only use random integer if not explicitly defined
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
