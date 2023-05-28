@@ -137,6 +137,27 @@ class UpdateScreen(ModalScreen[Meeting]):
         else: 
             self.app.pop_screen()
 
+class ModifyQuestionScreen(ModalScreen[int]):
+    """ 
+    Screen to question the user which meeting he or she wants to modify
+    """
+    def compose(self) -> ComposeResult:
+        yield Label("Which meeting do you want to modify? (Use Meeting ID)", id="which-meeting")
+        yield Grid(
+                Input( "0", placeholder="Meeting ID",id="input-which-meeting", classes="columns"),      
+                Button("Modify Meeting", variant="primary", id="which-meeting"),
+                Button("Go Back", variant="error", id="never-mind"),
+                classes="dialog"
+            )
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """return to previous input screen """
+        if event.button.id == "which-meeting":
+            target_meeting_id = self.query_one("#input-which-meeting").value
+            self.dismiss(target_meeting_id)
+        else:
+            self.dismiss(False)
+
 class MeetingsApp(App):
     """
     A Textual app to manage meetings.
@@ -191,6 +212,18 @@ class MeetingsApp(App):
         """
         self.schedule.add_meeting(result)
         self.load_meetings_table()
+
+    def action_modify_meeting(self) -> None:
+        """an action to modify and exisisting meeting """
+        self.push_screen( ModifyQuestionScreen(), self.check_which_meeting_to_modify )
+
+    def check_which_meeting_to_modify(self, result: int) -> None:
+        """
+        Callback to check which meeting the user wants to modify
+        """
+        if result:
+            print('now push the screen with the selected meeting')
+    
 
 if __name__ == "__main__":
     app = MeetingsApp()
