@@ -92,7 +92,7 @@ class UpdateScreen(ModalScreen[Meeting]):
             yield Grid(
                 Button("No", variant="error", id="no",  classes="column"),
                 Button("Yes", variant="success", id="yes",  classes="column"),   
-                Button("Update", variant="primary", id="input-data",  classes="column"),
+                Button("Reset", variant="primary", id="input-data",  classes="column"),
                 classes="dialog"
             )
             # Button("Update", variant="primary", id="input-data"),

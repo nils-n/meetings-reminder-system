@@ -196,7 +196,25 @@ def test_user_input_for_meeting_time_can_be_converted_to_datetime( fixture_name,
     random_notes =  "This is a random note"
     model = Meeting( random_meeting_id, random_name, random_time, True, True, \
         participants, random_notes)
-    
+
     with expectation:
         model.validate_meeting_time_string( input_time_str)
+
+
+def test_add_participants_to_meeting( create_random_participants ) -> None:
+    """Test if participants can be added to an existing meeting """
+    participants = create_random_participants
+    random_name = "House Party"
+    random_meeting_id = 5
+    random_time =  datetime.now()
+    random_notes =  "This is another random note"
+    model = Meeting( random_meeting_id, random_name, random_time, True, True, \
+        [], random_notes)
+
+    for participant in participants:
+        model.add_participant( participant )
+
+    assert len(model.participants) == model.num_participants
+    for i, participant in enumerate(participants):
+        assert participant.name == model.participants[i].name
     

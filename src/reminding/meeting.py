@@ -16,6 +16,7 @@ class Meeting :
     participants: list[Participant] = field( default_factory=list)
     meeting_notes : str = ""
     table_row: Union[str, int] = field( default_factory=list)
+    num_participants : int = 0
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
@@ -26,6 +27,7 @@ class Meeting :
         self.validate_meeting_room_flag( self.room_confirmed)
         self.validate_meeting_note(self.meeting_notes)
         self.convert_to_table_row()
+        self.num_participants = 0
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
@@ -90,4 +92,10 @@ class Meeting :
         self.table_row = []
         self.table_row.append( ("ID", "Name", "Time", "invited", "confirmed" ))
         self.table_row.append( ( self.meeting_id, self.name, self.datetime, 0, 0))
-
+    
+    def add_participant(self, new_participant) -> None:
+        """
+        adds a new participant to the current meeting
+        """
+        self.participants.append( new_participant)
+        self.num_participants += 1
