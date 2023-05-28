@@ -11,7 +11,7 @@ from datetime import datetime
 
 # terminal : 80 characters wide and 24 rows high
 
-EXAMPLE_MARKDOWN = """\
+GREETING_MARKDOWN = """\
 # Meeting Reminders
 
 This Terminal Application helps you organize your upcoming meetings. (Press 'L' to load your meetings)
@@ -151,7 +151,7 @@ class MeetingsApp(App):
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
         yield Header()
-        yield Markdown(EXAMPLE_MARKDOWN)
+        yield Markdown(GREETING_MARKDOWN)
         yield DataTable(id='meetings-table')
         yield Footer()
 
