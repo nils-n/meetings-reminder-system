@@ -225,10 +225,11 @@ class MeetingsApp(App):
         """
         Callback to check which meeting the user wants to modify
         """
-        try:
-            self.schedule.validate_meeting_id( result)
-        except (ValueError, TypeError):
-             self.app.push_screen( WarningScreen( f"Meeting ID does not exist ( ID : {result} )" ) )
+        if result is not False :
+            try:
+                self.schedule.validate_meeting_id( result)
+            except (ValueError, TypeError):
+                self.app.push_screen( WarningScreen( f"Meeting ID does not exist ( ID : {result} )" ) )
 
 if __name__ == "__main__":
     app = MeetingsApp()
