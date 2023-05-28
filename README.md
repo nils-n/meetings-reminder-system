@@ -1,6 +1,6 @@
-# Meetings reminder system 
+# Meetings reminders
 
-This python-based terminal app is designed to organize meeting reminders. The goal is to free the user of low-level attention tasks that are associated with organizing meetings and keeping track that participants show up to the meeting. This is achieved by automatizing the process of sending meeting invitations and reminder emails.
+This python-based terminal app is designed to organize meeting reminders. The goal is to free the user of low-level attention tasks that are associated with organizing meetings and keeping track that participants attend to the meeting. This is achieved by automatizing the process of sending meeting invitations and reminder emails.
 
 Link to the live terminal : TO DO 
 

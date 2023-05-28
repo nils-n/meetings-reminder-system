@@ -18,9 +18,9 @@ GREETING_MARKDOWN = """\
 This Terminal Application helps you organize your upcoming meetings. 
 - Press 'L' to load your meetings
 - Press 'A' to add a meeting
+- Press 'M' to modify a meeting (including to invite and remove participants)
  
 """
-
 
 INPUT_MARKDOWN = """\
 # Meeting Reminders
@@ -31,9 +31,7 @@ Enter Details for New Meeting. Note:
 
 """
 
-
 cursors = cycle(["column", "row", "cell"])
-
 
 class WarningScreen(ModalScreen):
     """Warning Widget that pops up when user input is invalid"""
@@ -48,7 +46,6 @@ class WarningScreen(ModalScreen):
     def on_button_pressed(self) -> None:
         """return to previous input screen """
         self.app.pop_screen()
-
 
 class InputMeeting(ModalScreen[Meeting]):
     """Screen with Input Dialog to enter details of a new Meeting"""
@@ -148,7 +145,8 @@ class MeetingsApp(App):
 
     BINDINGS = [ ("d", "toggle_dark", "Toggle dark mode"), 
                 ("l" , "load_meetings" , "Load Meetings"), 
-                ("a" , "add_meeting" , "Add a Meeting"),]
+                ("a" , "add_meeting" , "Add Meeting"),
+                ("m" , "modify_meeting" , "Modify Meeting")]
     CSS_PATH = "./assets/css/meetings.css"
 
     schedule = reactive( Schedule("An example Schedule", [], []))
