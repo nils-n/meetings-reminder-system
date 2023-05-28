@@ -64,7 +64,8 @@ def test_table_rows_match_values_of_corresponding_meetings() -> None:
         (2, does_not_raise()),
         (3, pytest.raises(ValueError)),
         (444, pytest.raises(ValueError)),
-        ("1", pytest.raises(TypeError)),
+        ("1", does_not_raise()),
+        ("You shall not pass", pytest.raises(ValueError)),
         (None, pytest.raises(TypeError)),
     ]
 )

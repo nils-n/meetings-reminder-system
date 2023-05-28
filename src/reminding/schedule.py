@@ -51,13 +51,10 @@ class Schedule ():
 
     def validate_meeting_id( self, target_id ) -> None:
         """
-        raises a ValueError if the supplied integer does not match 
-        any of the meetings IDs in this schedule
+        raises a ValueError if the supplied integer cannot be converted to int
+        or if it does not match any of the meetings IDs in the schedule
         """
-        print(target_id)
-        if not isinstance( target_id, int):
-            raise TypeError(f'The meeting ID should be and integer type \
-                             ( {target_id} is not a int)')
+        target_id = int(target_id)
         valid_ids = []
         for meeting in self.meetings:
             valid_ids.append( meeting.meeting_id)

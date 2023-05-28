@@ -33,11 +33,15 @@ Enter Details for New Meeting. Note:
 
 cursors = cycle(["column", "row", "cell"])
 
-class WarningScreen(ModalScreen):
+class WarningScreen(ModalScreen[None]):
     """Warning Widget that pops up when user input is invalid"""
 
+    def __init__(self,  message: str="Input is invalid") -> None:
+        self.error_message = message
+        super().__init__()
+
     def compose(self) -> ComposeResult:
-        yield Label("Input is invalid", id="invalid-input-msg")
+        yield Label(f"{self.error_message}", id="invalid-input-msg")
         yield Grid(
                 Button("Try again", variant="error", id="return-to-previous"),
                 classes="dialog"
@@ -76,7 +80,7 @@ class InputMeeting(ModalScreen[Meeting]):
             self.dismiss( new_meeting )
 
         except (ValueError, TypeError):
-            self.app.push_screen( WarningScreen() )
+            self.app.push_screen( WarningScreen( f"Meeting Time invalid ( {new_datetime} is not DD/MM/YY HH:MM )") )
 
 class UpdateScreen(ModalScreen[Meeting]):
     """Screen with a dialog to enter meeting details."""
@@ -221,11 +225,10 @@ class MeetingsApp(App):
         """
         Callback to check which meeting the user wants to modify
         """
-        # try: 
-        #     self.validate_meeting_id( result ) 
-        # except (ValueError, TypeError):
-        #     self.app.push_screen( WarningScreen() )
-    
+        try:
+            self.schedule.validate_meeting_id( result)
+        except (ValueError, TypeError):
+             self.app.push_screen( WarningScreen( f"Meeting ID does not exist ( ID : {result} )" ) )
 
 if __name__ == "__main__":
     app = MeetingsApp()
