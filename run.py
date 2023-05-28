@@ -192,7 +192,7 @@ class MeetingsApp(App):
         Callback to get return value (a meeting) from UpdateScreen Widget
         """
         self.schedule.add_meeting(result)
-
+        self.load_meetings_table()
 
 if __name__ == "__main__":
     app = MeetingsApp()
