@@ -20,13 +20,14 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
-class InputName(ModalScreen):
+class InputName(ModalScreen[str]):
     """Screen with Input Dialog to enter a Name"""
 
     def compose(self) -> ComposeResult:
         yield Label("Enter an Name for the Meeting.")
         yield Input(
             placeholder="Enter a name...",
+            id="input-name"
         )
 
     def on_input_submitted(self) -> None:
@@ -35,8 +36,8 @@ class InputName(ModalScreen):
         To retrieve and then validate input
         --> For now, just display the screen
         """
-        self.app.pop_screen()
-
+        result = self.query_one("#input-name").value
+        self.dismiss( result )
 
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
@@ -46,8 +47,6 @@ class UpdateScreen(ModalScreen):
     def compose(self) -> ComposeResult:
        
             yield Label("Do you want to add this meeting?", id="question")
-            #yield Label(f"Name: {self.new_meeting.name}\n \
-            #            Time: {self.new_meeting.datetime}", id="new-meeting")
             yield DataTable(id='new-meeting')
             yield Grid(
                 Button("No", variant="error", id="no",  classes="column"),
@@ -65,18 +64,34 @@ class UpdateScreen(ModalScreen):
             #     id='dialog'
             # )
 
-    def on_mount(self) -> None: 
+    def update_table(self) -> None:
+        """ updates the displayed table in the TUI with the current values of the Meeting"""
         table = self.query_one('#new-meeting')
+        table.clear()
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
         ROWS = self.new_meeting.table_row
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])
 
+    def on_mount(self) -> None: 
+       """Initial display of the table"""
+       self.update_table()
+
+    def check_input(self, result: str) ->None:
+        """
+        Callback to get return value from Input Widget
+        Called when InputName is popped
+        Updates also the displayed Table in the Dialog
+        """
+        self.new_meeting.name = result
+        self.new_meeting.convert_to_table_row()
+        self.update_table()
+
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":
-            self.app.push_screen(InputName())
-
+            self.app.push_screen(InputName(), self.check_input)
         else:
             self.app.pop_screen()
 
