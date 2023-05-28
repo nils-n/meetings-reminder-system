@@ -131,14 +131,14 @@ class UpdateScreen(ModalScreen[Meeting]):
         self.new_meeting.datetime = result.datetime
         self.new_meeting.convert_to_table_row()
         self.update_table()
-        
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":
             self.app.push_screen(InputMeeting(), self.check_input)
-        else:
+        elif event.button.id == "yes":
             self.dismiss(self.new_meeting)
-            #self.app.pop_screen()
+        else: 
+            self.app.pop_screen()
 
 class MeetingsApp(App):
     """
