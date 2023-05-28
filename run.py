@@ -39,11 +39,16 @@ class InputMeeting(ModalScreen[Meeting]):
         new_name = self.query_one("#input-name").value
         new_date = self.query_one("#input-date").value
         new_time = self.query_one("#input-time").value
-        #new_datetime = datetime.strptime f"{new_date} {new_time}" )
+        new_datetime = f"{new_date} {new_time}"
 
         new_meeting = Meeting(42, "Dummy Value", datetime.now(), True, False, [], "") 
         new_meeting.validate_name( new_name)
-        #new_meeting.validate_meeting_time_as_string( new_time)
+        try: 
+            new_meeting.validate_meeting_time_string( new_datetime)
+        except ValueError:
+            # add here a widget that pops up and informs about error message.
+            # for now it is just silently not updating if the format is wrong
+            print('something went wrong')
     
         self.dismiss( new_meeting )
 
@@ -93,6 +98,7 @@ class UpdateScreen(ModalScreen):
         Updates also the displayed Table in the Dialog
         """
         self.new_meeting.name = result.name
+        self.new_meeting.datetime = result.datetime
         self.new_meeting.convert_to_table_row()
         self.update_table()
 

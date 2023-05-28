@@ -69,6 +69,7 @@ class Meeting :
         if not re.match(r'^[0-9]{2}\/[0-9]{2}\/[0-9]{2}\s[0-9]{2}\:[0-9]{2}$',new_time_string):
             raise ValueError( 'Time Data is not in the right format DD/MM/YY HH:MM \
                          ( ${new_time_string} is not in this format)')
+        self.datetime = datetime.strptime( new_time_string, "%d/%m/%y %H:%M")
 
     def validate_meeting_room_flag( self, new_room_flag):
         """validate that flag for meeting room is bool type"""
