@@ -31,6 +31,7 @@ class Meeting :
         if not isinstance(new_name, str):
             raise TypeError(f'The meeting name should be of type string \
                              ( {new_name} is not a string)')
+        self.name = new_name
 
     def validate_id( self, new_id):
         """validate that new id is a positive integer"""
@@ -52,6 +53,7 @@ class Meeting :
         if not isinstance( new_time, datetime):
             raise TypeError( f"Meeting time should be a built-in datetime type\
                             ( {new_time} is not of type datetime)")
+        self.datetime = new_time
 
     def validate_meeting_room_flag( self, new_room_flag):
         """validate that flag for meeting room is bool type"""

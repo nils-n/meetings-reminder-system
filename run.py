@@ -20,24 +20,32 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
-class InputName(ModalScreen[str]):
+class InputName(ModalScreen[Meeting]):
     """Screen with Input Dialog to enter a Name"""
 
     def compose(self) -> ComposeResult:
-        yield Label("Enter an Name for the Meeting.")
-        yield Input(
-            placeholder="Enter a name...",
-            id="input-name"
+        yield Vertical(
+            Input( placeholder="Name",id="input-name", classes="columns"),
+            Input( placeholder="DD/MM/YY", id="input-date", classes="columns"),
+            Input( placeholder="HH:MM", id="input-time", classes="columns"),
+            id="meeting-inputs",
         )
-
+        
     def on_input_submitted(self) -> None:
         """
-        This needs an implmentation
-        To retrieve and then validate input
+        retrieve and validate values from input
         --> For now, just display the screen
         """
-        result = self.query_one("#input-name").value
-        self.dismiss( result )
+        new_name = self.query_one("#input-name").value
+        new_date = self.query_one("#input-date").value
+        new_time = self.query_one("#input-time").value
+        #new_datetime = datetime.strptime f"{new_date} {new_time}" )
+
+        new_meeting = Meeting(42, "Dummy Value", datetime.now(), True, False, [], "") 
+        new_meeting.validate_name( new_name)
+        #new_meeting.validate_meeting_time( new_time)
+    
+        self.dismiss( new_meeting )
 
 class UpdateScreen(ModalScreen):
     """Screen with a dialog to enter meeting details."""
@@ -78,13 +86,13 @@ class UpdateScreen(ModalScreen):
        """Initial display of the table"""
        self.update_table()
 
-    def check_input(self, result: str) ->None:
+    def check_input(self, result: Meeting) ->None:
         """
         Callback to get return value from Input Widget
         Called when InputName is popped
         Updates also the displayed Table in the Dialog
         """
-        self.new_meeting.name = result
+        self.new_meeting.name = result.name
         self.new_meeting.convert_to_table_row()
         self.update_table()
 
