@@ -1,6 +1,7 @@
 """Class to describe a participant of a meeting"""
 from dataclasses import dataclass, astuple, asdict
 from email_validator import validate_email
+from random import randint
 
 @dataclass
 class Participant :
@@ -15,6 +16,7 @@ class Participant :
         validate_email( self.email )
         self.validate_name( self.name)
         self.validate_meeting_id(self.id_number)
+        self.id_number = randint(0,1000)
 
     def validate_name(self, name):
         """validate that name is a string"""

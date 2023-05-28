@@ -41,4 +41,5 @@ class Schedule ():
         self.table_rows = []
         self.table_rows.append( ("ID", "Name", "Time", "invited", "confirmed" ))
         for meeting in self.meetings:
-            self.table_rows.append( ( meeting.meeting_id, meeting.name, meeting.datetime, 0, 0))
+            self.table_rows.append( ( meeting.meeting_id, meeting.name, meeting.datetime, \
+                                     meeting.num_participants, meeting.num_participants))

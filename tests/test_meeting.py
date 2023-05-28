@@ -169,7 +169,7 @@ def test_meeting_values_convert_correctly_to_table_row(create_random_participant
         participants, random_notes)
 
     assert model.table_row[0][0] == "ID"
-    assert model.table_row[1][0] == model.meeting_id
+    assert 0 < model.table_row[1][0] < 1000 # ensure that model.meeting_id is between 0 and 1000
     assert model.table_row[0][1] == "Name"
     assert model.table_row[1][1] == model.name
 

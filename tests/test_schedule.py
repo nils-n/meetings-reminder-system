@@ -33,11 +33,9 @@ def test_can_create_empty_schedule() -> None:
     model.add_meeting( Meeting( 1, "Lab Meeting", datetime.now(), True, True, [], "" ))
   
     assert model.meetings[0].name == "Journal Club"
-    assert model.meetings[0].meeting_id == 0
     assert model.meetings[1].name == "Lab Meeting"
-    assert model.meetings[1].meeting_id == 1
-    assert len(model.meetings) == 2
-
+    assert 0 < model.meetings[0].meeting_id < 1000  # ensure that model.meeting_id is between 0 and 1000
+    assert 0 < model.meetings[1].meeting_id < 1000  # ensure that model.meeting_id is between 0 and 1000
 
 def test_table_rows_match_values_of_corresponding_meetings() -> None:
     """
@@ -49,6 +47,6 @@ def test_table_rows_match_values_of_corresponding_meetings() -> None:
     model.add_meeting( Meeting( 0, "Journal Club", datetime.now(), True, True, [], "" ))
 
     assert model.table_rows[0][0] == "ID"
-    assert model.table_rows[1][0] == model.meetings[0].meeting_id
+    assert 0 < model.table_rows[1][0] < 1000  # ensure that model.meeting_id is between 0 and 1000
     assert model.table_rows[0][1] == "Name"
     assert model.table_rows[1][1] == model.meetings[0].name

@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Union
 from reminding.participant import Participant
 import re 
+from random import randint
 
 @dataclass(frozen=False)
 class Meeting :
@@ -28,6 +29,7 @@ class Meeting :
         self.validate_meeting_note(self.meeting_notes)
         self.convert_to_table_row()
         self.num_participants = 0
+        self.meeting_id = randint(0,1000)
 
     def validate_name(self, new_name):
         """validate that the new name is a string type""" 
