@@ -2,12 +2,13 @@
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
 from textual.widgets import Placeholder
-from textual.reactive import reactive
+from textual.reactive import reactive, var
 from textual.screen import ModalScreen 
 from textual.containers import Grid, Horizontal, Vertical
 from reminding.schedule import Schedule, Meeting
 from itertools import cycle
 from datetime import datetime
+from dataclasses import replace
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -56,9 +57,9 @@ class InputMeeting(ModalScreen[Meeting]):
         yield Header()
         yield Markdown(INPUT_MARKDOWN)
         yield Vertical(
-            Input( placeholder="Name",id="input-name", classes="columns"),
-            Input( placeholder="DD/MM/YY", id="input-date", classes="columns"),
-            Input( placeholder="HH:MM", id="input-time", classes="columns"),
+            Input( "Test", placeholder="Name",id="input-name", classes="columns"),              # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
+            Input( "11/11/11", placeholder="DD/MM/YY", id="input-date", classes="columns"),     # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
+            Input( "11:11", placeholder="HH:MM", id="input-time", classes="columns"),           # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
             id="meeting-inputs",
         )
   
@@ -73,17 +74,17 @@ class InputMeeting(ModalScreen[Meeting]):
         new_datetime = f"{new_date} {new_time}"
         new_meeting = Meeting(0, "New Meeting", datetime.now(), True, False, [], "") 
         new_meeting.validate_name( new_name)
-        try: 
+        try:
             new_meeting.validate_meeting_time_string( new_datetime)
             self.dismiss( new_meeting )
 
         except (ValueError, TypeError):
             self.app.push_screen( WarningScreen() )
 
-class UpdateScreen(ModalScreen):
+class UpdateScreen(ModalScreen[Meeting]):
     """Screen with a dialog to enter meeting details."""
 
-    new_meeting = reactive ( Meeting( 0,  "New Meeting", datetime.now() , True, False, [], "") )
+    new_meeting = var ( Meeting( 0,  "New Meeting", datetime.now() , True, False, [], "") )
 
     def compose(self) -> ComposeResult:
             yield Label("Do you want to add this meeting?", id="question")
@@ -107,7 +108,7 @@ class UpdateScreen(ModalScreen):
     def update_table(self) -> None:
         """ updates the displayed table in the TUI with the current values of the Meeting"""
         table = self.query_one('#new-meeting')
-        table.clear()
+        table.clear(columns=True)
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
         ROWS = self.new_meeting.table_row
@@ -124,16 +125,20 @@ class UpdateScreen(ModalScreen):
         Called when InputName is popped
         Updates also the displayed Table in the Dialog
         """
+        temp = result
+        self.new_meeting = result
         self.new_meeting.name = result.name
         self.new_meeting.datetime = result.datetime
         self.new_meeting.convert_to_table_row()
         self.update_table()
+        
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":
             self.app.push_screen(InputMeeting(), self.check_input)
         else:
-            self.app.pop_screen()
+            self.dismiss(self.new_meeting)
+            #self.app.pop_screen()
 
 class MeetingsApp(App):
     """
@@ -155,14 +160,21 @@ class MeetingsApp(App):
         yield DataTable(id='meetings-table')
         yield Footer()
 
+    def on_mount(self) -> None: 
+        self.load_meetings_table()
+
     def action_load_meetings(self) -> None:
+        self.load_meetings_table()
+
+    def load_meetings_table(self) -> None: 
         table = self.query_one('#meetings-table')
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
         ROWS = self.app.schedule.table_rows
+        table.clear(columns=True)
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])
-
+ 
     def key_c(self):
         table = self.query_one(DataTable)
         table.cursor_type = next(cursors)
@@ -173,7 +185,14 @@ class MeetingsApp(App):
     
     def action_add_meeting(self) -> None:
         """an action to add a meeting """
-        self.push_screen(UpdateScreen())
+        self.push_screen(UpdateScreen(), self.check_input)
+    
+    def check_input(self, result: Meeting) ->None:
+        """
+        Callback to get return value (a meeting) from UpdateScreen Widget
+        """
+        self.schedule.add_meeting(result)
+
 
 if __name__ == "__main__":
     app = MeetingsApp()
