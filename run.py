@@ -20,8 +20,8 @@ This Terminal Application helps you organize your upcoming meetings. (Press 'L' 
 
 cursors = cycle(["column", "row", "cell"])
 
-class InputName(ModalScreen[Meeting]):
-    """Screen with Input Dialog to enter a Name"""
+class InputMeeting(ModalScreen[Meeting]):
+    """Screen with Input Dialog to enter details of a new Meeting"""
 
     def compose(self) -> ComposeResult:
         yield Vertical(
@@ -99,7 +99,7 @@ class UpdateScreen(ModalScreen):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "input-data":
-            self.app.push_screen(InputName(), self.check_input)
+            self.app.push_screen(InputMeeting(), self.check_input)
         else:
             self.app.pop_screen()
 
