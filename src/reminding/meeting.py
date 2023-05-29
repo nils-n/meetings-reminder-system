@@ -101,8 +101,9 @@ class Meeting :
         """
         adds a new participant to the current meeting
         """
-        self.participants.append( new_participant)
-        self.num_participants += 1
+        if new_participant not in self.participants:
+            self.participants.append( new_participant)
+            self.num_participants += 1
  
     def convert_participants_to_table(self):
         """
