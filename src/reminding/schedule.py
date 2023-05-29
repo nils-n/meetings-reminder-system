@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 from typing import Union
 from datetime import datetime
-from reminding.meeting import Meeting
+from reminding.meeting import Meeting, Participant
 
 @dataclass
 class Schedule ():
@@ -28,8 +28,15 @@ class Schedule ():
         # so that i don't have to manually type in a meeting / connect to google every time i test the UI 
         self.meetings = []
         mock_datetime =  datetime.strptime( "01/01/71 00:00", "%d/%m/%y %H:%M")
-        self.add_meeting(  Meeting( 1, "Mock Meeting 1 ",mock_datetime, True, True, [], "" ) )
-        self.add_meeting(  Meeting( 2, "Mock Meeting 2 ",mock_datetime, True, True, [], "" ) )
+        mock_participants = []
+        mock_participants.append(  Participant( "Mock Participant 1", "mockemail-1@fakemail.com", 1, True) )
+        mock_participants.append(  Participant( "Mock Participant 2", "mockemail-2@fakemail.com", 2, True) )
+        mock_participants.append(  Participant( "Mock Participant 3", "mockemail-3@fakemail.com", 3, True) )
+        mock_participants.append(  Participant( "Mock Participant 4", "mockemail-4@fakemail.com", 4, True) )
+        self.add_meeting(  Meeting( 1, "Mock Meeting 1 ",mock_datetime, True, True, mock_participants, "" ) )
+        self.add_meeting(  Meeting( 2, "Mock Meeting 2 ",mock_datetime, True, True, mock_participants, "" ) )
+
+        
     
     def add_meeting(self, new_meeting):
         """
