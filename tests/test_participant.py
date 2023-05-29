@@ -153,3 +153,26 @@ def test_wrong_name_raises_type_error( new_name, expectation, fixture_name, requ
 
     with expectation:
         model.update_name( new_name)
+
+
+@pytest.mark.parametrize(
+        "participant_name, participant_email, fixture_name",
+        [
+            ( "Hans Gruber", "hansgruber@nakatomiplaza.com", "init_participant"  ),
+            ( "Karl", "justkarl@nakatomiplaza.com", "init_participant"  ),
+            ( "John McClane", "johnmcclane@nakatomiplaza.com", "init_participant"  )
+        ]
+)
+def test_converts_details_correctly_into_table_row(participant_name, participant_email,\
+                                                    fixture_name, request):
+    """
+    test if details of a participant are converted correctly into a table row format 
+    """
+    model = request.getfixturevalue( fixture_name)
+    model.update_name(participant_name)
+    model.update_email(participant_email)
+
+    model.convert_to_table_row()
+
+    assert model.table_row[0][1] == model.name
+    assert model.table_row[0][2] == model.email

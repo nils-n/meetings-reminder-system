@@ -1,7 +1,8 @@
 """Class to describe a participant of a meeting"""
-from dataclasses import dataclass, astuple, asdict
+from dataclasses import dataclass, astuple, asdict, field
 from email_validator import validate_email
 from random import randint
+from typing import Union
 
 @dataclass
 class Participant :
@@ -10,6 +11,7 @@ class Participant :
     email: str
     id_number: int
     has_valid_email: bool
+    table_row: Union[str, int] = field( default_factory=list)
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
@@ -47,6 +49,15 @@ class Participant :
         self.validate_meeting_id(new_id)
         self.id_number =  new_id
 
+    def convert_to_table_row(self):
+        """
+        convert the participant details into a table format that the TUI can display
+        currently a table row is defined as : 
+        ID -  Name - Email - has confirmed - has been notified
+        """
+        self.table_row = []
+        #self.table_row.append( ("ID", "Name", "Email", "confirmed", "notified" ))
+        self.table_row.append( ( self.id_number, self.name, self.email, True, True))
 
 def main() -> None :
     """test if a participant can be created"""

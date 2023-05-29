@@ -158,13 +158,14 @@ class ModifyMeetingScreen( ModalScreen[int]):
     """Screen with a dialog to update details of a selected meeting"""
 
     def __init__(self,  meeting_id: int) -> None:
-        self.meeting_to_modify = meeting_id
+        self.target_meeting_id = meeting_id
+        self.meeting_to_modify =  self.app.schedule.get_meeting_by_id( int(meeting_id))
         super().__init__()
 
     def compose(self) -> ComposeResult: 
         yield Label("What you want to modify of this meeting?", id="question")
         yield DataTable(id='update-meeting')
-        yield DataTable(id='update-meeting-participants')
+        yield DataTable(id='update-participants')
         yield Grid(
             Button("Name", variant="default", id="update-name",  classes="column"),
             Button("Time", variant="default", id="update-time",  classes="column"),   
@@ -173,20 +174,32 @@ class ModifyMeetingScreen( ModalScreen[int]):
             classes="update-dialog"
         )
     
-    def update_table(self, table_id) -> None:
+    def update_meeting_table(self, table_id) -> None:
         """ updates the displayed table in the TUI with the current values of the Meeting"""
         table = self.query_one(table_id)
         table.clear(columns=True)
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
-        target_meeting = self.app.schedule.get_meeting_by_id( self.meeting_to_modify)
-        ROWS = target_meeting.table_row
+        ROWS = self.meeting_to_modify.table_row
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])
 
+    def update_participants_table(self, table_id) -> None:
+        """ updates the displayed table in the TUI with the current values of the Meeting"""
+        table = self.query_one(table_id)
+        table.clear(columns=True)
+        table.cursor_type = next(cursors)
+        table.zebra_stripes = True
+        return
+        participants = self.meeting_to_modify.participants 
+        ROWS = participants.table_row
+        table.add_columns(*ROWS[0])
+        table.add_rows(ROWS[1:])
+
+
     def on_mount(self) -> None:
-        self.update_table( '#update-meeting')
-        self.update_table( '#update-participants')
+        self.update_meeting_table( '#update-meeting')
+        self.update_participants_table( '#update-participants')
  
     def on_button_pressed(self, event: Button.Pressed) -> None:
         self.app.pop_screen()
