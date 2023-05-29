@@ -190,8 +190,7 @@ class ModifyMeetingScreen( ModalScreen[int]):
         table.clear(columns=True)
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
-        return
-        participants = self.meeting_to_modify.participants 
+        participants = self.meeting_to_modify.participants
         ROWS = participants.table_row
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])

@@ -18,6 +18,7 @@ class Meeting :
     meeting_notes : str = ""
     table_row: Union[str, int] = field( default_factory=list)
     num_participants : int = 0
+    participant_table_rows:  list[Union[str, int]] = field( default_factory=list)
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
@@ -102,3 +103,14 @@ class Meeting :
         """
         self.participants.append( new_participant)
         self.num_participants += 1
+    
+    def convert_participants_to_table(self):
+        """
+        convert the participant list into a table format that the TUI can display 
+        """
+        self.participant_table_rows = []
+        self.participant_table_rows.append( ("ID", "Name", "Email", "confirmed", "notified" ))
+        for participant in self.participants:
+            participant.convert_to_table_row()
+            for cell in participant.table_row:
+                self.participant_table_rows.append(cell)
