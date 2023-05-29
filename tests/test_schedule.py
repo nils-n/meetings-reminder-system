@@ -11,6 +11,7 @@ A ssert
 import pytest
 from reminding.meeting import Meeting
 from reminding.schedule import Schedule
+from reminding.participant import Participant
 from datetime import datetime
 from contextlib import nullcontext as does_not_raise
 
@@ -137,3 +138,31 @@ def test_correct_input_of_meeting_id_returns_correct_meeting( target_id, expecta
 
     assert model.name == expectation
        
+
+@pytest.mark.parametrize(
+    "potential_participant, expectation", 
+    [
+        ( Participant( "Mock Participant 0", "mockemail-0@fakemail.com", 1, True), \
+                    pytest.raises(ValueError)),
+        ( Participant( "Mock Participant 1", "mockemail-1@fakemail.com", 1, True), does_not_raise),
+        ( Participant( "Mock Participant 2", "mockemail-2@fakemail.com", 1, True), does_not_raise),
+        ( Participant( "Hans Gruber", "mockemail-2@fakemail.com", 1, True),\
+                    pytest.raises(ValueError)),
+        ( Participant( "John McClane", "johnmcclane@nakatomiplaza.com", 1, True), \
+                    pytest.raises(ValueError)),
+        ( Participant( "Karl", "mockemail-2@fakemail.com", 1, True), pytest.raises(ValueError)),
+        ( Participant( "Unfriendly Bot", "givemeallyourmoney@fakemail.com", 1, True),\
+                    pytest.raises(ValueError)),
+    ]
+)
+def test_that_only_allowed_participants_will_be_added_to_the_datatable( potential_participant, expectation ):
+    """
+    Test that participants which are not on the list of allowed participants raise an error 
+    """  
+    random_name = "Random Schedule"
+    random_datetime =  datetime.strptime( "01/01/71 00:00", "%d/%m/%y %H:%M")
+
+    model = Schedule(random_name, [], [])
+    
+    with expectation:
+        model.allow_participant(potential_participant )
