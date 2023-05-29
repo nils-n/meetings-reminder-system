@@ -103,7 +103,7 @@ class Meeting :
         """
         self.participants.append( new_participant)
         self.num_participants += 1
-    
+ 
     def convert_participants_to_table(self):
         """
         convert the participant list into a table format that the TUI can display 
@@ -114,10 +114,18 @@ class Meeting :
             participant.convert_to_table_row()
             for cell in participant.table_row:
                 self.participant_table_rows.append(cell)
-
+ 
     def remove_participant_by_id(self, target_id):
         """
         removes a participant from this meeting, selected by its ID
+        raises ValueError if the targeted participant was not in the meeting
         """
+        print(self.num_participants)
         self.participants = [ participant for participant in self.participants \
-                             if participant.id_number != target_id ]
+                             if participant.id_number != int(target_id) ]
+        print(self.participants)
+        if self.num_participants == len(self.participants):
+            raise ValueError(f'Error! Could not find participant \
+                    with this ID (participant ID : {target_id}) \
+                    ( num_participants : {self.num_participants} == len(Participants) : {len(self.participants)})')
+        self.num_participants = len(self.participants)

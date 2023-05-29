@@ -18,7 +18,8 @@ class Participant :
         validate_email( self.email )
         self.validate_name( self.name)
         self.validate_meeting_id(self.id_number)
-        self.id_number = randint(0,1000)
+        if not self.id_number:
+            self.id_number = randint(0,1000)
 
     def validate_name(self, name):
         """validate that name is a string"""

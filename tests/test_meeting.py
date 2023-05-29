@@ -10,7 +10,7 @@ A ssert
 """
 from datetime import datetime
 from contextlib import nullcontext as does_not_raise
-from reminding.meeting import Meeting
+from reminding.meeting import Meeting, Participant
 import pytest
 
 def test_can_create_new_meeting( create_random_participants) -> None:
@@ -200,22 +200,15 @@ def test_user_input_for_meeting_time_can_be_converted_to_datetime( fixture_name,
     with expectation:
         model.validate_meeting_time_string( input_time_str)
 
-
-def test_add_participants_to_meeting( create_random_participants ) -> None:
+def test_add_participants_to_meeting( create_random_meeting ) -> None:
     """Test if participants can be added to an existing meeting """
-    participants = create_random_participants
-    random_name = "House Party"
-    random_meeting_id = 5
-    random_time =  datetime.now()
-    random_notes =  "This is another random note"
-    model = Meeting( random_meeting_id, random_name, random_time, True, True, \
-        [], random_notes)
-
-    for participant in participants:
-        model.add_participant( participant )
-
-    assert len(model.participants) == model.num_participants
-    for i, participant in enumerate(participants):
+    model  = create_random_meeting
+    num_added_participants = 10
+    for i in range(num_added_participants):
+        model.add_participant( Participant( f"Mock Participant {i}", f"mockemail-{i}@fakemail.com", i, True, [] ) )
+    
+    assert model.num_participants == len(model.participants)
+    for i, participant in enumerate(model.participants):
         assert participant.name == model.participants[i].name
 
 def test_participant_table_rows_match_values_of_corresponding_participants( \
@@ -250,3 +243,23 @@ def test_can_remove_participant_from_a_meeting_via_its_id(\
 
     for participant in model.participants:
         assert participant.id_number != target_participant_id
+
+
+@pytest.mark.parametrize(
+        "fixture_name, input_id, expectation", 
+        [
+          ("create_random_meeting", 1, does_not_raise()) ,
+          ("create_random_meeting", 2, does_not_raise())  ,
+          ("create_random_meeting", 500000, pytest.raises(ValueError))  
+        ]
+)
+def test_removing_participant_with_wrong_id_raises_error(\
+                 fixture_name, input_id, expectation, request) -> None:
+    """
+    Test if trying to remove a participant from a meeting that it is not part of 
+    raises the correct exception (and warning to the user)
+    """
+    model = request.getfixturevalue(fixture_name)
+
+    with expectation:
+         model.remove_participant_by_id(input_id)

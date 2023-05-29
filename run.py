@@ -146,7 +146,7 @@ class ModifyQuestionScreen(ModalScreen[str]):
         yield Label(self.question_message, id="which-meeting")
         yield Grid(
                 Input( "1", placeholder="Input here",id="input-which-meeting", classes="columns"),      
-                Button("Modify Meeting", variant="primary", id="which-meeting"),
+                Button("Confirm", variant="primary", id="which-meeting"),
                 Button("Go Back", variant="error", id="never-mind"),
                 classes="dialog"
             )
@@ -212,7 +212,7 @@ class ModifyMeetingScreen( ModalScreen[int]):
             self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Name for the Meeting:   '), self.check_update_meeting_name )
         elif event.button.id == "update-time":
             self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Time for the Meeting: (Format DD/MM/YY HH:MM)   '), self.check_update_meeting_time )
-        elif event.button.id == "remove-participant":  
+        elif event.button.id == "remove-participant": 
             self.app.push_screen( ModifyQuestionScreen('Select Which Participant to Remove (Use Participant ID)   '), self.check_remove_participant_from_meeting )
         else:
             self.app.pop_screen()
@@ -250,9 +250,9 @@ class ModifyMeetingScreen( ModalScreen[int]):
                 self.meeting_to_modify.validate_id(int(result))
                 self.meeting_to_modify.remove_participant_by_id( int(result) )
                 self.meeting_to_modify.convert_to_table_row()
-                self.update_meeting_table('#update-meeting')
+                self.update_participants_table( '#update-participants')
             except (ValueError, TypeError):
-                self.app.push_screen( WarningScreen( f"Participant with that ID does not exists \n - Input   : {result} \n - Expected: Integer " ) )
+                self.app.push_screen( WarningScreen( f"Participant with that ID does not exist \n - Input was  : {result} " ) )
 
 
 

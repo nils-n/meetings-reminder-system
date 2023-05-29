@@ -33,7 +33,7 @@ def create_random_participants( ) -> List[Participant]:
     return participants
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def create_random_meetings( ) -> List[Meeting]:
     """initializes and returns a list of random meeting with random values"""
     random_meetings = []
@@ -57,7 +57,7 @@ def create_random_meetings( ) -> List[Meeting]:
     return random_meetings
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def create_random_meeting() -> Meeting:
     """initialize a random meeting with a few random participants """
     random_names = [ "Hans Gruber", "John McClane" , "Tony", "Karl" ]
@@ -73,5 +73,5 @@ def create_random_meeting() -> Meeting:
         [], random_notes)
     for participant in random_participants:
         random_meeting.add_participant( participant )
-        
+
     return random_meeting
