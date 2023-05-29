@@ -61,14 +61,13 @@ class Schedule ():
         self.allowed_participants.append(  Participant( "Mock Participant 3", "mockemail-3@fakemail.com", 3, True) )
         self.allowed_participants.append(  Participant( "Mock Participant 4", "mockemail-4@fakemail.com", 4, True) )
 
-    def allow_participant(self, potential_participant):
+    def validate_participant(self, potential_participant):
         """
         checks whether a supplied participant is in the list of allowed participants
         more of a security check to prevent sending emails to arbitrary locations
         """
-
-        pass
-
+        if potential_participant not in self.allowed_participants:
+            raise ValueError('This is not an allowed participant!')
 
 
     def add_meeting(self, new_meeting):
