@@ -93,3 +93,13 @@ ModalScreen {
 DataTable {
     padding-top: 1;
 }
+
+VerticalScroll{
+    align: left middle;
+    width: 70;
+    padding: 0 1;
+}
+
+Checkbox {
+    width: 70
+}

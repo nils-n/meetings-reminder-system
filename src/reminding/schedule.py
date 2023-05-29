@@ -69,7 +69,6 @@ class Schedule ():
         if potential_participant not in self.allowed_participants:
             raise ValueError('This is not an allowed participant!')
 
-
     def add_meeting(self, new_meeting):
         """
         function to add a new meeting to the current schedule 

@@ -2,10 +2,10 @@
 from textual import events
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
-from textual.widgets import Placeholder, ListView, ListItem
+from textual.widgets import Placeholder,  Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen 
-from textual.containers import Grid, Horizontal, Vertical
+from textual.containers import Grid, VerticalScroll, Vertical
 from reminding.schedule import Schedule, Meeting, Participant
 from itertools import cycle
 from datetime import datetime
@@ -167,7 +167,6 @@ class ModifyMeetingScreen( ModalScreen[int]):
 
     def compose(self) -> ComposeResult: 
         yield Label("What you want to modify of this meeting?", id="question")
-        #yield Placeholder( id="question")
         yield DataTable(id='update-meeting')
         yield DataTable(id='update-participants')
         yield Grid(
@@ -273,15 +272,19 @@ class AddParticipantScreen( ModalScreen[Participant]):
     """
     def compose(self) -> ComposeResult:
         yield Label("Add a Participant from this list to be added to the Meeting:", id="which-participant-to-add")
+        with VerticalScroll():
+            for n in range(len(self.app.schedule.allowed_participants)):
+                yield Checkbox(f"Test {n} :sweat:")
+           
         yield Grid(
-            ListView(
-                ListItem(Label("One")),
-                ListItem(Label("Two")),
-                ListItem(Label("Three")),
-                ListItem(Label("Four")),
-                ListItem(Label("Five")),
-                ListItem(Label("Six")),
-            ),
+            # ListView(
+            #         ListItem(Label("One")),
+            #         ListItem(Label("Two")),
+            #         ListItem(Label("Three")),
+            #         ListItem(Label("Four")),
+            #         ListItem(Label("Five")),
+            #         ListItem(Label("Six")),
+            # ),
                 Button("Confirm", variant="primary", id="aye-participant"),
                 Button("Go Back", variant="error", id="nay-participant"),
                 classes="add-dialog"
