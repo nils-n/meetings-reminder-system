@@ -14,8 +14,10 @@ class Schedule ():
     name: str
     meetings: list[Meeting] = field( default_factory=list)
     table_rows:  list[Union[str, int]] = field( default_factory=list)
+    allowed_participants: list[Participant] = field( default_factory=list)
 
     def __post_init__(self):
+        self.load_allowed_participants()
         self.load_meetings()
         self.convert_meetings_to_table()
 
@@ -29,15 +31,36 @@ class Schedule ():
         self.meetings = []
         mock_datetime =  datetime.strptime( "01/01/71 00:00", "%d/%m/%y %H:%M")
         mock_participants = []
-        mock_participants.append(  Participant( "Mock Participant 1", "mockemail-1@fakemail.com", 1, True) )
-        mock_participants.append(  Participant( "Mock Participant 2", "mockemail-2@fakemail.com", 2, True) )
-        mock_participants.append(  Participant( "Mock Participant 3", "mockemail-3@fakemail.com", 3, True) )
-        mock_participants.append(  Participant( "Mock Participant 4", "mockemail-4@fakemail.com", 4, True) )
+        mock_participants.append( self.allowed_participants[0] )
+        mock_participants.append( self.allowed_participants[1] )
+        mock_participants.append( self.allowed_participants[2] )
+        mock_participants.append( self.allowed_participants[3] )
+    
         self.add_meeting(  Meeting( 1, "Mock Meeting 1 ",mock_datetime, True, True, mock_participants, "" ) )
         self.add_meeting(  Meeting( 2, "Mock Meeting 2 ",mock_datetime, True, True, mock_participants, "" ) )
 
+    def load_allowed_participants(self):
+        """
+        loads all available participants that can be added to a meeting
+        eventually this be a google sheet - for now just mock the pool of participants. 
+
+        Background: I do not want this application to send Emails to arbitrary locations 
+        which is potentially a security risk. So, instead, only participants in
+        a dedicated Google sheet can be selected, and the Email addresses cannot be modified.
+        This could be done with a separete web application, or the user can change it manually. 
         
-    
+        Note that this is not an unreasonable assumption: The type of meetings where it makes sense 
+        to add some automation are anyway repetitive meetings with the same participants. 
+
+        It also makes sense to load this on the schedule level - it only needs to load once to 
+        avoid unnecessary traffic. 
+        """
+        self.allowed_participants = []
+        self.allowed_participants.append(  Participant( "Mock Participant 1", "mockemail-1@fakemail.com", 1, True) )
+        self.allowed_participants.append(  Participant( "Mock Participant 2", "mockemail-2@fakemail.com", 2, True) )
+        self.allowed_participants.append(  Participant( "Mock Participant 3", "mockemail-3@fakemail.com", 3, True) )
+        self.allowed_participants.append(  Participant( "Mock Participant 4", "mockemail-4@fakemail.com", 4, True) )
+
     def add_meeting(self, new_meeting):
         """
         function to add a new meeting to the current schedule 
