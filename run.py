@@ -253,48 +253,45 @@ class ModifyMeetingScreen( ModalScreen[int]):
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Participant with that ID does not exist \n - Input was  : {result} " ) )
 
-    def check_add_participant_to_meeting(self, result: Participant):
+    def check_add_participant_to_meeting(self, result: list[int]):
         """
         Callback to enter a participant to a meeting
         """
         if result is not False :
             try:
-                self.meeting_to_modify.add_participant_to_meeting( result ) 
+                new_participants = self.app.schedule.get_allowed_participants_by_id( result)
+                for participant in new_participants:
+                    self.meeting_to_modify.add_participant( participant )
                 self.meeting_to_modify.convert_to_table_row()
                 self.update_participants_table( '#update-participants')
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Could not add Participant to meeting\
                                                      \n - Participant : {result.__repr__} " ) )
 
-class AddParticipantScreen( ModalScreen[Participant]):
+class AddParticipantScreen( ModalScreen[list[int]]):
     """
     Screen with Dialog to select a Participant to be added to a meeting
     """
     def compose(self) -> ComposeResult:
         yield Label("Add a Participant from this list to be added to the Meeting:", id="which-participant-to-add")
         with VerticalScroll():
-            for n in range(len(self.app.schedule.allowed_participants)):
-                yield Checkbox(f"Test {n} :sweat:")
-           
+            for participant in self.app.schedule.allowed_participants:
+                yield Checkbox(label=f"{participant.name} :sweat:", name=f'{participant.id_number}')
+      
         yield Grid(
-            # ListView(
-            #         ListItem(Label("One")),
-            #         ListItem(Label("Two")),
-            #         ListItem(Label("Three")),
-            #         ListItem(Label("Four")),
-            #         ListItem(Label("Five")),
-            #         ListItem(Label("Six")),
-            # ),
                 Button("Confirm", variant="primary", id="aye-participant"),
                 Button("Go Back", variant="error", id="nay-participant"),
                 classes="add-dialog"
             )
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        """return to previous input screen """
-        if event.button.id == "which-meeting":
-            target_meeting_id = self.query_one("#input-which-meeting").value
-            self.dismiss(target_meeting_id)
+        """return a list of IDs with selected participants to previous input screen """
+        if event.button.id == "aye-participant":
+            selected = []
+            for checkbox in self.query("Checkbox"):
+                if checkbox.value:
+                    selected.append(int(checkbox.name))
+            self.dismiss(selected)
         else:
             self.dismiss(False)
 

@@ -69,6 +69,12 @@ class Schedule ():
         if potential_participant not in self.allowed_participants:
             raise ValueError('This is not an allowed participant!')
 
+    def get_allowed_participants_by_id(self, id_numbers):
+        """
+        returns a list of participants that match one of the id numbers 
+        """
+        return [ participant for participant in self.allowed_participants if participant.id_number in id_numbers ]
+
     def add_meeting(self, new_meeting):
         """
         function to add a new meeting to the current schedule 
