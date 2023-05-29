@@ -2,10 +2,14 @@
     margin: 0 4;
 }
 
-UpdateScreen {
+NewMeetingScreen {
    align: center middle;
 }
 
+UpdateMeetingScreen {
+    align: center middle;
+ }
+ 
 WarningScreen {
     align: center middle;
  }
@@ -13,11 +17,28 @@ WarningScreen {
 .column {
     height: 5;
     width: 1fr;
+    content-align: center middle;
+}
+
+.column-small {
+    height: 5;
+    width: 1fr;
 }
 
 .dialog {
     content-align: center middle;
     grid-size: 3 1;
+    grid-gutter: 1 1;
+    padding: 0 1;
+    width: 70;
+    height: 5;
+    border: thick $background 80%;
+    background: $surface;
+}
+
+.update-dialog {
+    content-align: center middle;
+    grid-size: 4 1;
     grid-gutter: 1 1;
     padding: 0 1;
     width: 70;

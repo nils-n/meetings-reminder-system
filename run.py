@@ -1,4 +1,5 @@
 """This is the entry point for the application"""
+from textual import events
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
 from textual.widgets import Placeholder
@@ -88,23 +89,14 @@ class NewMeetingScreen(ModalScreen[Meeting]):
     new_meeting = var ( Meeting( 0,  "New Meeting", datetime.now() , True, False, [], "") )
 
     def compose(self) -> ComposeResult:
-            yield Label("Do you want to add this meeting?", id="question")
-            yield DataTable(id='new-meeting')
-            yield Grid(
-                Button("No", variant="error", id="no",  classes="column"),
-                Button("Yes", variant="success", id="yes",  classes="column"),   
-                Button("Reset", variant="primary", id="input-data",  classes="column"),
-                classes="dialog"
-            )
-            # Button("Update", variant="primary", id="input-data"),
-            # yield Placeholder(id="question")
-            # yield Placeholder(id="new-meeting")
-            # yield Grid(
-            #     Placeholder(id="no", classes="column"),
-            #     Placeholder(id="yes", classes="column"),
-            #     Placeholder(id="input-data", classes="column"),
-            #     id='dialog'
-            # )
+        yield Label("Do you want to add this meeting?", id="question")
+        yield DataTable(id='new-meeting')
+        yield Grid(
+            Button("No", variant="error", id="no",  classes="column"),
+            Button("Yes", variant="success", id="yes",  classes="column"),   
+            Button("Reset", variant="primary", id="input-data",  classes="column"),
+            classes="dialog"
+        )
 
     def update_table(self) -> None:
         """ updates the displayed table in the TUI with the current values of the Meeting"""
@@ -148,7 +140,7 @@ class ModifyQuestionScreen(ModalScreen[int]):
     def compose(self) -> ComposeResult:
         yield Label("Which meeting do you want to modify? (Use Meeting ID)", id="which-meeting")
         yield Grid(
-                Input( "0", placeholder="Meeting ID",id="input-which-meeting", classes="columns"),      
+                Input( "1", placeholder="Meeting ID",id="input-which-meeting", classes="columns"),      
                 Button("Modify Meeting", variant="primary", id="which-meeting"),
                 Button("Go Back", variant="error", id="never-mind"),
                 classes="dialog"
@@ -161,6 +153,46 @@ class ModifyQuestionScreen(ModalScreen[int]):
             self.dismiss(target_meeting_id)
         else:
             self.dismiss(False)
+
+class ModifyMeetingScreen( ModalScreen[int]):
+    """Screen with a dialog to update details of a selected meeting"""
+
+    def __init__(self,  meeting_id: int) -> None:
+        self.meeting_to_modify = meeting_id
+        super().__init__()
+
+    def compose(self) -> ComposeResult: 
+        yield Label("What you want to modify of this meeting?", id="question")
+        yield DataTable(id='update-meeting')
+        yield DataTable(id='update-meeting-participants')
+        yield Grid(
+            Button("Name", variant="default", id="update-name",  classes="column"),
+            Button("Time", variant="default", id="update-time",  classes="column"),   
+            Button("Participants", variant="default", id="add-participant",  classes="column"),
+            Button("Go Back", variant="error", id="not-update-now",  classes="column"),
+            classes="update-dialog"
+        )
+    
+    def update_table(self, table_id) -> None:
+        """ updates the displayed table in the TUI with the current values of the Meeting"""
+        table = self.query_one(table_id)
+        table.clear(columns=True)
+        table.cursor_type = next(cursors)
+        table.zebra_stripes = True
+        target_meeting = self.app.schedule.get_meeting_by_id( self.meeting_to_modify)
+        ROWS = target_meeting.table_row
+        table.add_columns(*ROWS[0])
+        table.add_rows(ROWS[1:])
+
+    def on_mount(self) -> None:
+        self.update_table( '#update-meeting')
+        self.update_table( '#update-participants')
+ 
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        self.app.pop_screen()
+
+class ModifyItemScreen( ModalScreen[Meeting]):
+    """Dialog to update a particular value of a meeting"""
 
 class MeetingsApp(App):
     """
@@ -228,8 +260,17 @@ class MeetingsApp(App):
         if result is not False :
             try:
                 self.schedule.validate_meeting_id( result)
+                self.push_screen( ModifyMeetingScreen(result), self.check_meeting_update)
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Meeting ID does not exist ( ID : {result} )" ) )
+
+    def check_meeting_update(self, result: Meeting) -> None:
+        """
+        Callback with modified meeting
+        If meeting was updated, then update schedule and datatable
+        To be implmemented 
+        """
+        pass 
 
 if __name__ == "__main__":
     app = MeetingsApp()

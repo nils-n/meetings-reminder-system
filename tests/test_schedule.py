@@ -83,3 +83,55 @@ def test_raises_error_when_meeting_id_does_not_exist( meeting_id_input, expectat
 
     with expectation: 
         model.validate_meeting_id( meeting_id_input) 
+
+@pytest.mark.parametrize(
+    "target_id, expectation", 
+    [
+        (1, does_not_raise()),
+        (2, does_not_raise()),
+        (3, pytest.raises(ValueError)),
+        (444, pytest.raises(ValueError)),
+        ("1", does_not_raise()),
+        ("You shall not pass", pytest.raises(ValueError)),
+        (None, pytest.raises(TypeError)),
+    ]
+)
+def test_incorrect_input_of_meeting_id_raises_error( target_id, expectation) -> None:
+    """
+    Test if function raises correct error when supplied with
+    invalid meeting ID 
+    """
+
+    random_name = "Random Schedule"
+    random_datetime =  datetime.strptime( "01/01/71 00:00", "%d/%m/%y %H:%M")
+
+    model = Schedule(random_name, [], [])
+    model.add_meeting(  Meeting( 1, "Mock Meeting 1 ",random_datetime, True, True, [], "" ) )
+    model.add_meeting(  Meeting( 2, "Mock Meeting 2 ",random_datetime, True, True, [], "" ) )
+                      
+    with expectation: 
+        model.get_meeting_by_id( target_id) 
+
+@pytest.mark.parametrize(
+    "target_id, expectation", 
+    [
+        (1, "Mock Meeting 1"),
+        (2, "Mock Meeting 2"),
+    ]
+)
+def test_correct_input_of_meeting_id_returns_correct_meeting( target_id, expectation) -> None: 
+    """
+    Test if meeting is returns correct meeting after
+    asking the schedule for it via its ID 
+    """
+
+    random_name = "Random Schedule"
+    random_datetime =  datetime.strptime( "01/01/71 00:00", "%d/%m/%y %H:%M")
+    random_schedule = Schedule(random_name, [], [])
+    random_schedule.add_meeting(  Meeting( 1, "Mock Meeting 1 ",random_datetime, True, True, [], "" ) )
+    random_schedule.add_meeting(  Meeting( 2, "Mock Meeting 2 ",random_datetime, True, True, [], "" ) )
+    
+    model =  random_schedule.get_meeting_by_id( target_id ) 
+    
+    assert model.name == expectation
+       

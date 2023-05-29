@@ -61,3 +61,11 @@ class Schedule ():
         if target_id not in valid_ids:
             raise ValueError(f'The meeting ID should match an existing meeting \
                              ( {target_id} does not match any meeting )')
+        
+    def get_meeting_by_id(self, target_id) -> int:
+        """
+        returns a meeting of a schedule by asking of its ID
+        """
+        self.validate_meeting_id( target_id)
+
+        return 0
