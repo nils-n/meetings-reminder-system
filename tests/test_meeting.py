@@ -245,3 +245,10 @@ def test_participant_table_rows_match_values_of_corresponding_participants( \
         assert model.participant_table_rows[i+1][2] == participant.email
 
 
+def test_can_remove_participant_from_a_meeting_via_its_id(\
+                                        create_random_participants) -> None:
+    """
+    Test if participant can be removed from a meeting   
+    """
+
+    assert 1 == 0

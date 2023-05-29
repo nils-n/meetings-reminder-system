@@ -18,7 +18,7 @@ GREETING_MARKDOWN = """\
 # Meeting Reminders
 
 This Terminal Application helps you organize your upcoming meetings. 
-- Press 'L' to load your meetings
+- Press 'L' to load your meetings from Google Sheets (not implemented currently)
 - Press 'A' to add a meeting
 - Press 'M' to modify a meeting (including to invite and remove participants)
  
@@ -175,7 +175,8 @@ class ModifyMeetingScreen( ModalScreen[int]):
         yield Grid(
             Button("Name", variant="default", id="update-name",  classes="column"),
             Button("Time", variant="default", id="update-time",  classes="column"),   
-            Button("Participants", variant="default", id="add-participant",  classes="column"),
+            Button("Add Participant", variant="default", id="add-participant",  classes="column"),
+            Button("Remove Participant", variant="default", id="remove-participant",  classes="column"),
             Button("Save Changes", variant="primary", id="update-now",  classes="column"),
             Button("Go Back", variant="error", id="not-update-now",  classes="column"),
             classes="update-dialog"
@@ -211,6 +212,8 @@ class ModifyMeetingScreen( ModalScreen[int]):
             self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Name for the Meeting:   '), self.check_update_meeting_name )
         elif event.button.id == "update-time":
             self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Time for the Meeting: (Format DD/MM/YY HH:MM)   '), self.check_update_meeting_time )
+        elif event.button.id == "remove-participant":  
+            self.app.push_screen( ModifyQuestionScreen('Select Which Participant to Remove (Use Participant ID)   '), self.check_remove_participant_from_meeting )
         else:
             self.app.pop_screen()
 
@@ -237,6 +240,22 @@ class ModifyMeetingScreen( ModalScreen[int]):
                 self.update_meeting_table('#update-meeting')
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Time is not in the right format \n - Input   : {result} \n - Expected: DD/MM/YY HH:MM " ) )
+
+    def check_remove_participant_from_meeting(self, result: str):
+        """
+        Callback to remove a participant from a meeting
+        """
+        if result is not False :
+            try:
+                self.meeting_to_modify.validate_id(int(result))
+                self.meeting_to_modify.remove_participant_by_id( int(result) )
+                self.meeting_to_modify.convert_to_table_row()
+                self.update_meeting_table('#update-meeting')
+            except (ValueError, TypeError):
+                self.app.push_screen( WarningScreen( f"Participant with that ID does not exists \n - Input   : {result} \n - Expected: Integer " ) )
+
+
+
 
 class ModifyItemScreen( ModalScreen[Meeting]):
     """Dialog to update a particular value of a meeting"""

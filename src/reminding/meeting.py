@@ -114,3 +114,11 @@ class Meeting :
             participant.convert_to_table_row()
             for cell in participant.table_row:
                 self.participant_table_rows.append(cell)
+
+    def remove_participant_by_id(self, target_id):
+        """
+        removes a participant from this meeting, selected by its ID
+        """ 
+
+        pass
+    
