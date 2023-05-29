@@ -9,7 +9,7 @@ from textual.containers import Grid, Horizontal, Vertical
 from reminding.schedule import Schedule, Meeting
 from itertools import cycle
 from datetime import datetime
-from dataclasses import replace
+from dataclasses import dataclass
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -133,14 +133,18 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         else: 
             self.app.pop_screen()
 
-class ModifyQuestionScreen(ModalScreen[int]):
+class ModifyQuestionScreen(ModalScreen[str]):
     """ 
     Screen to question the user which meeting he or she wants to modify
     """
+    def __init__(self,  message: str="Which meeting do you want to modify? (Use Meeting ID)") -> None:
+        self.question_message = message
+        super().__init__()
+
     def compose(self) -> ComposeResult:
-        yield Label("Which meeting do you want to modify? (Use Meeting ID)", id="which-meeting")
+        yield Label(self.question_message, id="which-meeting")
         yield Grid(
-                Input( "1", placeholder="Meeting ID",id="input-which-meeting", classes="columns"),      
+                Input( "1", placeholder="Input here",id="input-which-meeting", classes="columns"),      
                 Button("Modify Meeting", variant="primary", id="which-meeting"),
                 Button("Go Back", variant="error", id="never-mind"),
                 classes="dialog"
@@ -195,13 +199,27 @@ class ModifyMeetingScreen( ModalScreen[int]):
         table.add_columns(*ROWS[0])
         table.add_rows(ROWS[1:])
 
-
     def on_mount(self) -> None:
         self.update_meeting_table( '#update-meeting')
         self.update_participants_table( '#update-participants')
- 
+
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        self.app.pop_screen()
+        if event.button.id == "update-name":
+            self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Name:   '), self.check_update_meeting_name )
+        else:
+            self.app.pop_screen()
+
+    def check_update_meeting_name(self, result: str):
+        """
+        Callback to update meeting name
+        """
+        if result is not False :
+            try:
+                self.meeting_to_modify.validate_name(result)
+                self.meeting_to_modify. convert_to_table_row()
+                self.update_meeting_table('#update-meeting')
+            except (ValueError, TypeError):
+                self.app.push_screen( WarningScreen( f"Name is not a string ( Name : {result} )" ) )
 
 class ModifyItemScreen( ModalScreen[Meeting]):
     """Dialog to update a particular value of a meeting"""
