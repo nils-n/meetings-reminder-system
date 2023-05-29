@@ -38,19 +38,20 @@ WarningScreen {
 
 .update-dialog {
     content-align: center middle;
-    grid-size: 4 1;
+    grid-size: 3 2;
     grid-gutter: 1 1;
     padding: 0 1;
     width: 70;
-    height: 5;
+    height: 9;
     border: thick $background 80%;
     background: $surface;
 }
 
 #question {
-    padding: 0 1;
-    height: 5;
+    align: center middle;
     width: 70;
+    height: 2;
+    margin-top: 1;
 }
 
 #new-meeting {
@@ -70,4 +71,13 @@ Button {
 
 #return-to-previous {
     column-span: 3
+}
+
+ModalScreen {
+        align: center middle;
+        padding: 0 1;
+}
+
+DataTable {
+    padding-top: 1;
 }

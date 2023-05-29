@@ -10,6 +10,7 @@ from reminding.schedule import Schedule, Meeting
 from itertools import cycle
 from datetime import datetime
 from dataclasses import dataclass
+from textual.containers import Center
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -168,12 +169,14 @@ class ModifyMeetingScreen( ModalScreen[int]):
 
     def compose(self) -> ComposeResult: 
         yield Label("What you want to modify of this meeting?", id="question")
+        #yield Placeholder( id="question")
         yield DataTable(id='update-meeting')
         yield DataTable(id='update-participants')
         yield Grid(
             Button("Name", variant="default", id="update-name",  classes="column"),
             Button("Time", variant="default", id="update-time",  classes="column"),   
             Button("Participants", variant="default", id="add-participant",  classes="column"),
+            Button("Save Changes", variant="primary", id="update-now",  classes="column"),
             Button("Go Back", variant="error", id="not-update-now",  classes="column"),
             classes="update-dialog"
         )
