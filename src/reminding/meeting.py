@@ -118,7 +118,6 @@ class Meeting :
     def remove_participant_by_id(self, target_id):
         """
         removes a participant from this meeting, selected by its ID
-        """ 
-
-        pass
-    
+        """
+        self.participants = [ participant for participant in self.participants \
+                             if participant.id_number != target_id ]
