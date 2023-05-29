@@ -205,7 +205,9 @@ class ModifyMeetingScreen( ModalScreen[int]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "update-name":
-            self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Name:   '), self.check_update_meeting_name )
+            self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Name for the Meeting:   '), self.check_update_meeting_name )
+        elif event.button.id == "update-time":
+            self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Time for the Meeting: (Format DD/MM/YY HH:MM)   '), self.check_update_meeting_time )
         else:
             self.app.pop_screen()
 
@@ -216,10 +218,22 @@ class ModifyMeetingScreen( ModalScreen[int]):
         if result is not False :
             try:
                 self.meeting_to_modify.validate_name(result)
-                self.meeting_to_modify. convert_to_table_row()
+                self.meeting_to_modify.convert_to_table_row()
                 self.update_meeting_table('#update-meeting')
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Name is not a string ( Name : {result} )" ) )
+
+    def check_update_meeting_time(self, result: str):
+        """
+        Callback to update meeting time
+        """
+        if result is not False :
+            try:
+                self.meeting_to_modify.validate_meeting_time_string(result)
+                self.meeting_to_modify.convert_to_table_row()
+                self.update_meeting_table('#update-meeting')
+            except (ValueError, TypeError):
+                self.app.push_screen( WarningScreen( f"Time is not in the right format \n - Input   : {result} \n - Expected: DD/MM/YY HH:MM " ) )
 
 class ModifyItemScreen( ModalScreen[Meeting]):
     """Dialog to update a particular value of a meeting"""

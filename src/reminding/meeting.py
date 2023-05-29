@@ -95,7 +95,7 @@ class Meeting :
         """
         self.table_row = []
         self.table_row.append( ("ID", "Name", "Time", "invited", "confirmed" ))
-        self.table_row.append( ( self.meeting_id, self.name, self.datetime, 0, 0))
+        self.table_row.append( ( self.meeting_id, self.name, self.datetime, self.num_participants, 0))
     
     def add_participant(self, new_participant) -> None:
         """
