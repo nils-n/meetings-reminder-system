@@ -9,6 +9,7 @@ NewMeetingScreen {
 UpdateMeetingScreen {
     align: center middle;
  }
+
  
 WarningScreen {
     align: center middle;
@@ -43,6 +44,17 @@ WarningScreen {
     padding: 0 1;
     width: 70;
     height: 9;
+    border: thick $background 80%;
+    background: $surface;
+}
+
+.add-dialog {
+    content-align: center middle;
+    grid-size: 3 2;
+    grid-gutter: 1 1;
+    padding: 0 1;
+    width: 70;
+    height: 12;
     border: thick $background 80%;
     background: $surface;
 }

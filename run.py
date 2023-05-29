@@ -2,15 +2,13 @@
 from textual import events
 from textual.app import App, ComposeResult
 from textual.widgets import  Footer, Header, Input, DataTable, Markdown, Input, Button,Label
-from textual.widgets import Placeholder
+from textual.widgets import Placeholder, ListView, ListItem
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen 
 from textual.containers import Grid, Horizontal, Vertical
-from reminding.schedule import Schedule, Meeting
+from reminding.schedule import Schedule, Meeting, Participant
 from itertools import cycle
 from datetime import datetime
-from dataclasses import dataclass
-from textual.containers import Center
 
 # terminal : 80 characters wide and 24 rows high
 
@@ -214,6 +212,8 @@ class ModifyMeetingScreen( ModalScreen[int]):
             self.app.push_screen( ModifyQuestionScreen('Enter New Meeting Time for the Meeting: (Format DD/MM/YY HH:MM)   '), self.check_update_meeting_time )
         elif event.button.id == "remove-participant": 
             self.app.push_screen( ModifyQuestionScreen('Select Which Participant to Remove (Use Participant ID)   '), self.check_remove_participant_from_meeting )
+        elif event.button.id == "add-participant": 
+            self.app.push_screen( AddParticipantScreen('Select Which Participant to Add (from the List)   '), self.check_add_participant_to_meeting )
         else:
             self.app.pop_screen()
 
@@ -254,11 +254,47 @@ class ModifyMeetingScreen( ModalScreen[int]):
             except (ValueError, TypeError):
                 self.app.push_screen( WarningScreen( f"Participant with that ID does not exist \n - Input was  : {result} " ) )
 
+    def check_add_participant_to_meeting(self, result: Participant):
+        """
+        Callback to enter a participant to a meeting
+        """
+        if result is not False :
+            try:
+                self.meeting_to_modify.add_participant_to_meeting( result ) 
+                self.meeting_to_modify.convert_to_table_row()
+                self.update_participants_table( '#update-participants')
+            except (ValueError, TypeError):
+                self.app.push_screen( WarningScreen( f"Could not add Participant to meeting\
+                                                     \n - Participant : {result.__repr__} " ) )
 
+class AddParticipantScreen( ModalScreen[Participant]):
+    """
+    Screen with Dialog to select a Participant to be added to a meeting
+    """
+    def compose(self) -> ComposeResult:
+        yield Label("Add a Participant from this list to be added to the Meeting:", id="which-participant-to-add")
+        yield Grid(
+            ListView(
+                ListItem(Label("One")),
+                ListItem(Label("Two")),
+                ListItem(Label("Three")),
+                ListItem(Label("Four")),
+                ListItem(Label("Five")),
+                ListItem(Label("Six")),
+            ),
+                Button("Confirm", variant="primary", id="aye-participant"),
+                Button("Go Back", variant="error", id="nay-participant"),
+                classes="add-dialog"
+            )
 
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """return to previous input screen """
+        if event.button.id == "which-meeting":
+            target_meeting_id = self.query_one("#input-which-meeting").value
+            self.dismiss(target_meeting_id)
+        else:
+            self.dismiss(False)
 
-class ModifyItemScreen( ModalScreen[Meeting]):
-    """Dialog to update a particular value of a meeting"""
 
 class MeetingsApp(App):
     """
