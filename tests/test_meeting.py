@@ -219,36 +219,34 @@ def test_add_participants_to_meeting( create_random_participants ) -> None:
         assert participant.name == model.participants[i].name
 
 def test_participant_table_rows_match_values_of_corresponding_participants( \
-                                        create_random_participants) -> None:
+                                        create_random_meeting) -> None:
     """
     Test if participant values are converted correctly to DataTable rows  
     """
-    participants = create_random_participants
-    random_name = "House Party"
-    random_meeting_id = 5
-    random_time =  datetime.now()
-    random_notes =  "This is another random note"
-    model = Meeting( random_meeting_id, random_name, random_time, True, True, \
-        [], random_notes)
-    for participant in participants:
-        model.add_participant( participant )
-   
+    model = create_random_meeting
+
     model.convert_participants_to_table()
 
     assert model.participant_table_rows[0][0] == "ID"
     assert model.participant_table_rows[0][1] == "Name"
     assert model.participant_table_rows[0][2] == "Email"
     assert model.participant_table_rows[0][3] == "confirmed"
-    for i,participant in enumerate(participants):
+    for i,participant in enumerate(model.participants):
         assert model.participant_table_rows[i+1][0] == participant.id_number
         assert model.participant_table_rows[i+1][1] == participant.name
         assert model.participant_table_rows[i+1][2] == participant.email
 
 
 def test_can_remove_participant_from_a_meeting_via_its_id(\
-                                        create_random_participants) -> None:
+                                        create_random_meeting) -> None:
     """
     Test if participant can be removed from a meeting   
     """
+    model = create_random_meeting
+    random_participant = 0 
+    target_participant_id = model.participants[random_participant].id_number
 
-    assert 1 == 0
+    model.remove_participant_by_id(target_participant_id)
+
+    for participant in model.participants:
+        assert participant.id_number != target_participant_id
