@@ -82,8 +82,8 @@ class InputMeeting(ModalScreen[Meeting]):
         except (ValueError, TypeError):
             self.app.push_screen( WarningScreen( f"Meeting Time invalid ( {new_datetime} is not DD/MM/YY HH:MM )") )
 
-class UpdateScreen(ModalScreen[Meeting]):
-    """Screen with a dialog to enter meeting details."""
+class NewMeetingScreen(ModalScreen[Meeting]):
+    """Screen with a dialog to enter details of new meeting"""
 
     new_meeting = var ( Meeting( 0,  "New Meeting", datetime.now() , True, False, [], "") )
 
@@ -208,11 +208,11 @@ class MeetingsApp(App):
     
     def action_add_meeting(self) -> None:
         """an action to add a meeting """
-        self.push_screen(UpdateScreen(), self.check_input)
+        self.push_screen(NewMeetingScreen(), self.check_input)
     
     def check_input(self, result: Meeting) ->None:
         """
-        Callback to get return value (a meeting) from UpdateScreen Widget
+        Callback to get return value (a meeting) from NewMeetingScreen Widget
         """
         self.schedule.add_meeting(result)
         self.load_meetings_table()
