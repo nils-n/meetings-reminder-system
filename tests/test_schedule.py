@@ -115,8 +115,8 @@ def test_incorrect_input_of_meeting_id_raises_error( target_id, expectation) -> 
 @pytest.mark.parametrize(
     "target_id, expectation", 
     [
-        (1, "Mock Meeting 1"),
-        (2, "Mock Meeting 2"),
+        (1, "Mock Meeting 1 "),
+        (2, "Mock Meeting 2 "),
     ]
 )
 def test_correct_input_of_meeting_id_returns_correct_meeting( target_id, expectation) -> None: 

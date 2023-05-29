@@ -65,7 +65,12 @@ class Schedule ():
     def get_meeting_by_id(self, target_id) -> int:
         """
         returns a meeting of a schedule by asking of its ID
+        At the time when this function is called it is already checked that a 
+        meeting with this ID exists - so i am not going to test it again.
         """
         self.validate_meeting_id( target_id)
+        for meeting in self.meetings:
+            if meeting.meeting_id == target_id:
+                return meeting 
 
-        return 0
+    
