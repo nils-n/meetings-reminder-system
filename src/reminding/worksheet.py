@@ -111,6 +111,15 @@ class Worksheet:
             if row[0] == str(target_id):
                 sheet.delete_rows(i + 1)
 
+    def push_participation_matrix(self, row_header, new_rows, worksheet_name) -> None:
+        """
+        pushes the current participation matrix to to the worksheet
+        """
+        sheet = SHEET.worksheet(worksheet_name)
+        sheet.clear()
+        sheet.append_row(row_header)
+        sheet.append_rows(new_rows)
+
 
 def main() -> None:
     data = Worksheet("Test Data", [])

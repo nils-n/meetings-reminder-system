@@ -234,8 +234,11 @@ def test_participation_matrix_has_correct_size() -> None:
 
     model.calculate_participation_matrix()
 
-    assert len(model.participation_matrix) == 2
-    assert len(model.participation_matrix[0]) == model.allowed_participants
+    assert len(model.participation_matrix_rows) == len(model.meetings)
+    assert (
+        len(model.participation_matrix_row_header)
+        == len(model.allowed_participants) + 1
+    )
 
 
 def xtest_participation_matrix_has_correct_values() -> None:

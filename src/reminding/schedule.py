@@ -19,7 +19,8 @@ class Schedule:
     meetings: list[Meeting] = field(default_factory=list)
     table_rows: list[Union[str, int]] = field(default_factory=list)
     allowed_participants: list[Participant] = field(default_factory=list)
-    participation_matrix: list[list[int]] = field(default_factory=list)
+    participation_matrix_row_header: list[str] = field(default_factory=list)
+    participation_matrix_rows: list[str] = field(default_factory=list)
 
     def __post_init__(self):
         self.load_allowed_participants()
@@ -178,5 +179,32 @@ class Schedule:
         """
         calculates the participation matrix that maps the allowed participants
         to the current meetings in the schedule
+
+        - the first row contains all allowed participant IDs
+        - the first column contains all current meeting IDs
+        - if  element (i,j) is True   -->  participant i is participating in meeting j
+        - if  element (i,j) is False  -->  participant i is not participating in meeting j
         """
-        pass
+
+        self.participation_matrix_row_header = ["Meeting ID / Participant ID"] + [
+            participant.id_number for participant in self.allowed_participants
+        ]
+        self.participation_matrix_rows = []
+        for meeting in self.meetings:
+            self.participation_matrix_rows.append(
+                [str(meeting.meeting_id)]
+                + [
+                    True if (participant in meeting.participants) else False
+                    for participant in self.allowed_participants
+                ]
+            )
+
+
+def main() -> None:
+    model = Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
+
+    print(type(model.meetings))
+
+
+if __name__ == "__main__":
+    main()
