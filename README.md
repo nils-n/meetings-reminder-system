@@ -298,6 +298,16 @@ Most of the features of this application run fine on a local computer (any inter
         </tr>
     </table>
 
+### (Optional) Increase Security by protecting your Participant Worksheet
+
+- If you just want to test the application you can use a single account for setting up the worksheet and accessing it from the application. This however may allow the application to change data inside the woksheet. 
+- In order to protect the participant sheet from malicious changes, do following steps to lock the sheet from editing
+    - Click Data > Protect Sheet and ranges
+    - Select 'Add Sheet or Range' and select the 'valid-participants' sheet
+    - Restrict edit to 'only me' 
+- Crete a second google account for the application and invite it to the sheet (File > Share in the first account).
+- This second user can now only read the participant sheet, but not edit it (while still being able to edit and read data on the schedule sheet which are harmless)
+
 
 ### Deployment on Heroku 
 
