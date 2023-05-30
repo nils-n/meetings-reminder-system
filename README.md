@@ -470,8 +470,13 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 <br>
 <br>
 <br>
+
+terminal : 80 characters wide and 24 rows high
+
 <br>
 <br>
+
+
 
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 

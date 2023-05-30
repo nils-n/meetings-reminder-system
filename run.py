@@ -19,8 +19,6 @@ from reminding.schedule import Schedule, Meeting, Participant
 from itertools import cycle
 from datetime import datetime
 
-# terminal : 80 characters wide and 24 rows high
-
 GREETING_MARKDOWN = """\
 # Meeting Reminders
 
