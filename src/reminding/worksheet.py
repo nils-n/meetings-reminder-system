@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from reminding.participant import Participant
 import gspread
 from google.oauth2.service_account import Credentials
 from reminding.schedule import Schedule
@@ -24,6 +25,33 @@ class Worksheet:
 
     name: str
     schedule_sheet: gspread.Worksheet
+    valid_participants: list[Participant] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         self.schedule_sheet = SHEET.worksheet("schedule")
+        self.valid_participants_sheet = SHEET.worksheet("valid-participants")
+
+    def load_valid_participants(self) -> None:
+        """loads data of valid Participants from google sheet into a list of Participants
+        assumes that data are stored in sheet as [ Participant ID - Name - Email ]
+        """
+        row_list = self.valid_participants_sheet.get_all_values()
+        self.valid_participants = [
+            Participant(row[1], row[2], int(row[0]), True, [])
+            for i, row in enumerate(row_list)
+            if i > 0
+        ]
+
+    def is_valid_participant(self, participant) -> None:
+        """raises a ValueError if the participant is not on the sheet of valid participants"""
+        pass
+
+
+def main() -> None:
+    data = Worksheet("Test Data", [])
+    data.load_valid_participants()
+    print(data.valid_participants)
+
+
+if __name__ == "__main__":
+    main()

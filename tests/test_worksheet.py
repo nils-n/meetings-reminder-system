@@ -9,6 +9,9 @@ A ssert
 
 """
 from reminding.worksheet import Worksheet
+from reminding.participant import Participant
+import pytest
+from contextlib import nullcontext as does_not_raise
 
 
 def test_can_create_new_worksheet() -> None:
@@ -27,3 +30,17 @@ def test_can_read_values_from_worksheet(load_worksheet) -> None:
     assert model[1][1] == "Christmas Party"
     assert model[1][2] == "24/12/23 21:00"
     assert model[1][3] == "Nakatomi Plaza"
+
+
+def test_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None:
+    """test if the class can read all valid particpants from the worksheet"""
+    valid_participants = [
+        Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True, []),
+        Participant("Mock Participant 2", "mockemail-2@fakemail.com", 2, True, []),
+    ]
+
+    model = load_worksheet
+    model.load_valid_participants()
+
+    assert model.valid_participants[0] == valid_participants[0]
+    assert model.valid_participants[1] == valid_participants[1]
