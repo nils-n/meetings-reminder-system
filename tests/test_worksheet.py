@@ -10,8 +10,10 @@ A ssert
 """
 from reminding.worksheet import Worksheet
 from reminding.participant import Participant
+from reminding.meeting import Meeting
 import pytest
 from contextlib import nullcontext as does_not_raise
+from datetime import datetime
 
 
 def test_can_create_new_worksheet() -> None:
@@ -81,3 +83,38 @@ def test_invalid_participant_should_raise_ValueError(
 
     with expectation:
         model.is_valid_participant(participant)
+
+
+def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
+    """
+    this is a bit tricky: what to test first, reading or writing a meeting?
+    If we test read first -> How do we know during unit test what to expect on the editable sheet?
+    If we test write first -> How do we know during unit test that we actually edited the sheet correctly?
+
+    This could be done by mocking a database and i will explore that option in future.
+
+    Another option is to connect to a known database and test the code with those sheets:
+    https://stackoverflow.com/questions/1217736/how-to-write-unit-tests-for-database-calls
+
+    I modify this idea by adding a fourth sheet 'unit-test' to our google sheet that is not used by the app,
+    just for the unit test, using same columns as the first (schedule) sheet. then i would assume:
+    if i can read/write to the fourth sheet, it should work for the first and second as well.
+    """
+    unit_test_meetings = [
+        Meeting(
+            1,
+            "Unit Test Meeting 1",
+            datetime.strptime("11/11/11 11:11", "%d/%m/%y %H:%M"),
+        ),
+        Meeting(
+            2,
+            "Unit Test Meeting 2",
+            datetime.strptime("30/05/23 14:00", "%d/%m/%y %H:%M"),
+        ),
+    ]
+
+    model = load_worksheet
+    model.load_meetings("unit-test")
+
+    assert model.meetings[0] == unit_test_meetings[0]
+    assert model.meetings[1] == unit_test_meetings[1]

@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from reminding.participant import Participant
+from reminding.meeting import Meeting
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -25,6 +26,7 @@ class Worksheet:
     name: str
     schedule_sheet: gspread.Worksheet
     valid_participants: list[Participant] = field(default_factory=list)
+    meetings: list[Meeting] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         self.schedule_sheet = SHEET.worksheet("schedule")
@@ -46,6 +48,10 @@ class Worksheet:
         """raises a ValueError if the participant is not on the sheet of valid participants"""
         if participant not in self.valid_participants:
             raise ValueError
+
+    def load_meetings(self, worksheet_name) -> None:
+        """Load meetings from the worksheet and transfer into a list of Meetings"""
+        self.meetings = []
 
 
 def main() -> None:
