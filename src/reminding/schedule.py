@@ -87,19 +87,22 @@ class Schedule:
         It also makes sense to load this on the schedule level - it only needs to load once to
         avoid unnecessary traffic.
         """
-        self.allowed_participants = []
-        self.allowed_participants.append(
-            Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True)
-        )
-        self.allowed_participants.append(
-            Participant("Mock Participant 2", "mockemail-2@fakemail.com", 2, True)
-        )
-        self.allowed_participants.append(
-            Participant("Mock Participant 3", "mockemail-3@fakemail.com", 3, True)
-        )
-        self.allowed_participants.append(
-            Participant("Mock Participant 4", "mockemail-4@fakemail.com", 4, True)
-        )
+        try:
+            self.allowed_participants = self.worksheet.valid_participants
+        except Exception:
+            self.allowed_participants = []
+            self.allowed_participants.append(
+                Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True)
+            )
+            self.allowed_participants.append(
+                Participant("Mock Participant 2", "mockemail-2@fakemail.com", 2, True)
+            )
+            self.allowed_participants.append(
+                Participant("Mock Participant 3", "mockemail-3@fakemail.com", 3, True)
+            )
+            self.allowed_participants.append(
+                Participant("Mock Participant 4", "mockemail-4@fakemail.com", 4, True)
+            )
 
     def validate_participant(self, potential_participant):
         """
