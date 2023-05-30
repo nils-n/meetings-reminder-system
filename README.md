@@ -276,8 +276,9 @@ Most of the features of this application run fine on a local computer (any inter
 
 - Create a personal google account (if needed)
 - Go to Sheets
-- Create New Sheet and rename to `Meeting-Schedule` 
-    -  add the Headings (and some dummy initial data if you want)
+- Create New Sheet and rename to `Meeting-Reminders` 
+    - rename first sheet to 'schedule'
+    - add the Headings (and some dummy initial data if you want) 
     <table>
         <tr>
             <th style='text-align:center'>Schedule Worksheet</th>
@@ -286,8 +287,8 @@ Most of the features of this application run fine on a local computer (any inter
             <td> <img src="./assets/images/sheets-schedule-init.png"; alt="example of the schedule worksheet" >  </td>
         </tr>
     </table>
-- Create another Sheet and rename to `Meeting-Valid-Participants` 
-    -  add the Headings (and some dummy initial data if you want)
+- add another sheet and name it 'valid-participants'
+- add the Headings (and some dummy initial data if you want) 
     <table>
         <tr>
             <th style='text-align:center'>Schedule Worksheet</th>
