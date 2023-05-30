@@ -297,6 +297,17 @@ Most of the features of this application run fine on a local computer (any inter
             <td> <img src="./assets/images/sheets-valid-participants.png"; alt="example of the  worksheet with valid participants" >  </td>
         </tr>
     </table>
+- add another sheet and name it 'participation-matrix'
+- This matrix is a binary graph that tells which participant is part of which meeting
+    <table>
+        <tr>
+            <th style='text-align:center'>Schedule Worksheet</th>
+        </tr>
+        <tr>
+            <td> <img src="./assets/images/sheets-participation-matrix.png"; alt="example of the  worksheet to store participation of valid participants in the meetings" >  </td>
+        </tr>
+    </table>
+
 
 ### (Optional) Increase Security by protecting your Participant Worksheet
 
@@ -307,6 +318,7 @@ Most of the features of this application run fine on a local computer (any inter
     - Restrict edit to 'only me' 
 - Crete a second google account for the application and invite it to the sheet (File > Share in the first account).
 - This second user can now only read the participant sheet, but not edit it (while still being able to edit and read data on the schedule sheet which are harmless)
+- Use this second user for access from your application, and the first user to manage the participants. 
 
 
 ### Deployment on Heroku 
