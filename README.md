@@ -341,8 +341,8 @@ Most of the features of this application run fine on a local computer (any inter
     - Click "Enable" 
 - open your creds file and copy the value of the "client_email" key into your clipboard 
 - open your google sheet and click "share", and use this email that you copied above
-- **IMPORTANT: Never push ensitive information to GitHub repository** 
-    - this will be handled by the '.gitignore' file inside your repository that tells git to ignore files that are listed in this file
+- **IMPORTANT: Never push any sensitive information to your GitHub repository** 
+    - this can be handled by a '.gitignore' file inside your repository that tells git to ignore files that are listed in this file
     - before copying your credential file into your repo folder, open '.gitignore'
     - add a new line 'creds.json' to this file (or same name as you saved your private key that your dowloaded in previous step)
     - push changes to github and check that 'creds.json' was not pushed (if you want, try this out first with an empty 'creds.json' before replacing with the actual private key)
