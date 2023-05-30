@@ -317,13 +317,42 @@ Most of the features of this application run fine on a local computer (any inter
     - Select 'Add Sheet or Range' and select the 'valid-participants' sheet
     - Restrict edit to 'only me' 
 - Crete a second google account for the application and invite it to the sheet (File > Share in the first account).
-- This second user can now only read the participant sheet, but not edit it (while still being able to edit and read data on the schedule sheet which are harmless)
-- Use this second user for access from your application, and the first user to manage the participants. 
+- This second user can now only read the participant sheet, but not edit it (while still being able to edit and read data on the schedule and participation-matrix sheet, which are harmless)
+- Use this second user for API access from your application, and the first user only to manage the valid participants. 
 
+---- 
+#### Link Google API to the application 
+
+- Go to Google Cloud Platform 
+- Go to Dashboard and Select "New Project"
+- Select a Name i.e. "MeetingReminders" and click > Create 
+- Click > "Select Project" to go to project page 
+- Click on sidebar >  "API and Services" > Library
+- For the Google Drive API:
+    - Search For "Google Drive" and select "Google Drive API" > Click "Enable" 
+    - Click on "Create Credentials" > select "App Data", unselect "Kubernets" etc., then click 'Next'
+    - Use an arbitrary Name for the account
+    - Select Role "Basic > Editor"
+    - Leave Blank the next 
+    - Go to your Service Account and Add+Download a private json key from the 'keys' tab and store in a "creds.json" file (don't share this file with anyone and **double-check** that you will not push it accidentally to your github clone/fork. 
+    - Before copying into your application folder, **ensure** that the name of your credential file is listed in your **.gitignore** to make sure these **will never be pushed to git**. )
+- For the Google Sheets API :
+    - Search For "Google Drive" and select "Google Drive API" 
+    - Click "Enable" 
+- open your creds file and copy the value of the "client_email" key into your clipboard 
+- open your google sheet and click "share", and use this email that you copied above
+- **IMPORTANT: Never push ensitive information to GitHub repository** 
+    - this will be handled by the '.gitignore' file inside your repository that tells git to ignore files that are listed in this file
+    - before copying your credential file into your repo folder, open '.gitignore'
+    - add a new line 'creds.json' to this file (or same name as you saved your private key that your dowloaded in previous step)
+    - push changes to github and check that 'creds.json' was not pushed (if you want, try this out first with an empty 'creds.json' before replacing with the actual private key)
+
+
+---- 
 
 ### Deployment on Heroku 
 
-- Heroku will requires public access to the `reminding` package inside your forked repository. Basically i wsee [this explanation from Heroku](https://devcenter.heroku.com/articles/python-pip) 
+- Heroku will requires public access to the `reminding` package inside your forked repository. Basically i followed [this explanation from Heroku](https://devcenter.heroku.com/articles/python-pip) 
 - Create an account on [Heroku](https://dashboard.heroku.com/apps)
 - Log into Heroku 
 - Go to Dashboard and click on `New` > `New App`
