@@ -67,8 +67,9 @@ class Schedule:
                 )
             )
 
-    def push_meetings( self, worksheet_name):
+    def push_meetings(self, worksheet_name):
         """pushes all meetings (including all local modifications) to the worksheet"""
+        self.worksheet.push_meetings(self.meetings, worksheet_name)
 
     def load_allowed_participants(self):
         """

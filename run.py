@@ -428,6 +428,10 @@ class MeetingsApp(App):
         """An action to toggle dark mode."""
         self.dark = not self.dark
 
+    def action_push_changes(self) -> None:
+        """An action to update worksheet with local changes"""
+        self.schedule.push_meetings("schedule")
+
     def action_add_meeting(self) -> None:
         """an action to add a meeting"""
         self.push_screen(NewMeetingScreen(), self.check_input)
