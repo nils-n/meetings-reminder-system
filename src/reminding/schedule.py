@@ -25,7 +25,19 @@ class Schedule:
     def __post_init__(self):
         self.load_allowed_participants()
         self.load_meetings()
+        self.load_participants()
         self.convert_meetings_to_table()
+
+    def load_participants(self):
+        """loads all participants stored in the participation matrix"""
+        try:
+            self.load_participation_matrix()
+            for i, meeting in enumerate(self.meetings):
+                for j, participant in enumerate(self.allowed_participants):
+                    if self.participation_matrix_rows[i][j + 1] in ["TRUE", True, 1]:
+                        meeting.participants.append(participant)
+        except Exception:
+            print("Could not load participants from API")
 
     def load_meetings(self):
         """
@@ -72,6 +84,21 @@ class Schedule:
     def push_meetings(self, worksheet_name):
         """pushes all meetings (including all local modifications) to the worksheet"""
         self.worksheet.push_meetings(self.meetings, worksheet_name)
+
+    def push_participation_matrix(self):
+        """pushes the participation matrix of all meetings of this schedule"""
+        self.worksheet.push_participation_matrix(
+            self.participation_matrix_row_header,
+            self.participation_matrix_rows,
+            "participation-matrix",
+        )
+
+    def load_participation_matrix(self):
+        """loads the participation matrix as stored in the API"""
+        (
+            self.participation_matrix_row_header,
+            self.participation_matrix_rows,
+        ) = self.worksheet.load_participation_matrix("participation-matrix")
 
     def load_allowed_participants(self):
         """

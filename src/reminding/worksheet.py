@@ -62,6 +62,12 @@ class Worksheet:
             if i > 0
         ]
 
+    def load_participation_matrix(self, worksheet_name):
+        """loads the participation matrix from the worksheet"""
+        sheet = SHEET.worksheet(worksheet_name)
+        row_list = sheet.get_all_values()
+        return row_list[0], row_list[1:]
+
     def push_meetings(self, meetings, worksheet_name) -> None:
         """this function replaces all rows on the worksheet with the current meetings"""
         sheet = SHEET.worksheet(worksheet_name)

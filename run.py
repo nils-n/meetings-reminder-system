@@ -431,6 +431,8 @@ class MeetingsApp(App):
     def action_push_changes(self) -> None:
         """An action to update worksheet with local changes"""
         self.schedule.push_meetings("schedule")
+        self.schedule.calculate_participation_matrix()
+        self.schedule.push_participation_matrix()
 
     def action_add_meeting(self) -> None:
         """an action to add a meeting"""
