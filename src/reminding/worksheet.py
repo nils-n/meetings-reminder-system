@@ -71,7 +71,7 @@ class Worksheet:
                 str(new_meeting.meeting_id),
                 str(new_meeting.name),
                 new_meeting.datetime.strftime("%d/%m/%y %H:%M"),
-                "Somewhere",
+                "",
                 str(len(new_meeting.participants)),
                 "no",
             ]
@@ -79,7 +79,11 @@ class Worksheet:
 
     def remove_meeting_by_id(self, target_id, worksheet_name) -> None:
         """remove meeting with given ID from worksheet"""
-        pass
+        sheet = SHEET.worksheet(worksheet_name)
+        row_list = sheet.get_all_values()
+        for i, row in enumerate(row_list):
+            if row[0] == str(target_id):
+                sheet.delete_rows(i+1)
 
 
 def main() -> None:
