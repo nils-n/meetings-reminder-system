@@ -279,7 +279,7 @@ Most of the features of this application run fine on a local computer (any inter
 - Create New Sheet and rename to `Meeting-Reminders` 
     - rename first sheet to 'schedule'
     - add the Headings (and some dummy initial data if you want) 
-    <table>
+    <table style='width:80%'>
         <tr>
             <th style='text-align:center'>Schedule Worksheet</th>
         </tr>
@@ -289,9 +289,9 @@ Most of the features of this application run fine on a local computer (any inter
     </table>
 - add another sheet and name it 'valid-participants'
 - add the Headings (and some dummy initial data if you want) 
-    <table>
+    <table style='width:80%'>
         <tr>
-            <th style='text-align:center'>Schedule Worksheet</th>
+            <th style='text-align:center'>Participants Worksheet</th>
         </tr>
         <tr>
             <td> <img src="./assets/images/sheets-valid-participants.png"; alt="example of the  worksheet with valid participants" >  </td>
@@ -299,9 +299,9 @@ Most of the features of this application run fine on a local computer (any inter
     </table>
 - add another sheet and name it 'participation-matrix'
 - This matrix is a binary graph that tells which participant is part of which meeting
-    <table>
+    <table style='width:80%'>
         <tr>
-            <th style='text-align:center'>Schedule Worksheet</th>
+            <th style='text-align:center'>Participation Matrix Worksheet</th>
         </tr>
         <tr>
             <td> <img src="./assets/images/sheets-participation-matrix.png"; alt="example of the  worksheet to store participation of valid participants in the meetings" >  </td>
@@ -332,9 +332,9 @@ Most of the features of this application run fine on a local computer (any inter
     - Go to your sheet `Meeting-Reminders` :
         - add another sheet and name it 'unit-test'
         - Enter the exact values from the sheet from the image. This is your expectation that pytest can now reference to within the unit test 
-  <table>
+  <table style='width:80%'>
         <tr>
-            <th style='text-align:center'>Schedule Worksheet</th>
+            <th style='text-align:center'>Unit Test Worksheet</th>
         </tr>
         <tr>
             <td> <img src="./assets/images/sheets-unit-test.png"; alt="example of the  worksheet to test the read/write functions of the unit test" >  </td>
