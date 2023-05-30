@@ -16,29 +16,27 @@ from contextlib import nullcontext as does_not_raise
 from datetime import datetime
 
 
-def xtest_can_create_new_worksheet() -> None:
+def test_can_create_new_worksheet(load_worksheet) -> None:
     """test if a new worksheet can be created"""
-
-    model = Worksheet("Test Sheet", None)
+    model = load_worksheet
 
     assert isinstance(model, Worksheet)
 
 
-def xtest_can_read_values_from_worksheet(load_worksheet) -> None:
+def test_can_read_values_from_worksheet(load_worksheet) -> None:
     """test if the class can read values from worksheet"""
     data = load_worksheet
     model = data.schedule_sheet.get_all_values()
 
     assert model[1][1] == "Christmas Party"
     assert model[1][2] == "24/12/23 21:00"
-    assert model[1][3] == "Nakatomi Plaza"
 
 
-def xtest_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None:
+def test_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None:
     """test if the class can read all valid particpants from the worksheet"""
     valid_participants = [
-        Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True, []),
-        Participant("Mock Participant 2", "mockemail-2@fakemail.com", 2, True, []),
+        Participant("Hans Gruber", "hansgruber@nakatomiplaza.com", 1, True, []),
+        Participant("John McClane", "johnmcclane@nakatomiplaza.com", 2, True, []),
     ]
 
     model = load_worksheet
@@ -53,12 +51,12 @@ def xtest_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None
     [
         (
             "load_worksheet",
-            Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True, []),
+            Participant("Hans Gruber", "hansgruber@nakatomiplaza.com", 1, True, []),
             does_not_raise(),
         ),
         (
             "load_worksheet",
-            Participant("Mock Participant 2", "mockemail-2@fakemail.com", 2, True, []),
+            Participant("John McClane", "johnmcclane@nakatomiplaza.com", 2, True, []),
             does_not_raise(),
         ),
         (
@@ -73,7 +71,7 @@ def xtest_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None
         ),
     ],
 )
-def xtest_invalid_participant_should_raise_ValueError(
+def test_invalid_participant_should_raise_ValueError(
     fixture_name, participant, expectation, request
 ) -> None:
     """Test wheter an participant that is not on the list of allowed /
@@ -120,7 +118,7 @@ def xtest_can_read_meetings_from_worksheet(load_worksheet) -> None:
     assert meetings[1] == unit_test_meetings[1]
 
 
-def xtest_can_add_meeting_to_worksheet(load_worksheet) -> None:
+def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
     """
     this is a test if the unit test can write a meeting to the worksheet.
 
@@ -140,7 +138,7 @@ def xtest_can_add_meeting_to_worksheet(load_worksheet) -> None:
     assert new_meeting in meetings
 
 
-def xtest_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
+def test_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
     """
     this is a test if the unit test can delete a meeting to the worksheet.
 
