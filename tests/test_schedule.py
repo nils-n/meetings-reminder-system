@@ -213,3 +213,35 @@ def test_that_only_allowed_participants_will_be_added_to_the_datatable(
 
     with expectation:
         model.validate_participant(potential_participant)
+
+
+def test_participation_matrix_has_correct_size() -> None:
+    """
+    Test whether the meetings with current participants
+    maps correctly into the participation matrix
+    """
+
+    random_name = "Random Schedule"
+    random_datetime = datetime.strptime("01/01/71 00:00", "%d/%m/%y %H:%M")
+
+    model = Schedule(random_name, [], [])
+    model.add_meeting(
+        Meeting(1, "Mock Meeting 1 ", random_datetime, True, True, [], "")
+    )
+    model.add_meeting(
+        Meeting(2, "Mock Meeting 2 ", random_datetime, True, True, [], "")
+    )
+
+    model.calculate_participation_matrix()
+
+    assert len(model.participation_matrix) == 2
+    assert len(model.participation_matrix[0]) == model.allowed_participants
+
+
+def xtest_participation_matrix_has_correct_values() -> None:
+    """
+    Test whether the meetings with current participants
+    maps correctly into the participation matrix
+    """
+
+    assert 1 == 0

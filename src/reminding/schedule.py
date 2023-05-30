@@ -19,6 +19,7 @@ class Schedule:
     meetings: list[Meeting] = field(default_factory=list)
     table_rows: list[Union[str, int]] = field(default_factory=list)
     allowed_participants: list[Participant] = field(default_factory=list)
+    participation_matrix: list[list[int]] = field(default_factory=list)
 
     def __post_init__(self):
         self.load_allowed_participants()
@@ -172,3 +173,10 @@ class Schedule:
         for meeting in self.meetings:
             if meeting.meeting_id == target_id:
                 return meeting
+
+    def calculate_participation_matrix(self) -> None:
+        """
+        calculates the participation matrix that maps the allowed participants
+        to the current meetings in the schedule
+        """
+        pass
