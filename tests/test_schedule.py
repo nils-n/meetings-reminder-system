@@ -12,6 +12,7 @@ import pytest
 from reminding.meeting import Meeting
 from reminding.schedule import Schedule
 from reminding.participant import Participant
+from reminding.worksheet import Worksheet
 from datetime import datetime
 from contextlib import nullcontext as does_not_raise
 
@@ -241,10 +242,22 @@ def test_participation_matrix_has_correct_size() -> None:
     )
 
 
-def xtest_participation_matrix_has_correct_values() -> None:
+def test_participation_matrix_has_correct_values() -> None:
     """
     Test whether the meetings with current participants
     maps correctly into the participation matrix
     """
 
-    assert 1 == 0
+    random_name = "Random Schedule"
+    model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
+    model.meetings[0].add_participant(model.allowed_participants[0])
+    model.meetings[0].add_participant(model.allowed_participants[1])
+
+    model.calculate_participation_matrix()
+
+    assert model.participation_matrix_row_header[2] == 2
+    assert model.participation_matrix_rows[0][1] is True
+    assert model.participation_matrix_rows[0][2] is True
+    assert model.participation_matrix_rows[0][3] is False
+    assert model.participation_matrix_rows[0][4] is False
+    assert model.participation_matrix_rows[0][5] is False
