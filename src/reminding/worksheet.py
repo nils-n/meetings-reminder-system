@@ -26,16 +26,4 @@ class Worksheet:
     schedule_sheet: gspread.Worksheet
 
     def __post_init__(self) -> None:
-        schedule_sheet = SHEET.worksheet("schedule")
-
-        data = schedule_sheet.get_all_values()
-        print(data)
-
-
-def main() -> None:
-    """manual test if a worksheet can be created"""
-    Worksheet("Test Sheet", [])
-
-
-if __name__ == "__main__":
-    main()
+        self.schedule_sheet = SHEET.worksheet("schedule")
