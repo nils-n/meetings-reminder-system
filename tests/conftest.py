@@ -4,6 +4,7 @@ from datetime import datetime
 from random import randint
 from reminding.participant import Participant
 from reminding.meeting import Meeting
+from reminding.worksheet import Worksheet
 import pytest
 
 
@@ -100,3 +101,9 @@ def create_random_meeting() -> Meeting:
         random_meeting.add_participant(participant)
 
     return random_meeting
+
+
+@pytest.fixture(scope="session")
+def load_worksheet() -> Worksheet:
+    """initialize and load the spreadsheet from the cloud once for all tests"""
+    return Worksheet("Test Sheet", None)

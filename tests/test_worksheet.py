@@ -19,9 +19,9 @@ def test_can_create_new_worksheet() -> None:
     assert isinstance(model, Worksheet)
 
 
-def test_can_read_values_from_worksheet() -> None:
+def test_can_read_values_from_worksheet(load_worksheet) -> None:
     """test if the class can read values from worksheet"""
-    data = Worksheet("Test Sheet", None)
+    data = load_worksheet
     model = data.schedule_sheet.get_all_values()
 
     assert model[1][1] == "Christmas Party"
