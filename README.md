@@ -249,8 +249,15 @@ The functionality of the python program is displayed below.
 
 ## Deployment and Local Development 
 
-Most of the features of this application run fine on a local computer (any interactions with the schedule such as read/delete/update meetings etc.).
-However, deploying on Heroku has the advantage that the meeting reminders will also be sent automatically on a scheduled basis.
+Most of the features of this application run fine on a local computer (any interactions with the schedule such as read/delete/update meetings etc.). 
+ A few notes: 
+- For testing, you don't need a worksheet and can try it out directly with the mockdata by pressing 'M' in the main terminal - this will load the mock data used for testing instead of the worksheet
+- However, to meet the requirements for assessment, the application will also run fine on Heroku 
+- Running on Heroku will also demonstrate how to the schedule can synchronize with a worksheet and how reminders would be send to the selected participants.
+- During development, I realized that sending Emails to arbitrary address, and allowing the user to send emails manually involves potential security risks and I will not include these opportunities. Especially because the source code is publicly available here on Github. 
+- Instead, the emails will be **only sent automatically** and not manually by pressing a button as originally intended. 
+- Also, the user will **not be able to add arbitrary participants** as this could allow hostile users to send Emails on behalf of this application. Instead, the user can select from a list of participants, and the Email sending functionality will run in the background.
+- Note that this is not a major limitation regarding the aim of this application since most of the meetings that benefit from automation are those that happen frequently with the same people (i.e. staff meeting, townhall meetings, Journal Club)  
 
 #### How to Fork
 
@@ -264,6 +271,32 @@ However, deploying on Heroku has the advantage that the meeting reminders will a
 - open terminal on your machine and navigate to the folder you want to store a local copy
 - in the terminal, type 'git clone ' followed by the link you copied
 - press enter to confirm
+
+#### Set Up Worksheets
+
+- Create a personal google account (if needed)
+- Go to Sheets
+- Create New Sheet and rename to `Meeting-Schedule` 
+    -  add the Headings (and some dummy initial data if you want)
+    <table>
+        <tr>
+            <th style='text-align:center'>Schedule Worksheet</th>
+        </tr>
+        <tr>
+            <td> <img src="./assets/images/sheets-schedule-init.png"; alt="example of the schedule worksheet" >  </td>
+        </tr>
+    </table>
+- Create another Sheet and rename to `Meeting-Valid-Participants` 
+    -  add the Headings (and some dummy initial data if you want)
+    <table>
+        <tr>
+            <th style='text-align:center'>Schedule Worksheet</th>
+        </tr>
+        <tr>
+            <td> <img src="./assets/images/sheets-valid-participants.png"; alt="example of the  worksheet with valid participants" >  </td>
+        </tr>
+    </table>
+
 
 ### Deployment on Heroku 
 
