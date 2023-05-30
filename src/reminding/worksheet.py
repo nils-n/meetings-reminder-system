@@ -2,7 +2,6 @@ from dataclasses import dataclass, field
 from reminding.participant import Participant
 import gspread
 from google.oauth2.service_account import Credentials
-from reminding.schedule import Schedule
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -30,6 +29,7 @@ class Worksheet:
     def __post_init__(self) -> None:
         self.schedule_sheet = SHEET.worksheet("schedule")
         self.valid_participants_sheet = SHEET.worksheet("valid-participants")
+        self.load_valid_participants()
 
     def load_valid_participants(self) -> None:
         """loads data of valid Participants from google sheet into a list of Participants
@@ -50,7 +50,6 @@ class Worksheet:
 
 def main() -> None:
     data = Worksheet("Test Data", [])
-    data.load_valid_participants()
     print(data.valid_participants)
 
 

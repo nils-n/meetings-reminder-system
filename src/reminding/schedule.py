@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from typing import Union
 from datetime import datetime
 from reminding.meeting import Meeting, Participant
+from reminding.worksheet import Worksheet
 
 
 @dataclass
@@ -13,6 +14,7 @@ class Schedule:
     https://stackoverflow.com/questions/69915050/how-to-make-list-in-python-dataclass-that-can-accept-multiple-different-types
     """
 
+    worksheet: Worksheet
     name: str
     meetings: list[Meeting] = field(default_factory=list)
     table_rows: list[Union[str, int]] = field(default_factory=list)

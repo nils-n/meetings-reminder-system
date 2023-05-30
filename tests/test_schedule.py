@@ -21,7 +21,7 @@ def test_can_create_new_schedule(create_random_meetings) -> None:
     random_meetings = create_random_meetings
     random_name = "Random Schedule"
 
-    model = Schedule(random_name, random_meetings)
+    model = Schedule([], random_name, random_meetings)
 
     assert isinstance(model, Schedule)
     assert model.name == random_name

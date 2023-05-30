@@ -445,6 +445,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
 - Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
+- explanation how to solve inheritance issues with dataclassess [Python dataclass inheritance, finally !](https://medium.com/@aniscampos/python-dataclass-inheritance-finally-686eaf60fbb5)
 - examples from pytest about parametrized tests [pytest docs](https://docs.pytest.org/en/7.1.x/example/parametrize.html) 
 - tutorials for unit python unit testing with pytest (update this once you started using it) 
     - Pytest Unit Testing Tutorial - How to test your Python code [pixegami (Youtube)](https://www.youtube.com/watch?v=YbpKMIUjvK8)
