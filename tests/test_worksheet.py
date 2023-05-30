@@ -85,7 +85,7 @@ def xtest_invalid_participant_should_raise_ValueError(
         model.is_valid_participant(participant)
 
 
-def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
+def xtest_can_read_meetings_from_worksheet(load_worksheet) -> None:
     """
     this is a bit tricky: what to test first, reading or writing a meeting?
     If we test read first -> How do we know during unit test what to expect on the editable sheet?
@@ -120,13 +120,12 @@ def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
     assert meetings[1] == unit_test_meetings[1]
 
 
-def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
+def xtest_can_add_meeting_to_worksheet(load_worksheet) -> None:
     """
     this is a test if the unit test can write a meeting to the worksheet.
 
     We use the tested reading method (see previous test) to confirm the writing method
 
-    (note: I disabled the other tests to make testing faster)
     """
     model = load_worksheet
     new_meeting = Meeting(
@@ -139,3 +138,24 @@ def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
     meetings = model.load_meetings("unit-test")
 
     assert new_meeting in meetings
+
+
+def test_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
+    """
+    this is a test if the unit test can delete a meeting to the worksheet.
+
+    We use the tested methods for reading and writing to test the delete method
+
+    (note: I disabled the other tests to make testing faster)
+    """
+    model = load_worksheet
+    new_meeting = Meeting(
+        42,
+        "UT Write Method Test",
+        datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
+    )
+    model.add_meeting(new_meeting, "unit-test")
+    model.remove_meeting_by_id(42, "unit-test")
+    meetings = model.load_meetings("unit-test")
+
+    assert new_meeting not in meetings

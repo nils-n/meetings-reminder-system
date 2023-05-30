@@ -77,6 +77,10 @@ class Worksheet:
             ]
             sheet.append_row(new_row)
 
+    def remove_meeting_by_id(self, target_id, worksheet_name) -> None:
+        """remove meeting with given ID from worksheet"""
+        pass
+
 
 def main() -> None:
     data = Worksheet("Test Data", [])
