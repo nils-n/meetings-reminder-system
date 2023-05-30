@@ -60,6 +60,10 @@ class Worksheet:
             if i > 0
         ]
 
+    def add_meeting(self, new_meeting, worksheet_name) -> None:
+        """add a meeting to the worksheet"""
+        pass
+
 
 def main() -> None:
     data = Worksheet("Test Data", [])
