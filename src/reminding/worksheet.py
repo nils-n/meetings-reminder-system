@@ -62,9 +62,31 @@ class Worksheet:
             if i > 0
         ]
 
-    def push_meetings(self, worksheet_name) -> None:
+    def push_meetings(self, meetings, worksheet_name) -> None:
         """this function replaces all rows on the worksheet with the current meetings"""
-        pass
+        sheet = SHEET.worksheet(worksheet_name)
+        sheet.clear()
+        header_row = [
+            "Meeting ID",
+            "Name",
+            "Time",
+            "Place",
+            "Invited",
+            "reminder sent?",
+        ]
+        sheet.append_row(header_row)
+        new_rows = [
+            [
+                str(meeting.meeting_id),
+                str(meeting.name),
+                meeting.datetime.strftime("%d/%m/%y %H:%M"),
+                "",
+                str(len(meeting.participants)),
+                "no",
+            ]
+            for meeting in meetings
+        ]
+        sheet.append_rows(new_rows)
 
     def add_meeting(self, new_meeting, worksheet_name) -> None:
         """add a meeting to the worksheet"""

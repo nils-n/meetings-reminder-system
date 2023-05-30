@@ -166,6 +166,7 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
     (note: I disabled the other tests to make testing faster)
     """
     model = load_worksheet
+    old_meetings = model.load_meetings("unit-test")
     new_unit_test_meetings = [
         Meeting(
             44,
@@ -183,3 +184,6 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
     updated_meetings = model.load_meetings("unit-test")
 
     assert updated_meetings == new_unit_test_meetings
+
+    # push back the old meetings
+    model.push_meetings(old_meetings, "unit-test")
