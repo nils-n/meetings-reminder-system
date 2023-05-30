@@ -25,9 +25,9 @@ GREETING_MARKDOWN = """\
 # Meeting Reminders
 
 This Terminal Application helps you organize your upcoming meetings. 
-- Press 'L' to load your meetings from Google Sheets (not implemented currently)
-- Press 'A' to add a meeting
-- Press 'M' to modify a meeting (including to invite and remove participants)
+- Press 'L' to load meetings from worksheet (discarding local changes)
+- Press 'P' to push your local changes
+- Press 'A' to add a meeting, or 'M' to modify a meeting
  
 """
 
@@ -391,7 +391,8 @@ class MeetingsApp(App):
         ("d", "toggle_dark", "Toggle dark mode"),
         ("l", "load_meetings", "Load Meetings"),
         ("a", "add_meeting", "Add Meeting"),
-        ("m", "modify_meeting", "Modify Meeting"),
+        ("m", "modify_meeting", "Modify"),
+        ("p", "push_changes", "Push Changes"),
     ]
     CSS_PATH = "./assets/css/meetings.css"
 
