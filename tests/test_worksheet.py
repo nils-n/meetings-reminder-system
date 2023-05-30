@@ -85,7 +85,7 @@ def xtest_invalid_participant_should_raise_ValueError(
         model.is_valid_participant(participant)
 
 
-def xtest_can_read_meetings_from_worksheet(load_worksheet) -> None:
+def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
     """
     this is a bit tricky: what to test first, reading or writing a meeting?
     If we test read first -> How do we know during unit test what to expect on the editable sheet?
@@ -114,10 +114,10 @@ def xtest_can_read_meetings_from_worksheet(load_worksheet) -> None:
     ]
 
     model = load_worksheet
-    model.load_meetings("unit-test")
+    meetings = model.load_meetings("unit-test")
 
-    assert model.meetings[0] == unit_test_meetings[0]
-    assert model.meetings[1] == unit_test_meetings[1]
+    assert meetings[0] == unit_test_meetings[0]
+    assert meetings[1] == unit_test_meetings[1]
 
 
 def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
@@ -129,15 +129,13 @@ def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
     (note: I disabled the other tests to make testing faster)
     """
     model = load_worksheet
-    new_meeting = (
-        Meeting(
-            42,
-            "UT Write Method Test",
-            datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
-        ),
+    new_meeting = Meeting(
+        42,
+        "UT Write Method Test",
+        datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
     )
 
     model.add_meeting(new_meeting, "unit-test")
-    model.load_meetings("unit-test")
+    meetings = model.load_meetings("unit-test")
 
-    assert new_meeting in model.meetings
+    assert new_meeting in meetings

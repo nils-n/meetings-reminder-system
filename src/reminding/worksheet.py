@@ -33,6 +33,7 @@ class Worksheet:
         self.schedule_sheet = SHEET.worksheet("schedule")
         self.valid_participants_sheet = SHEET.worksheet("valid-participants")
         self.load_valid_participants()
+        self.meetings = self.load_meetings("schedule")
         self.unittest_sheet = SHEET.worksheet("unit-test")
 
     def load_valid_participants(self) -> None:
@@ -51,10 +52,11 @@ class Worksheet:
         if participant not in self.valid_participants:
             raise ValueError
 
-    def load_meetings(self, worksheet_name) -> None:
+    def load_meetings(self, worksheet_name) -> list[Meeting]:
         """Load meetings from the worksheet and transfer into a list of Meetings"""
-        row_list = self.unittest_sheet.get_all_values()
-        self.meetings = [
+        sheet = SHEET.worksheet(worksheet_name)
+        row_list = sheet.get_all_values()
+        return [
             Meeting(int(row[0]), row[1], datetime.strptime(row[2], "%d/%m/%y %H:%M"))
             for i, row in enumerate(row_list)
             if i > 0
@@ -62,12 +64,28 @@ class Worksheet:
 
     def add_meeting(self, new_meeting, worksheet_name) -> None:
         """add a meeting to the worksheet"""
-        pass
+        sheet = SHEET.worksheet(worksheet_name)
+        meetings = self.load_meetings(worksheet_name)
+        if new_meeting not in meetings:
+            new_row = [
+                str(new_meeting.meeting_id),
+                str(new_meeting.name),
+                new_meeting.datetime.strftime("%d/%m/%y %H:%M"),
+                "Somewhere",
+                str(len(new_meeting.participants)),
+                "no",
+            ]
+            sheet.append_row(new_row)
 
 
 def main() -> None:
     data = Worksheet("Test Data", [])
-    print(data.valid_participants)
+    sheet = data.unittest_sheet
+    row_list = sheet.get_all_values()
+    print(row_list)
+    print(row_list[0])
+    print(row_list[1])
+    print(row_list[2])
 
 
 if __name__ == "__main__":
