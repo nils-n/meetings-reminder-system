@@ -62,6 +62,10 @@ class Worksheet:
             if i > 0
         ]
 
+    def push_meetings(self, worksheet_name) -> None:
+        """this function replaces all rows on the worksheet with the current meetings"""
+        pass
+
     def add_meeting(self, new_meeting, worksheet_name) -> None:
         """add a meeting to the worksheet"""
         sheet = SHEET.worksheet(worksheet_name)
@@ -83,7 +87,7 @@ class Worksheet:
         row_list = sheet.get_all_values()
         for i, row in enumerate(row_list):
             if row[0] == str(target_id):
-                sheet.delete_rows(i+1)
+                sheet.delete_rows(i + 1)
 
 
 def main() -> None:
@@ -93,7 +97,6 @@ def main() -> None:
     print(row_list)
     print(row_list[0])
     print(row_list[1])
-    print(row_list[2])
 
 
 if __name__ == "__main__":

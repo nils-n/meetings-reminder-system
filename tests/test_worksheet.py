@@ -140,13 +140,11 @@ def xtest_can_add_meeting_to_worksheet(load_worksheet) -> None:
     assert new_meeting in meetings
 
 
-def test_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
+def xtest_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
     """
     this is a test if the unit test can delete a meeting to the worksheet.
 
     We use the tested methods for reading and writing to test the delete method
-
-    (note: I disabled the other tests to make testing faster)
     """
     model = load_worksheet
     new_meeting = Meeting(
@@ -159,3 +157,29 @@ def test_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
     meetings = model.load_meetings("unit-test")
 
     assert new_meeting not in meetings
+
+
+def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
+    """
+    This is a test if one can push all local meetings to a worksheet to replace its content
+
+    (note: I disabled the other tests to make testing faster)
+    """
+    model = load_worksheet
+    new_unit_test_meetings = [
+        Meeting(
+            44,
+            "Modified Meeting 1",
+            datetime.strptime("01/01/01 01:00", "%d/%m/%y %H:%M"),
+        ),
+        Meeting(
+            22,
+            "Modified Meeting 1",
+            datetime.strptime("02/02/02 02:00", "%d/%m/%y %H:%M"),
+        ),
+    ]
+
+    model.push_meetings(new_unit_test_meetings, "unit-test")
+    updated_meetings = model.load_meetings("unit-test")
+
+    assert updated_meetings == new_unit_test_meetings

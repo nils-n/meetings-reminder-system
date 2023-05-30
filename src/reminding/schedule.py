@@ -30,9 +30,6 @@ class Schedule:
         currently this loads a hard-coded list of mock meetings
         eventually this will be replaced by reading data from a google worksheet
         """
-
-        self.worksheet.load_meetings("schedule")
-
         try:
             self.worksheet.load_meetings("schedule")
             self.meetings = self.worksheet.meetings
@@ -69,6 +66,9 @@ class Schedule:
                     "",
                 )
             )
+
+    def push_meetings( self, worksheet_name):
+        """pushes all meetings (including all local modifications) to the worksheet"""
 
     def load_allowed_participants(self):
         """
