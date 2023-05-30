@@ -15,7 +15,7 @@ from textual.widgets import Placeholder, Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical
-from reminding.schedule import Schedule, Meeting, Participant
+from reminding.schedule import Schedule, Meeting, Participant, Worksheet
 from itertools import cycle
 from datetime import datetime
 
@@ -394,7 +394,9 @@ class MeetingsApp(App):
     ]
     CSS_PATH = "./assets/css/meetings.css"
 
-    schedule = reactive(Schedule("An example Schedule", [], []))
+    schedule = reactive(
+        Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
+    )
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""

@@ -30,26 +30,45 @@ class Schedule:
         currently this loads a hard-coded list of mock meetings
         eventually this will be replaced by reading data from a google worksheet
         """
-        # this is just temporary to fill the list with mock data
-        # so that i don't have to manually type in a meeting / connect to google every time i test the UI
-        self.meetings = []
-        mock_datetime = datetime.strptime("01/01/71 00:00", "%d/%m/%y %H:%M")
-        mock_participants = []
-        mock_participants.append(self.allowed_participants[0])
-        mock_participants.append(self.allowed_participants[1])
-        mock_participants.append(self.allowed_participants[2])
-        mock_participants.append(self.allowed_participants[3])
 
-        self.add_meeting(
-            Meeting(
-                1, "Mock Meeting 1 ", mock_datetime, True, True, mock_participants, ""
+        self.worksheet.load_meetings("schedule")
+
+        try:
+            self.worksheet.load_meetings("schedule")
+            self.meetings = self.worksheet.meetings
+        except Exception:
+            # this is just temporary to fill the list with mock data
+            # so that i don't have to manually type in a meeting / connect to google every time i test the UI
+            self.meetings = []
+            mock_datetime = datetime.strptime("01/01/71 00:00", "%d/%m/%y %H:%M")
+            mock_participants = []
+            mock_participants.append(self.allowed_participants[0])
+            mock_participants.append(self.allowed_participants[1])
+            mock_participants.append(self.allowed_participants[2])
+            mock_participants.append(self.allowed_participants[3])
+
+            self.add_meeting(
+                Meeting(
+                    1,
+                    "Mock Meeting 1 ",
+                    mock_datetime,
+                    True,
+                    True,
+                    mock_participants,
+                    "",
+                )
             )
-        )
-        self.add_meeting(
-            Meeting(
-                2, "Mock Meeting 2 ", mock_datetime, True, True, mock_participants, ""
+            self.add_meeting(
+                Meeting(
+                    2,
+                    "Mock Meeting 2 ",
+                    mock_datetime,
+                    True,
+                    True,
+                    mock_participants,
+                    "",
+                )
             )
-        )
 
     def load_allowed_participants(self):
         """
