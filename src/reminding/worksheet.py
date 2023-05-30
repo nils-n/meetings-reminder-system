@@ -44,7 +44,8 @@ class Worksheet:
 
     def is_valid_participant(self, participant) -> None:
         """raises a ValueError if the participant is not on the sheet of valid participants"""
-        pass
+        if participant not in self.valid_participants:
+            raise ValueError
 
 
 def main() -> None:
