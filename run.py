@@ -414,13 +414,16 @@ class MeetingsApp(App):
 
     def load_meetings_table(self) -> None:
         table = self.query_one("#meetings-table")
-        table.cursor_type = next(cursors)
         table.zebra_stripes = True
-        self.app.schedule.convert_meetings_to_table()
-        ROWS = self.app.schedule.table_rows
         table.clear(columns=True)
-        table.add_columns(*ROWS[0])
-        table.add_rows(ROWS[1:])
+        self.app.schedule.convert_meetings_to_table()
+        rows = self.app.schedule.table_rows
+        rows = iter(rows)
+        column_labels = next(rows)
+        for column in column_labels:
+            table.add_column(column, key=column)
+        table.add_rows(rows)
+        table.sort("Time")
 
     def key_c(self):
         table = self.query_one(DataTable)
