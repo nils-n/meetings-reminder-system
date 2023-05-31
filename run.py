@@ -415,6 +415,7 @@ class MeetingsApp(App):
         table = self.query_one("#meetings-table")
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
+        self.app.schedule.convert_meetings_to_table()
         ROWS = self.app.schedule.table_rows
         table.clear(columns=True)
         table.add_columns(*ROWS[0])
@@ -423,6 +424,7 @@ class MeetingsApp(App):
     def key_c(self):
         table = self.query_one(DataTable)
         table.cursor_type = next(cursors)
+        self.load_meetings_table()
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
@@ -433,6 +435,7 @@ class MeetingsApp(App):
         self.schedule.push_meetings("schedule")
         self.schedule.calculate_participation_matrix()
         self.schedule.push_participation_matrix()
+        self.load_meetings_table()
 
     def action_add_meeting(self) -> None:
         """an action to add a meeting"""
@@ -468,7 +471,7 @@ class MeetingsApp(App):
         If meeting was updated, then update schedule and datatable
         To be implmemented
         """
-        pass
+        self.load_meetings_table()
 
 
 if __name__ == "__main__":

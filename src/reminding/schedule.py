@@ -187,7 +187,7 @@ class Schedule:
                     meeting.meeting_id,
                     meeting.name,
                     meeting.datetime,
-                    meeting.num_participants,
+                    len(meeting.participants),
                     meeting.num_participants,
                 )
             )
