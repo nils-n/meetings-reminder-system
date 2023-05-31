@@ -189,7 +189,7 @@ class Schedule:
         self.table_rows = []
         self.table_rows.append(("ID", "Name", "Time", "invited", "confirmed"))
         for meeting in self.meetings:
-            if meeting.is_within_time_range(time_range):
+            if meeting.is_within_time_range(datetime.now(), time_range):
                 self.table_rows.append(
                     (
                         meeting.meeting_id,

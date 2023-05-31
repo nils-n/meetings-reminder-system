@@ -166,14 +166,18 @@ class Meeting:
 
     def is_within_time_range(self, current_time, time_range):
         """returns True if the meeting is within the given time range from the current time"""
+        if time_range == "All Meetings":
+            return True
         days_per_week = 7
         days_per_month = 31  # approximately
         time_until_meeting = self.datetime - current_time
         time_difference_in_days = time_until_meeting.days
-        if time_range == "Week":
+        # dont display meetings that are in the past - only if you want to see all meetings.
+        if time_difference_in_days < 0:
+            return False
+        elif time_range == "Week":
             return time_difference_in_days < days_per_week
-        if time_range == "Month":
+        elif time_range == "Month":
             return time_difference_in_days < days_per_month
         else:
             return True  # All Meetings
-        pass
