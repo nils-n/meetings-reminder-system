@@ -23,14 +23,14 @@ GREETING_MARKDOWN = """\
 # Meeting Reminders
 
 This Terminal Application helps you organize your upcoming meetings. 
-- Press 'L' to load meetings from worksheet (discarding local changes)
-- Press 'P' to push your local changes
-- Press 'A' to add a meeting, or 'M' to modify a meeting
- 
+- Press **'A'** to *add*, 'R' to *remove* or 'M' to *modify* a meeting 
+- Press **'P'** to push your local changes 
+- Press **'W'** to toggle display  between **Week**, **Month** and **All Meetings** 
+
 """
 
 INPUT_MARKDOWN = """\
-# Meeting Reminders
+# Meeting Reminders :stopwatch:
 
 Enter Details for New Meeting. Note:
 - Date Format DD/MM/YY
@@ -387,17 +387,23 @@ class MeetingsApp(App):
 
     BINDINGS = [
         ("d", "toggle_dark", "Dark mode"),
-        ("l", "load_meetings", "Load"),
         ("a", "add_meeting", "Add"),
         ("r", "remove_meeting", "Remove"),
         ("m", "modify_meeting", "Modify"),
-        ("p", "push_changes", "Push Changes"),
+        ("p", "push_changes", "Push"),
+        ("w", "toggle_time_range", "Toggle Time"),
     ]
     CSS_PATH = "./assets/css/meetings.css"
 
     schedule = reactive(
         Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
     )
+
+    def __init__(self):
+        self.time_ranges = ["Week", "Month", "All Meetings"]
+        self.current_time_range = "All Meeting"
+        self.time_range_state = 2
+        super().__init__()
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
@@ -409,8 +415,14 @@ class MeetingsApp(App):
     def on_mount(self) -> None:
         self.load_meetings_table()
 
-    def action_load_meetings(self) -> None:
-        self.load_meetings_table()
+    def action_toggle_time_range(self) -> None:
+        """Toggles the view of the Meetings table
+        States : 0=Week, 1=Month, 2=All Meetings
+        """
+        self.time_range_state = (
+            self.time_range_state + 1 if self.time_range_state < 2 else 0
+        )
+        self.current_time_range = self.time_ranges[self.time_range_state]
 
     def load_meetings_table(self) -> None:
         table = self.query_one("#meetings-table")
