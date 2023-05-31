@@ -26,11 +26,10 @@ This Terminal Application helps you organize your upcoming meetings.
 - Press **'A'** to *add*, 'R' to *remove* or 'M' to *modify* a meeting 
 - Press **'P'** to push your local changes 
 - Press **'W'** to toggle display  between **Week**, **Month** and **All Meetings** 
-
 """
 
 INPUT_MARKDOWN = """\
-# Meeting Reminders :stopwatch:
+# Meeting Reminders 
 
 Enter Details for New Meeting. Note:
 - Date Format DD/MM/YY
@@ -408,7 +407,11 @@ class MeetingsApp(App):
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""
         yield Header()
-        yield Markdown(GREETING_MARKDOWN)
+        yield Markdown(GREETING_MARKDOWN, id="entry-markdown")
+        yield Markdown(
+            f""" **Your Meetings:** [ {self.current_time_range} ]""",
+            id="time-range-label",
+        )
         yield DataTable(id="meetings-table", show_cursor=False)
         yield Footer()
 
@@ -424,6 +427,10 @@ class MeetingsApp(App):
         )
         self.current_time_range = self.time_ranges[self.time_range_state]
         self.load_meetings_table(self.current_time_range)
+        label_over_table = self.query_one("#time-range-label")
+        label_over_table.update(
+            f""" **Your Meetings:** [ {self.current_time_range} ]"""
+        )
 
     def load_meetings_table(self, time_range) -> None:
         table = self.query_one("#meetings-table")
