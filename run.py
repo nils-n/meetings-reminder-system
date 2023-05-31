@@ -401,7 +401,7 @@ class MeetingsApp(App):
 
     def __init__(self):
         self.time_ranges = ["Week", "Month", "All Meetings"]
-        self.current_time_range = "All Meeting"
+        self.current_time_range = "All Meetings"
         self.time_range_state = 2
         super().__init__()
 
@@ -413,7 +413,7 @@ class MeetingsApp(App):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.load_meetings_table()
+        self.load_meetings_table(self.app.current_time_range)
 
     def action_toggle_time_range(self) -> None:
         """Toggles the view of the Meetings table
@@ -423,12 +423,13 @@ class MeetingsApp(App):
             self.time_range_state + 1 if self.time_range_state < 2 else 0
         )
         self.current_time_range = self.time_ranges[self.time_range_state]
+        self.load_meetings_table(self.current_time_range)
 
-    def load_meetings_table(self) -> None:
+    def load_meetings_table(self, time_range) -> None:
         table = self.query_one("#meetings-table")
         table.zebra_stripes = True
         table.clear(columns=True)
-        self.app.schedule.convert_meetings_to_table()
+        self.app.schedule.convert_meetings_to_table(time_range)
         rows = self.app.schedule.table_rows
         rows = iter(rows)
         column_labels = next(rows)
@@ -440,7 +441,7 @@ class MeetingsApp(App):
     def key_c(self):
         table = self.query_one(DataTable)
         table.cursor_type = next(cursors)
-        self.load_meetings_table()
+        self.load_meetings_table(self.current_time_range)
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
@@ -451,7 +452,7 @@ class MeetingsApp(App):
         self.schedule.push_meetings("schedule")
         self.schedule.calculate_participation_matrix()
         self.schedule.push_participation_matrix()
-        self.load_meetings_table()
+        self.load_meetings_table(self.current_time_range)
 
     def action_add_meeting(self) -> None:
         """an action to add a meeting"""
@@ -462,7 +463,7 @@ class MeetingsApp(App):
         Callback to get return value (a meeting) from NewMeetingScreen Widget
         """
         self.schedule.add_meeting(result)
-        self.load_meetings_table()
+        self.load_meetings_table(self.current_time_range)
 
     def action_remove_meeting(self) -> None:
         """
@@ -481,7 +482,7 @@ class MeetingsApp(App):
             try:
                 self.schedule.validate_meeting_id(result)
                 self.schedule.remove_meeting(result)
-                self.load_meetings_table()
+                self.load_meetings_table(self.current_time_range)
             except (ValueError, TypeError):
                 self.app.push_screen(
                     WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
@@ -510,7 +511,7 @@ class MeetingsApp(App):
         If meeting was updated, then update schedule and datatable
         To be implmemented
         """
-        self.load_meetings_table()
+        self.load_meetings_table(self.current_time_range)
 
 
 if __name__ == "__main__":

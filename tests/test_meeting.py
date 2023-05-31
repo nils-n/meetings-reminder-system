@@ -371,3 +371,42 @@ def test_removing_participant_with_wrong_id_raises_error(
 
     with expectation:
         model.remove_participant_by_id(input_id)
+
+
+@pytest.mark.parametrize(
+    "fixture_name, time_range, meeting_time, current_time, expectation",
+    [
+        (
+            "create_random_meeting",
+            "Week",
+            datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+            datetime.strptime("10/01/01 00:00", "%d/%m/%y %H:%M"),
+            False,
+        ),
+        (
+            "create_random_meeting",
+            "Month",
+            datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+            datetime.strptime("10/01/01 00:00", "%d/%m/%y %H:%M"),
+            True,
+        ),
+        (
+            "create_random_meeting",
+            "All Meetings",
+            datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+            datetime.strptime("10/01/01 00:00", "%d/%m/%y %H:%M"),
+            True,
+        ),
+    ],
+)
+def test_can_tell_if_meeting_is_within_time_range(
+    fixture_name, time_range, meeting_time, current_time, expectation, request
+):
+    """Tests whether a meeting correctly returns True if the meeting is within a given time range,
+    and False when the meeting is not"""
+    model = request.getfixturevalue(fixture_name)
+    model.validate_meeting_time(meeting_time)
+
+    result = model.is_within_time_range(current_time, time_range)
+
+    assert result == expectation

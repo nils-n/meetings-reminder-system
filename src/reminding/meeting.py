@@ -163,3 +163,8 @@ class Meeting:
                     ( num_participants : {self.num_participants} == len(Participants) : {len(self.participants)})"
             )
         self.num_participants = len(self.participants)
+
+    def is_within_time_range(self, current_time, time_range):
+        """returns True if the meeting is within the given time range from the current time"""
+
+        pass

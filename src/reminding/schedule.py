@@ -27,7 +27,7 @@ class Schedule:
         self.load_allowed_participants()
         self.load_meetings("schedule")
         self.load_participants()
-        self.convert_meetings_to_table()
+        self.convert_meetings_to_table("All Meetings")
 
     def load_participants(self):
         """loads all participants stored in the participation matrix"""
@@ -173,7 +173,6 @@ class Schedule:
         also updates the table rows for the User Interface
         """
         self.meetings.append(new_meeting)
-        self.convert_meetings_to_table()
 
     def remove_meeting(self, target_id):
         """
@@ -183,22 +182,23 @@ class Schedule:
             meeting for meeting in self.meetings if meeting.meeting_id != int(target_id)
         ]
 
-    def convert_meetings_to_table(self):
+    def convert_meetings_to_table(self, time_range):
         """
         convert the meetings object into a table format that the TUI can display and update
         """
         self.table_rows = []
         self.table_rows.append(("ID", "Name", "Time", "invited", "confirmed"))
         for meeting in self.meetings:
-            self.table_rows.append(
-                (
-                    meeting.meeting_id,
-                    meeting.name,
-                    meeting.datetime,
-                    len(meeting.participants),
-                    meeting.num_participants,
+            if meeting.is_within_time_range(time_range):
+                self.table_rows.append(
+                    (
+                        meeting.meeting_id,
+                        meeting.name,
+                        meeting.datetime,
+                        len(meeting.participants),
+                        meeting.num_participants,
+                    )
                 )
-            )
 
     def validate_meeting_id(self, target_id) -> None:
         """
