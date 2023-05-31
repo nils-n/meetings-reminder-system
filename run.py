@@ -466,6 +466,7 @@ class MeetingsApp(App):
             try:
                 self.schedule.validate_meeting_id(result)
                 self.schedule.remove_meeting(result)
+                self.load_meetings_table()
             except (ValueError, TypeError):
                 self.app.push_screen(
                     WarningScreen(f"Meeting ID does not exist ( ID : {result} )")

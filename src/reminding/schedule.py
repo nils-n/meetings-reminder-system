@@ -175,6 +175,14 @@ class Schedule:
         self.meetings.append(new_meeting)
         self.convert_meetings_to_table()
 
+    def remove_meeting(self, target_id):
+        """
+        removes a meeting from the schedule via its ID
+        """
+        self.meetings = [
+            meeting for meeting in self.meetings if meeting.meeting_id != int(target_id)
+        ]
+
     def convert_meetings_to_table(self):
         """
         convert the meetings object into a table format that the TUI can display and update
