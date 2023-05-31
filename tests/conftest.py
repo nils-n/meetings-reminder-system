@@ -107,3 +107,12 @@ def create_random_meeting() -> Meeting:
 def load_worksheet() -> Worksheet:
     """initialize and load the spreadsheet from the cloud once for all tests"""
     return Worksheet("Test Sheet", None)
+
+
+@pytest.fixture(scope="session")
+def load_mock_worksheet() -> Worksheet:
+    """
+    initialize a spreadsheet that does not depend on values from the cloud
+    to reduce API requests per minutes
+    """
+    return Worksheet("Mock Sheet", None)

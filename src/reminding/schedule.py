@@ -4,6 +4,7 @@ from typing import Union
 from datetime import datetime
 from reminding.meeting import Meeting, Participant
 from reminding.worksheet import Worksheet
+import gspread
 
 
 @dataclass
@@ -24,7 +25,7 @@ class Schedule:
 
     def __post_init__(self):
         self.load_allowed_participants()
-        self.load_meetings()
+        self.load_meetings("schedule")
         self.load_participants()
         self.convert_meetings_to_table()
 
@@ -39,47 +40,62 @@ class Schedule:
         except Exception:
             print("Could not load participants from API")
 
-    def load_meetings(self):
+    def load_meetings(self, worksheet_name):
         """
         currently this loads a hard-coded list of mock meetings
         eventually this will be replaced by reading data from a google worksheet
-        """
-        try:
-            self.worksheet.load_meetings("schedule")
-            self.meetings = self.worksheet.meetings
-        except Exception:
-            # this is just temporary to fill the list with mock data
-            # so that i don't have to manually type in a meeting / connect to google every time i test the UI
-            self.meetings = []
-            mock_datetime = datetime.strptime("01/01/71 00:00", "%d/%m/%y %H:%M")
-            mock_participants = []
-            mock_participants.append(self.allowed_participants[0])
-            mock_participants.append(self.allowed_participants[1])
-            mock_participants.append(self.allowed_participants[2])
-            mock_participants.append(self.allowed_participants[3])
 
-            self.add_meeting(
-                Meeting(
-                    1,
-                    "Mock Meeting 1 ",
-                    mock_datetime,
-                    True,
-                    True,
-                    mock_participants,
-                    "",
-                )
+        how to catch gpsread APIError
+        https://stackoverflow.com/questions/66091272/how-to-implement-try-catch-and-get-the-name-and-code-of-the-gspread-error
+
+        """
+        if worksheet_name == "Mock Sheet":
+            self.load_mock_meetings()
+            return
+        try:
+            self.worksheet.load_meetings(worksheet_name)
+            self.meetings = self.worksheet.meetings
+        except gspread.exceptions.APIError as error:
+            print(
+                f"Could not read data from API (error : {error})\n Loading Mock Meetings instead..."
             )
-            self.add_meeting(
-                Meeting(
-                    2,
-                    "Mock Meeting 2 ",
-                    mock_datetime,
-                    True,
-                    True,
-                    mock_participants,
-                    "",
-                )
+            self.load_mock_meetings()
+
+    def load_mock_meetings(self):
+        """
+        load mock meetings
+        either for faster unit test or in case of an APIError
+        """
+        self.meetings = []
+        mock_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
+        mock_participants = []
+        mock_participants.append(self.allowed_participants[0])
+        mock_participants.append(self.allowed_participants[1])
+        mock_participants.append(self.allowed_participants[2])
+        mock_participants.append(self.allowed_participants[3])
+
+        self.add_meeting(
+            Meeting(
+                1,
+                "Mock Meeting 1 ",
+                mock_datetime,
+                True,
+                True,
+                mock_participants,
+                "",
             )
+        )
+        self.add_meeting(
+            Meeting(
+                2,
+                "Mock Meeting 2 ",
+                mock_datetime,
+                True,
+                True,
+                mock_participants,
+                "",
+            )
+        )
 
     def push_meetings(self, worksheet_name):
         """pushes all meetings (including all local modifications) to the worksheet"""
