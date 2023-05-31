@@ -360,6 +360,33 @@ Most of the features of this application run fine on a local computer (any inter
 - For the Google Sheets API :
     - Search For "Google Drive" and select "Google Drive API" 
     - Click "Enable" 
+- For the Google Gmail API:
+    - Search For "Gmail" and select "Google Drive API" 
+    - Click "Enable" 
+    - If not already there, go to "API & Services" > "Credentials"
+    - Click on "Create Credentials" > select "OAuth client ID"
+    - This will tell you that you first need to configure your consent screen. 
+    - Click on "Configure Consent Screen"
+        - For "User Type" select "External", click > "Create"
+        - Select an 'AppName', for example 'MeetingReminders'. For your support email and developer contact email, use the Google account that you created for this project.
+        - Click 'Save and Continue'
+    - On the "Scopes" page > click 'add or remove scope'. Scroll through the list and select ```https://mail.google.com``` , then > Click on "Update"
+        - click on 'Save and continue'
+    - On the 'Test Users' page, add the email address that you will be using within the application. 
+        - click on "Add Users" and enter the email address > click "Add"
+        - click on "Save and Continue"
+   - Check on the 'summary' page that everyting looks right
+   - then click 'Back to Dashboard"
+   - Go Back to the 'Credentials Tab' 
+        - Click on 'Create Credentials' and select "Oauth Client ID"
+        - On "Application type" select "Desktop App" and leave Name default "Desktop client 1"
+       - Click on "Create"
+       - A pop up will appear where you can downlod your private credentials file **IMPORTANT Ensure that you will not share this json with anyone.** **Double-check that you are not pushing this file accidentally to your github repository!!**
+        - Rename the file to "credentials.json"
+        - open your ".gitignore" and add the line "credentials.json" **Again, be absolutelty sure that you don't accidentally push it to Github by using the .gitignore properly**
+
+
+
 - open your creds file and copy the value of the "client_email" key into your clipboard 
 - open your google sheet and click "share", and use this email that you copied above
 - **IMPORTANT: Never push any sensitive information to your GitHub repository** 
@@ -464,6 +491,7 @@ Also, this website was developed using a `test-driven development` (TDD) approac
     - Effective Python Testing with Pytest [Link](https://realpython.com/pytest-python-testing/)
     - Okken, Brian. "Python Testing with pytest." Pragmatic Bookshelf, 2022.
 - Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
+- How to setup up Google Gmail / EZGmail API [Al Sweikarts's ezgmail Github](https://github.com/asweigart/ezgmail)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
 - explanation how to solve inheritance issues with dataclassess [Python dataclass inheritance, finally !](https://medium.com/@aniscampos/python-dataclass-inheritance-finally-686eaf60fbb5)

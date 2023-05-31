@@ -8,3 +8,4 @@ node_modules/
 .github/
 work_env/
 creds.json
+credentials.json
