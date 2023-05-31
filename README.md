@@ -272,6 +272,10 @@ Most of the features of this application run fine on a local computer (any inter
 - in the terminal, type 'git clone ' followed by the link you copied
 - press enter to confirm
 
+### (Optional) How to set up your local python environment
+
+- If you want to run this application on your local computer
+
 #### Set Up Worksheets
 
 - Create a personal google account (if needed)
@@ -387,7 +391,7 @@ Most of the features of this application run fine on a local computer (any inter
         - copy your "credentials.json" into your repository next to "creds.json" 
         - **Apologies for the repition: but be absolutely sure that your credentials.json is listed in your .gitignore before the next commit/push**. 
         - check "git status". The "credentials.json" should ne be listed as modified. If it is marked as modified, stash that change and check your gitinore file.
-        - 
+    -  now open your repository. Ensure that your virual environment 
 
 
 
