@@ -26,9 +26,9 @@ def test_can_create_new_participant(init_values) -> None:
 @pytest.mark.parametrize(
     "fixture_name, example_input,expectation",
     [
-        ("init_values", "Han Solo", does_not_raise()),
-        ("init_values", "Chewbakka", does_not_raise()),
-        ("init_values", "Darth Vader", does_not_raise()),
+        ("init_values", "Test User 1", does_not_raise()),
+        ("init_values", "Test User 2", does_not_raise()),
+        ("init_values", "Test User 2", does_not_raise()),
         ("init_values", 1, pytest.raises(TypeError)),
         ("init_values", None, pytest.raises(TypeError)),
         ("init_values", ["A", "List", "of", "Strings"], pytest.raises(TypeError)),
@@ -67,8 +67,8 @@ def test_invalid_meeting_id_raises_error(
 @pytest.mark.parametrize(
     "new_name,expectation, fixture_name",
     [
-        ("Sith Lord", "Sith Lord", "init_participant"),
-        ("Han Solo", "Han Solo", "init_participant"),
+        ("Test User 1", "Test User 1", "init_participant"),
+        ("Test User 2", "Test User 2", "init_participant"),
     ],
 )
 def test_can_update_participant_name(new_name, expectation, fixture_name, request):
@@ -83,9 +83,9 @@ def test_can_update_participant_name(new_name, expectation, fixture_name, reques
 @pytest.mark.parametrize(
     "new_email, expectation, fixture_name",
     [
-        ("sithlord@fakemail.com", "sithlord@fakemail.com", "init_participant"),
-        ("hansolo@fakemail.com", "hansolo@fakemail.com", "init_participant"),
-        ("chewbacca@fakemail.com", "chewbacca@fakemail.com", "init_participant"),
+        ("test-email+1@test.com", "test-email+1@test.com", "init_participant"),
+        ("test-email+2@test.com", "test-email+2@test.com", "init_participant"),
+        ("test-email+3@test.com", "test-email+3@test.com", "init_participant"),
     ],
 )
 def test_can_update_participant_email(new_email, expectation, fixture_name, request):
@@ -132,14 +132,26 @@ def test_wrong_participant_id_raises_type_error(
 @pytest.mark.parametrize(
     "new_email, expectation, fixture_name",
     [
-        ("hansolo@fakemailcom", pytest.raises(EmailNotValidError), "init_participant"),
-        ("hansolofakemail.com", pytest.raises(EmailNotValidError), "init_participant"),
         (
-            "hansolo@@fakemail.com",
+            "test.user+1@testmailcom",
             pytest.raises(EmailNotValidError),
             "init_participant",
         ),
-        (["hansolo@fakemail.com"], pytest.raises(AttributeError), "init_participant"),
+        (
+            "test.user+1testmail.com",
+            pytest.raises(EmailNotValidError),
+            "init_participant",
+        ),
+        (
+            "test.user+1@@testcom",
+            pytest.raises(EmailNotValidError),
+            "init_participant",
+        ),
+        (
+            ["test.user+1@testmailcom"],
+            pytest.raises(AttributeError),
+            "init_participant",
+        ),
         (None, pytest.raises(AttributeError), "init_participant"),
     ],
 )
@@ -155,8 +167,8 @@ def test_wrong_email_raises_type_error(new_email, expectation, fixture_name, req
     "new_name, expectation, fixture_name",
     [
         (42, pytest.raises(TypeError), "init_participant"),
-        (["Han", "Solo"], pytest.raises(TypeError), "init_participant"),
-        (("Han", "Solo"), pytest.raises(TypeError), "init_participant"),
+        (["Test", "User"], pytest.raises(TypeError), "init_participant"),
+        (("Test", "User"), pytest.raises(TypeError), "init_participant"),
         (None, pytest.raises(TypeError), "init_participant"),
     ],
 )
@@ -171,9 +183,9 @@ def test_wrong_name_raises_type_error(new_name, expectation, fixture_name, reque
 @pytest.mark.parametrize(
     "participant_name, participant_email, fixture_name",
     [
-        ("Hans Gruber", "hansgruber@nakatomiplaza.com", "init_participant"),
-        ("Karl", "justkarl@nakatomiplaza.com", "init_participant"),
-        ("John McClane", "johnmcclane@nakatomiplaza.com", "init_participant"),
+        ("Test User 1", "test.user+1@test.com", "init_participant"),
+        ("Test User 2", "test.user+2@test.com", "init_participant"),
+        ("Test User 3", "test.user+3@test.com", "init_participant"),
     ],
 )
 def test_converts_details_correctly_into_table_row(
