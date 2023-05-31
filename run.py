@@ -386,9 +386,10 @@ class MeetingsApp(App):
     """
 
     BINDINGS = [
-        ("d", "toggle_dark", "Toggle dark mode"),
-        ("l", "load_meetings", "Load Meetings"),
-        ("a", "add_meeting", "Add Meeting"),
+        ("d", "toggle_dark", "Dark mode"),
+        ("l", "load_meetings", "Load"),
+        ("a", "add_meeting", "Add"),
+        ("r", "remove_meeting", "Remove"),
         ("m", "modify_meeting", "Modify"),
         ("p", "push_changes", "Push Changes"),
     ]
@@ -447,6 +448,28 @@ class MeetingsApp(App):
         """
         self.schedule.add_meeting(result)
         self.load_meetings_table()
+
+    def action_remove_meeting(self) -> None:
+        """
+        an action to remove a meeting
+        """
+        self.push_screen(
+            ModifyQuestionScreen("Select Which Meeting to Remove (Use Meeting ID)"),
+            self.check_which_meeting_to_remove,
+        )
+
+    def check_which_meeting_to_remove(self, result: int) -> None:
+        """
+        Callback to check which meeting the user wants to remove
+        """
+        if result is not False:
+            try:
+                self.schedule.validate_meeting_id(result)
+                self.schedule.remove_meeting(result)
+            except (ValueError, TypeError):
+                self.app.push_screen(
+                    WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
+                )
 
     def action_modify_meeting(self) -> None:
         """an action to modify and exisisting meeting"""
