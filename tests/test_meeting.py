@@ -39,8 +39,8 @@ def test_can_create_new_meeting(create_random_participants) -> None:
 @pytest.mark.parametrize(
     "fixture_name, new_name, expectation",
     [
-        ("create_random_participants", "Death Star Staff Meeting", does_not_raise()),
-        ("create_random_participants", "Rebel Briefing", does_not_raise()),
+        ("create_random_participants", "Test Meeting 1", does_not_raise()),
+        ("create_random_participants", "Test Meeting 2", does_not_raise()),
         ("create_random_participants", 42, pytest.raises(TypeError)),
     ],
 )
@@ -112,7 +112,7 @@ def test_invalid_notification_flag_raises_type_error(
 ):
     """ensure that notification flag is a bool type"""
     participants = request.getfixturevalue(fixture_name)
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_date_time = datetime.now()
     random_meeting_notes = "This is a random note for this meeting."
@@ -138,13 +138,13 @@ def test_invalid_notification_flag_raises_type_error(
             does_not_raise(),
         ),
         ("create_random_participants", datetime.now(), does_not_raise()),
-        ("create_random_participants", "21/11/06 16:30", pytest.raises(TypeError)),
+        ("create_random_participants", "00/00/00 00:00", pytest.raises(TypeError)),
     ],
 )
 def test_invalid_time_raises_type_error(fixture_name, new_time, expectation, request):
     """ensure that meeting time is correct datetime type"""
     participants = request.getfixturevalue(fixture_name)
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_meeting_notes = "This is a random note for this meeting."
 
@@ -186,7 +186,7 @@ def test_invalid_room_flag_raises_type_error(
 ):
     """ensure that room flag is a bool type"""
     participants = request.getfixturevalue(fixture_name)
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_time = datetime.now()
     random_meeting_notes = "This is a random note for this meeting."
@@ -218,7 +218,7 @@ def test_invalid_meeting_notes_raises_type_error(
 ):
     """test that invalid meeting notes raise type error"""
     participants = request.getfixturevalue(fixture_name)
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_time = datetime.now()
 
@@ -241,7 +241,7 @@ def test_meeting_values_convert_correctly_to_table_row(
     Test if meeting values are converted correctly to DataTable row
     """
     participants = create_random_participants
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_time = datetime.now()
     random_notes = "This is a random note"
@@ -282,7 +282,7 @@ def test_user_input_for_meeting_time_can_be_converted_to_datetime(
     Test if wrong user input of meeting time raises correct errors
     """
     participants = request.getfixturevalue(fixture_name)
-    random_name = "R2D2"
+    random_name = "Random Name"
     random_meeting_id = 42
     random_time = datetime.now()
     random_notes = "This is a random note"
@@ -307,7 +307,7 @@ def test_add_participants_to_meeting(create_random_meeting) -> None:
     for i in range(num_added_participants):
         model.add_participant(
             Participant(
-                f"Mock Participant {i}", f"mockemail-{i}@fakemail.com", i, True, []
+                f"Test Participant {i}", f"testemail-{i}@fakemail.com", i, True, []
             )
         )
 
