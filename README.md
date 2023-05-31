@@ -38,11 +38,8 @@ As a user of this terminal application...
 <ul>
     <li> add an automation task that requires low-level attention to organzing an event or meetings </li>
     <li> reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
-</ul>
-
-
-### How these needs are addressed
-
+</ul>.
+][='\\\\\\\------------]
 - Item 1
 - Item 2
 
@@ -229,8 +226,8 @@ The functionality of the python program is displayed below.
         <td> to create a terminal user interface</td>
     </tr>
     <tr>
-        <td> email / ezgmail  </td>
-        <td>  to send emails from python  </td>
+        <td> black  </td>
+        <td>  for standarized code formatting </td>
     </tr>
      <tr>
         <td> pytest </td>
