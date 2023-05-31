@@ -26,17 +26,20 @@ def test_can_create_new_worksheet(load_worksheet) -> None:
 def test_can_read_values_from_worksheet(load_worksheet) -> None:
     """test if the class can read values from worksheet"""
     data = load_worksheet
-    model = data.schedule_sheet.get_all_values()
+    model = data.unittest_sheet.get_all_values()
 
-    assert model[1][1] == "Christmas Party"
-    assert model[1][2] == "24/12/23 21:00"
+    assert model[1][1] == "Unit Test Meeting 1"
+    assert model[1][2] == "11/11/11 11:11"
 
 
 def test_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None:
     """test if the class can read all valid particpants from the worksheet"""
+
     valid_participants = [
-        Participant("Hans Gruber", "hansgruber@nakatomiplaza.com", 1, True, []),
-        Participant("John McClane", "johnmcclane@nakatomiplaza.com", 2, True, []),
+        Participant(
+            f"Test User {i}", f"student.reminder.test.user+{i}@gmail.com", i, True, []
+        )
+        for i in range(1, 5)
     ]
 
     model = load_worksheet
@@ -51,22 +54,23 @@ def test_can_read_all_valid_participants_from_worksheet(load_worksheet) -> None:
     [
         (
             "load_worksheet",
-            Participant("Hans Gruber", "hansgruber@nakatomiplaza.com", 1, True, []),
+            Participant(
+                "Test User 1", "student.reminder.test.user+1@gmail.com", 1, True, []
+            ),
             does_not_raise(),
         ),
         (
             "load_worksheet",
-            Participant("John McClane", "johnmcclane@nakatomiplaza.com", 2, True, []),
+            Participant(
+                "Test User 2", "student.reminder.test.user+2@gmail.com", 2, True, []
+            ),
             does_not_raise(),
         ),
         (
             "load_worksheet",
-            Participant("Elsa", "elsa@snowmail.com", 42, True, []),
-            pytest.raises(ValueError),
-        ),
-        (
-            "load_worksheet",
-            Participant("Olaf", "olaf@snowmail.com", 100, True, []),
+            Participant(
+                "Test User 42", "student.reminder.test.user+42@gmail.com", 42, True, []
+            ),
             pytest.raises(ValueError),
         ),
     ],
@@ -83,7 +87,7 @@ def test_invalid_participant_should_raise_ValueError(
         model.is_valid_participant(participant)
 
 
-def xtest_can_read_meetings_from_worksheet(load_worksheet) -> None:
+def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
     """
     this is a bit tricky: what to test first, reading or writing a meeting?
     If we test read first -> How do we know during unit test what to expect on the editable sheet?
