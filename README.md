@@ -381,9 +381,13 @@ Most of the features of this application run fine on a local computer (any inter
         - Click on 'Create Credentials' and select "Oauth Client ID"
         - On "Application type" select "Desktop App" and leave Name default "Desktop client 1"
        - Click on "Create"
-       - A pop up will appear where you can downlod your private credentials file **IMPORTANT Ensure that you will not share this json with anyone.** **Double-check that you are not pushing this file accidentally to your github repository!!**
+       - A pop up will appear where you can downlod your private credentials file **IMPORTANT Ensure that you will not share this json with anyone.** **Double-check that you are not pushing this file accidentally to your github repository!**
         - Rename the file to "credentials.json"
-        - open your ".gitignore" and add the line "credentials.json" **Again, be absolutelty sure that you don't accidentally push it to Github by using the .gitignore properly**
+        - open your ".gitignore" and add the line "credentials.json" **Again, be absolutelty sure that you don't accidentally push it to Github**
+        - copy your "credentials.json" into your repository next to "creds.json" 
+        - **Apologies for the repition: but be absolutely sure that your credentials.json is listed in your .gitignore before the next commit/push**. 
+        - check "git status". The "credentials.json" should ne be listed as modified. If it is marked as modified, stash that change and check your gitinore file.
+        - 
 
 
 

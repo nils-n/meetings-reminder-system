@@ -9,3 +9,4 @@ node_modules/
 work_env/
 creds.json
 credentials.json
+.DS_Store
