@@ -109,7 +109,7 @@ class NewMeetingScreen(ModalScreen[Meeting]):
 
     def compose(self) -> ComposeResult:
         yield Label("Do you want to add this meeting?", id="question")
-        yield DataTable(id="new-meeting")
+        yield DataTable(id="new-meeting", show_cursor=False)
         yield Grid(
             Button("No", variant="error", id="no", classes="column"),
             Button("Yes", variant="success", id="yes", classes="column"),
@@ -197,8 +197,8 @@ class ModifyMeetingScreen(ModalScreen[int]):
 
     def compose(self) -> ComposeResult:
         yield Label("What you want to modify of this meeting?", id="question")
-        yield DataTable(id="update-meeting")
-        yield DataTable(id="update-participants")
+        yield DataTable(id="update-meeting", show_cursor=False)
+        yield DataTable(id="update-participants", show_cursor=False)
         yield Grid(
             Button("Name", variant="default", id="update-name", classes="column"),
             Button("Time", variant="default", id="update-time", classes="column"),
@@ -403,7 +403,7 @@ class MeetingsApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Markdown(GREETING_MARKDOWN)
-        yield DataTable(id="meetings-table")
+        yield DataTable(id="meetings-table", show_cursor=False)
         yield Footer()
 
     def on_mount(self) -> None:
