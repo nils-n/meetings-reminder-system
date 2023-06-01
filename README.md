@@ -132,13 +132,29 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
 
 ## Design
 
+### Screen Flow and Design Considerations
 
-### Imagery
+The Screen Flow of this Application is visualized below. At any point it is taken care that invalid user interactions, such as supplying invalid Date or selecting meetings to modify that don't exisit, are handled gracefully, with the user getting feedback with a reason for the failure. 
+- After supplying invalid input, the user is given a chance to repeat their input at any given point gracefully. Feedback in the Warning Dialog should guide by finding error why the input was invalid 
+- It is taken care that at any point the input does not lead to program errors.
+- It is anticipated that users eventually will forget to push their latest changes. To avoid these 'soft' user errors, a visual status whether the table is in sync with the remote data is displayed giving the user a visual aid to avoiding this error 
+- Note that a user of this applicaiton *cannot* add arbitrary participants **by design**.  This is to anticipate accidental 'soft' errors such as mis-spelling an Email address or Names. It also counters users with malicious intent that would send emails or spam to unwanted addresses. 
+- Note also that, while this application cannot send Emails to the participants, such as reminder Emails, it is designed to work together with an application on the same database that **only** handles the sending of reminder Emails on a scheduled basis. 
+
+<table  style="margin: 0 auto; width: 100%">
+    <tr >
+        <th style="text-align:center">  SCREEN FLOW  </th>
+    </tr>
+      <tr>
+        <td> <img src="./assets/images/Screen-Flow-Diagram.png"; alt="example data of thr meetings as stored in google sheets " > </td>
+    </tr>
+
+ 
+</table>
 
 
---- 
 
-### Data Structures
+### Data Model
 
 The information about meetings and participants will be stored using Google sheets: 
 
