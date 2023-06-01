@@ -272,8 +272,8 @@ This is the entry point when you start the application from the terminal.
 
 <table>
     <tr >
-        <th style="max-width: 20%">  screen </th>
-        <th style="text-align:center;">  SCREEN FLOW  </th>
+        <th style="width:20%;">  screen </th>
+        <th style="width:80%;">  SCREEN FLOW  </th>
     </tr>
     <tr>
         <td> 1 - within your terminal  </td>
