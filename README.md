@@ -65,15 +65,14 @@ Link to the live terminal : TO DO
     </tr>
 </table>
 
+--- 
 
-### Website Aims
+### Application Aims
 
 <ul>
-    <li> add an automation task that requires low-level attention to organzing an event or meetings </li>
-    <li> reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
-</ul>.
-
-
+    <li> create a schedule manager that provides time management to the user  </li>
+    <li> fast access to a meeting schedule directly within the terminal (no need to open Outlook)  </li>
+</ul>
 
 ### Opportunities 
 
