@@ -20,18 +20,51 @@ Link to the live terminal : TO DO
 
 ### User Stories 
 
-As a user of this terminal application...
-<ol>
-    <li> I want to see all my scheduled meetings on a first glance.</li>
-    <li> I want to be able to create, read, update, delete a meeting.</li>
-    <li> I want to be able to add or delete participants from a particular meeting.</li>
-    <li> I want to be able to update information of a meeting, such as: time, place or the meeting notes.</li>
-    <li> I want every participant to receive a reminder email at least 24hrs before the meeting.</li>
-    <li> I want to have the option to turned notification off for individual participants or entire meetings (opt-out principle)</li>
-    <li> I want to ensure that a reminder email is sent only once per participant.</li>
-     <li> If I did not send the reminder email manually 24hrs before the meeting, i want the system to send an automatic reminder email instead.</li>
-    <li> When a meeting is in the past, i do not want to have it displayed with the other meetings</li>
-</ol>
+<table  style="margin: 0 auto; width: 90%; ">
+    <tr >
+        <th style="min-width:20%">  </th>
+        <th style='text-align:center' > USER STORIES </th>
+    </tr>
+    <tr>
+        <td style="min-width:20%"> 1 </td>
+        <td> I want to be able to filter my upcoming meetings so that I can see the upcoming meetings for the current week, the current month or all meetings quickly.   </td>
+    </tr>
+    <tr>
+        <td> 2 </td>
+        <td> I want to be able to add a new Meeting to my schedule so that i can freely change the meeting name, meeting time and date.   </td>
+    </tr>
+    <tr>
+        <td> 3 </td>
+        <td> I want to be able to modify the details of an existing meeting, so that i can correct and react to changes to the plan, by changing the meeting time, name, and participants that are invited.   </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td>  I want to be able to remove a Meeting from my schedule, so that it is not in the schedule any more, for example if the meeting was cancelled.   </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td>  I want to be able to add and remove participants to a meeting after a meeting has been created so that i can react to changes in the outer world (i.e. a participant had to cancel their attendance after originally having agreed to attend) </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> When i make changes to the meeting schedule, I want to able to save those changes so that they are still there when I open the application the next time. 
+        </td>
+    </tr>
+    <tr>
+        <td> 6 </td>
+        <td>  While using the application, I want to have an option to discard the local changes and reset the schedule from the database.
+        </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> I want to able to quickly change the time range how the upcoming meetings are displayed. In this way, I can quickly get an overview of the meetings from the current week, the current month, and all meetings that are scheduled.  </td>
+    </tr>
+    <tr>
+        <td> 8 </td>
+        <td> I want to be able to toggle the display into dark mode so that I can also easily read the information also with darker light conditions.   </td>
+    </tr>
+</table>
+
 
 ### Website Aims
 
@@ -92,6 +125,7 @@ As a user of this terminal application...
     
 
 </table>
+
 
 
 --- 
