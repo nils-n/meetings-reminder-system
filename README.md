@@ -270,22 +270,22 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 This is the entry point when you start the application from the terminal.
 
-<table style='width:95%'>
+<table style='width:100%'>
     <tr >
-        <th>  screen </th>
-        <th>  SCREEN FLOW  </th>
+        <th style="width: 20%">  screen </th>
+        <th style="width: 80%">  SCREEN FLOW  </th>
     </tr>
     <tr>
-        <td style="width:20%">  1 - within your terminal  </td>
-        <td> <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " > </td>
+        <td style="width: 20%">  1 - within your terminal  </td>
+        <td style="width: 80%"> <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " > </td>
     </tr>
     <tr>
-        <td> 2 - loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.</td>
-        <td> <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal before starting the app " > </td>
+        <td style="width: 20%"> 2 - loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.</td>
+        <td style="width: 80%"> <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal before starting the app " > </td>
     </tr>
-        <tr>
-        <td> 3 - clicking on "Dark Mode" or pressing <b>D</b> key switches the contrast.</td>
-        <td> <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " > </td>
+    <tr>
+        <td style="width: 20%"> 3 - clicking on "Dark Mode" or pressing <b>D</b> key switches the contrast.</td>
+        <td style="width: 80%"> <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " > </td>
     </tr>
 </table>
 
