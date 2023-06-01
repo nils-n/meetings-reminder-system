@@ -6,6 +6,15 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
+<br>
+<br>
+[<b>Add an image of the App Here </b>]
+<br>
+<br>
+<br>
+<br>
+
+
 --- 
 
 ## Table of Contents
@@ -247,6 +256,25 @@ Note that in this repository, only the main `MeetingsApp` application is present
 ## Features
 
 ### General Features 
+
+The application consists of three main screens:
+-  `Main Screen `: this is entry point when starting the applicaiton, also the center of the application where the other screens pop from. Displays the schedule of upcoming meetings. 
+-  `Add Meeting Screen` : a screen where the user enter details such as **Name**, **Time** and **Date** of a new Meeting
+- `Modify Meeting Screen` : a screen where the user can change details of a particular meeting from the schedule, such as **remove** or **add** participants, or change **Date**, **Time** and **Name** of a scheduled meeeting.  
+
+--- 
+
+### Main Screen 
+
+---
+
+### Add Meeting Screen 
+
+---
+### Modify Meeting Screen 
+
+
+---
 
 ### Future Implementations
 
