@@ -72,9 +72,7 @@ Link to the live terminal : TO DO
     <li> add an automation task that requires low-level attention to organzing an event or meetings </li>
     <li> reduce likelihood that meetings are missed, or that participants do not attend a meeting </li>
 </ul>.
-][='\\\\\\\------------]
-- Item 1
-- Item 2
+
 
 
 ### Opportunities 
@@ -82,56 +80,56 @@ Link to the live terminal : TO DO
 
 <table  style="margin: 0 auto; width: 80%">
     <tr >
-        <th > Description </th>
+        <th>  # </th>
+        <th> Feature </th>
         <th> Impact </th>
         <th> Feasibility </th>
     </tr>
+      <tr>
+        <th> 1 </th>
+        <td> Add new meetings to schedule, and remove scheduled meetings that are cancelled  </td>
+        <td> 5  </td>
+        <td> 5  </td>
+    </tr>
     <tr>
-        <td> Create,Read ,Update or Delete a meeting  </td>
+        <th> 2 </th>
+        <td> Modify details of a scheduled meeting (including changes of time, meeting name and participants ) </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
      <tr>
-        <td> Create, Read, Update and Delete a participant of a meeting   </td>
+        <th> 3 </th>
+        <td> Create and add participants to a meeting, and remove them from a scheduled meeting  </td>
         <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-    <tr>
-        <td >  Add, remove and update notes attached to the reminder email   </td>
-        <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-     <tr>
-        <td style="max-width:200px"> Send a reminder to participants with a button press  </td>
-        <td> 5  </td>
-        <td> 5  </td>
-    </tr>
-    <tr>
-        <td style="max-width:200px"> Send automatic reminder to participants who have not received a manual reminder email 24hrs before meeting   </td>
-        <td> 5  </td>
-        <td> 5  </td>
+        <td> 4  </td>
     </tr>
   <tr>
-        <td> Display list of upcoming meetings and allow to browse details </td>
+        <th> 4 </th>
+        <td> Display the list of upcoming meetings and allow to browse details. Let the user see quickly the scheduled meetings for the current week and current month </td>
         <td> 5  </td>
         <td> 5  </td>
     </tr>
-     <tr>
-        <td> allow to turn on/off notifications for each meeting and participant </td>
+    <tr>
+        <th> 5 </th>
+        <td > Send automatic reminder Emails to each participant and attach a note to thes reminder emails   </td>
         <td> 3  </td>
         <td> 4  </td>
     </tr>
-
-    
-
+ 
 </table>
-
 
 
 --- 
 
 ### Feature selection
 
+- **Features 1,2,4** seemed appropriate and within scope of the project and capability of the development team. 
+- Regarding **Feature 3**: it was decided to **not** allow the user of the application to create an arbitary participant. While it seemed initially a good idea to allow arbitrary participants, it raised security issues especially if this system is combined with the ability to send reminder Emails - a malicious user could send Emails to arbitrary addresses and spam mails.   
+    - Solution : Instead of allowing arbitrary participants, another datasheet was added to the model with a pool of allowed participants that the user can select from. I considered this not a major limitation since most meetings that this application aim for are repetitive meetings with the same people
+    - In a future extension of this application, the user could send a request to add a user to an administrator of the system, and once approved, this participant could be added to the protected pool of participants.
+- Regarding **Feature 5** : It was decided to not add this implementation to this application as it would have increased significantly the complexity of the project including an implementation that is acceptable also in terms of security, code readibility, deployability and the encapsulation priniciple. Especially the fact that the terminal application would have to be operate securely both on the Code Institute Terminal on Heroku (as per assessment criteria) and on a local terminal would increase the complexity beyond the scope of the project. 
+    - Solution: It was decided that the capability to send Emails  needs to be handled by a separate, dedicated application (which could work on the database managed by this application). It also would reflect better the prinicple of encapsulation to have one application for managing the meeting schedule, an another application that manages Email reminders: they could easily work on the same database. 
+    - In fact, it would be the most appropriate to add a third terminal application in this cosmos to handle the administration and validation for adding people to the datasheet of allowed participants.
 ----- 
 
 ## Design
