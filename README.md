@@ -148,30 +148,84 @@ The Screen Flow of this Application is visualized below. At any point it is take
       <tr>
         <td> <img src="./assets/images/Screen-Flow-Diagram.png"; alt="example data of thr meetings as stored in google sheets " > </td>
     </tr>
-
- 
 </table>
 
-
+---
 
 ### Data Model
 
-The information about meetings and participants will be stored using Google sheets: 
+The data in this applications is modelled as following.
 
-<table style='max-width:80%; text-align: center'>
+<table  style="margin: 0 auto">
     <tr>
-        <th style='text-align:center'> Python Class</th>
-        <th style='text-align:center'> Flow Chart - Python</th>
+        <th>  Class </th>
+        <th>  Description </th>
+        <th>  Attributes </th>
     </tr>
     <tr>
-        <td> Meeting Data </td>
-        <td> <img src="./assets/images/google-sheet-example-1.png"; alt="example data of thr meetings as stored in google sheets " >  </td>
+        <td style="width:10%"> <b>Schedule</b> </td>
+        <td style="width:60%"> Consists of a collection of meetings. A schedule has also a Worksheet that can send and receive data from the Goggle Sheets API  </td>
+        <td> 
+            <ul>
+                <li> Name </li>
+                <li> Worksheet </li>
+                <li> List of Meetings </li>
+                <li> List of allowed Participants </li>
+            </ul>
+         </td>
     </tr>
-   <tr>
-        <td> Particiant Data </td>
-        <td> <img src="./assets/images/google-sheet-example-2.png"; alt="example data of the participants as stored in google sheets " >  </td>
+    <tr>
+        <td style="width:10%"> <b> Meeting </b> </td>
+        <td style="width:60%"> Consists of a collection of participants. It has an unique "Meeting ID" that is used throughout the application to refer to a particular instance of a meeting. </td>
+        <td> 
+            <ul>
+                <li> Name </li>
+                <li> Time </li>
+                <li> List of Participants </li>
+                <li> Meeting ID </li>
+            </ul>
+         </td>
+    </tr>
+    <tr>
+        <td style="width:10%"> <b> Participant </b> </td>
+        <td style="width:60%"> Smallest Unit in this Application. It has an unique "Participant ID" that is used throughout the application. This ID also enables to store the information which meeting a particular participant attends - could be a single meeting, but could be multiple <b> see section #Participation Matrix (TO BE ADDED) </b> </td>
+        <td> 
+            <ul>
+                <li> Name </li>
+                <li> Email Address </li>
+                <li> Participant ID </li>
+            </ul>
+         </td>
+    </tr>
+     <tr>
+        <td style="width:10%"> <b> Worksheet </b> </td>
+        <td style="width:60%"> Handles the interface to the Google Sheets API and enables read/write access to a remote location , so that changes to the schedule can be stored permanently. </td>
+        <td> 
+            <ul>
+                <li> Name </li>
+                <li> Schedule Sheet </li>
+                <li> List of allowed Participants (just to add another layer of safety with some redundance)</li>
+            </ul>
+         </td>
     </tr>
 </table>
+
+A more graphical depiction of this Data Model can be seen in the following diagram. 
+
+<table  style="margin: 0 auto; width: 100%">
+    <tr>
+        <th style="text-align:center">  DATA MODEL </th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/classes-python.png"; alt="example data of thr meetings as stored in google sheets " > </td>
+    </tr>
+     <tr>
+     <td>
+     <b>Figure : Data Model. </b>This illustration depicts the hierarchy. The App consists of a unique schedule, which consitsts of a collection of the meetings. A Meeting itself consists of a collection of participants.
+     </td>
+    </tr>
+</table>
+
 
 --- 
 
