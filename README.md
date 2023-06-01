@@ -1,8 +1,8 @@
-# Meetings reminders
+# Meeting Manager
 
-This python-based terminal app is designed to organize meeting reminders. The goal is to free the user of low-level attention tasks that are associated with organizing meetings and keeping track that participants attend to the meeting. This is achieved by automatizing the process of sending meeting invitations and reminder emails.
+This python-based terminal app is designed to organize personal meeting schedules. The goal is to provide a  time-management tool to keep track and modify scheduled meetings directly within the terminal. This is achieved by creating a Terminal User Interface (TUI) that works directly within the terminal - no need to open and wait for an external calender application to start. 
 
-Link to the live terminal : TO DO 
+Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku](https://meeting-reminders.herokuapp.com/)
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
