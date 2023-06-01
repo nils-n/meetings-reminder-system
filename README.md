@@ -257,14 +257,39 @@ Note that in this repository, only the main `MeetingsApp` application is present
 
 ### General Features 
 
-The application consists of three main screens:
+The application consists of three main screens using a terminal user interface (TUI):
 -  `Main Screen `: this is entry point when starting the applicaiton, also the center of the application where the other screens pop from. Displays the schedule of upcoming meetings. 
 -  `Add Meeting Screen` : a screen where the user enter details such as **Name**, **Time** and **Date** of a new Meeting
 - `Modify Meeting Screen` : a screen where the user can change details of a particular meeting from the schedule, such as **remove** or **add** participants, or change **Date**, **Time** and **Name** of a scheduled meeeting.  
 
+On each screen, confirmation dialogs and warning messages about invalid inputs are implemented as semi-transparent popup screens that are popped on top of the current screen.
+
 --- 
 
 ### Main Screen 
+
+This is the entry point when you start the application from the terminal.
+
+<table  style="margin: 0 auto; width: 100%">
+    <tr >
+        <th style="text-align:center; width: 20%">  screen </th>
+        <th style="text-align:center; width: 90%">  SCREEN FLOW  </th>
+    </tr>
+    <tr>
+        <td> 1 - within your terminal  </td>
+        <td> <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " > </td>
+    </tr>
+    <tr>
+        <td> 2 - loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.</td>
+        <td> <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal before starting the app " > </td>
+    </tr>
+        <tr>
+        <td> 3 - clicking on "Dark Mode" or pressing <b>D</b> key switches the contrast.</td>
+        <td> <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " > </td>
+    </tr>
+</table>
+
+
 
 ---
 
@@ -278,12 +303,16 @@ The application consists of three main screens:
 
 ### Future Implementations
 
-- Add option for recurring meetings 
-- Add option to connect to a calendar (Gmail, Outlook) to check for availability of participants
-- send a calender invite (for simplicity, this project sends currently only emails) 
-- create options for virutal meetings (i.e. add options for zoom)
+- Integration of the meeting schedule with a personal calender such as Outlook / Gmail calender. This way, the application could make use of the features implemented in those calenders already, and check availability of the participants. 
+- Integration of this `MeetingsApp` with a `ReminderApp` that uses a shared database to send reminder Emails on a scheduled basis (such as 24hrs before a meeting), and a `ParticipantsApp` that handles the administration of the participants and approval requests for adding new participants from the `MeetingApp`
+- Integration of the meetings app for a more broad meaning of a schedule, such as adding other (personal) events or virtual meetings to a schedule  
+- Integration of a personal Meeting Schedule with a schedule from other another users, to allow for social interactions and messages / invitations to meetings or events
 
 ### Accessibility
+
+- The application is entirely controllable via focusable buttons (while on a desktop version allowing for mouse control as an alternative). 
+- An 
+- A toggle for a 'Dark Mode' has been added to allow switching of the displayed colors 
 
 --- 
 
