@@ -231,44 +231,16 @@ A more graphical depiction of this Data Model can be seen in the following diagr
 
 ### Implementation in Python  
 
-The implementation will be divided into two Apps:
--  TerminalApp : User Terminal Application where the user can interact with the Meeting schedule
--  ReminderApp : A small worker application that sends reminders based on the Meeting schedule
+The layout of the implementation is divided into three separate Apps. Note that in this repository, only the `MeetingsApp` is discussed and included. But for sake of completeness, and to stress the design choices, these are the:
 
-These are the classes that will model the behaviour:
-- Meeting Class: to describe details of the meeting (that consists of participants)
-- Participant Class: to describe details of the participant
-- Worksheet Class : describes interaction with Google Sheets (read/write)
-- Schedule Class : to store and handle all scheduled Meetings 
+-  MeetingsApp : The main User Terminal Application where the user can interact with the Meeting schedule
+-  ReminderApp : A small worker application that sends reminders based on the Meeting schedule 
+-  ParticipantsApp : A small worker application that handles approval requests for adding new participants 
 
-<table style='max-width:70%'>
-    <tr>
-        <th style='text-align:center'> Python : Classes</th>
-    </tr>
-    <tr>
-        <td> <img src="./assets/images/classes-python.png"; alt="outline of python classes for this project" >  </td>
-    </tr>
-</table>
-
------ 
-
-
-
-## Wireframes
-
-
-### Program Flow Chart
-
-The functionality of the python program is displayed below. 
-
-<table>
-    <tr>
-        <th style='text-align:center'> Flow Chart - Python</th>
-    </tr>
-    <tr>
-        <td> <img src="./assets/images/flowchart-reminder-system.png"; alt="flowchart of the python objects" >  </td>
-    </tr>
-</table>
+Note that in this repository, only the main `MeetingsApp` application is presented. It was chosen to implement rather this application over the others for the following reasons:
+1. The `MeetingApp` has a value in itself. Think of how long it usually takes until your calender opens, or if you check  your calender on a website to check your schedule, including the time to switch from terminal. What if you are working on a cloud and don't have a graphical UI at hand? A time-management tool that pops up within a second while being in a terminal, and then pops back to the terminal with ctrl-c - *isn't that a neat thing*? 
+2. It was more complex than just the implementation of the helper apps as it involved a higher multitude of input parameters. Why not go the extra mile. Also, by designing the worksheets, most of the work for the other two applicaiton is already done. 
+3. Time constraints and Mindfulness about the scope of the Application - a working application with this particular functionality should pass already all requirements for the Portfolio Project. Also, last but not least, an correct explanation of the deployment of three separate Apps that each *may* or *may not* work on Heroku *or* on a local computer would end up being *very* long , and more likely to include mistakes.
 
 -----
 
