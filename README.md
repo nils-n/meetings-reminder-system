@@ -270,13 +270,13 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 This is the entry point when you start the application from the terminal.
 
-<table>
+<table style='width:95%'>
     <tr >
-        <th style="width:20%;">  screen </th>
-        <th style="width:80%;">  SCREEN FLOW  </th>
+        <th>  screen </th>
+        <th>  SCREEN FLOW  </th>
     </tr>
     <tr>
-        <td> 1 - within your terminal  </td>
+        <td style="width:20%">  1 - within your terminal  </td>
         <td> <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " > </td>
     </tr>
     <tr>
