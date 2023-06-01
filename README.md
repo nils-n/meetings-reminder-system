@@ -33,7 +33,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     </tr>
     <tr>
         <td> 3 </td>
-        <td> I want to be able to modify the details of an existing meeting, so that i can correct and react to changes to the plan, by changing the meeting time, name, and participants that are invited.   </td>
+        <td> I want to be able to modify the details of an existing meeting, so that i can correct and react to changes to the plan, by changing the meeting time or the meeting name.   </td>
     </tr>
     <tr>
         <td> 4 </td>

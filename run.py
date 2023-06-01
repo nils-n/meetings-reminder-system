@@ -20,7 +20,7 @@ from itertools import cycle
 from datetime import datetime
 
 GREETING_MARKDOWN = """\
-# Meeting Reminders
+# Meeting Manager
 
 This Terminal Application helps you organize your upcoming meetings. 
 - Press **'A'** to *add*, 'R' to *remove* or 'M' to *modify* a meeting 
@@ -29,7 +29,7 @@ This Terminal Application helps you organize your upcoming meetings.
 """
 
 INPUT_MARKDOWN = """\
-# Meeting Reminders 
+# Meeting Manager 
 
 Enter Details for New Meeting. Note:
 - Date Format DD/MM/YY
