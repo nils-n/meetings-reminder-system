@@ -273,10 +273,10 @@ This is the entry point when you start the application from the terminal.
 <table  style="margin: 0 auto; width: 100%">
     <tr >
         <th style="text-align:center; width: 20%">  screen </th>
-        <th style="text-align:center; width: 90%">  SCREEN FLOW  </th>
+        <th style="text-align:center;">  SCREEN FLOW  </th>
     </tr>
     <tr>
-        <td> 1 - within your terminal  </td>
+        <td style="text-align:center; width: 20%"> 1 - within your terminal  </td>
         <td> <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " > </td>
     </tr>
     <tr>
