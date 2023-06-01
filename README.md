@@ -272,28 +272,29 @@ This is the entry point when you start the application from the terminal.
 
 <table style="width:100%;">
     <tr>
-        <th style="width:20%;">  Step </th>
         <th>  SCREEN FLOW - MAIN SCREEN </th>
     </tr>
     <tr>
-        <td> 1 - within your terminal
-        </td>
-        <td> 
-        <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " >  </td>
+        <td>   <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " >  </td>
     </tr>
     <tr>
-         <td> 2 - loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.
-        </td>
         <td>  
         <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal before starting the app " > 
          </td>
     </tr>
     <tr>
-         <td>  3 - clicking on "Dark Mode" or pressing <b>D</b> key switches the contrast.
-        </td>
         <td>
          <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " >
          </td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <li> Screen 1 : within your terminal</li>
+                <li> Screen 2 :  loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.</li>
+                <li> Screen 3 : clicking on "Dark Mode" or pressing D key switches the contrast.</li>
+            </ul>
+        </td>
     </tr>
 </table>
 
