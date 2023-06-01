@@ -4,9 +4,7 @@ This python-based terminal app is designed to organize personal meeting schedule
 
 Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku](https://meeting-reminders.herokuapp.com/)
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
 
 --- 
 
@@ -38,29 +36,29 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
         <td> I want to be able to modify the details of an existing meeting, so that i can correct and react to changes to the plan, by changing the meeting time, name, and participants that are invited.   </td>
     </tr>
     <tr>
-        <td> 7 </td>
+        <td> 4 </td>
         <td>  I want to be able to remove a Meeting from my schedule, so that it is not in the schedule any more, for example if the meeting was cancelled.   </td>
     </tr>
     <tr>
-        <td> 4 </td>
+        <td> 5</td>
         <td>  I want to be able to add and remove participants to a meeting after a meeting has been created so that i can react to changes in the outer world (i.e. a participant had to cancel their attendance after originally having agreed to attend) </td>
     </tr>
     <tr>
-        <td> 5 </td>
+        <td> 6 </td>
         <td> When i make changes to the meeting schedule, I want to able to save those changes so that they are still there when I open the application the next time. 
         </td>
     </tr>
     <tr>
-        <td> 6 </td>
+        <td> 7 </td>
         <td>  While using the application, I want to have an option to discard the local changes and reset the schedule from the database.
         </td>
     </tr>
     <tr>
-        <td> 7 </td>
+        <td> 8 </td>
         <td> I want to able to quickly change the time range how the upcoming meetings are displayed. In this way, I can quickly get an overview of the meetings from the current week, the current month, and all meetings that are scheduled.  </td>
     </tr>
     <tr>
-        <td> 8 </td>
+        <td> 9 </td>
         <td> I want to be able to toggle the display into dark mode so that I can also easily read the information also with darker light conditions.   </td>
     </tr>
 </table>
