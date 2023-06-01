@@ -29,7 +29,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     </tr>
     <tr>
         <td> 2 </td>
-        <td> I want to be able to add a new Meeting to my schedule so that i can freely change the meeting name, meeting time and date.   </td>
+        <td> I want to be able to add a new Meeting to my schedule where i can freely set the meeting name, meeting time and date.   </td>
     </tr>
     <tr>
         <td> 3 </td>
@@ -45,7 +45,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     </tr>
     <tr>
         <td> 6 </td>
-        <td> When i make changes to the meeting schedule, I want to able to save those changes so that they are still there when I open the application the next time. 
+        <td> When i make changes to the meeting schedule, I want to be able to save those changes so that they are still there when I open the application the next time. 
         </td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     </tr>
     <tr>
         <td> 8 </td>
-        <td> I want to able to quickly change the time range how the upcoming meetings are displayed. In this way, I can quickly get an overview of the meetings from the current week, the current month, and all meetings that are scheduled.  </td>
+        <td> I want to be able to quickly change the time range how the upcoming meetings are displayed. In this way, I can quickly get an overview of the meetings from the current week, the current month, and all meetings that are scheduled.  </td>
     </tr>
     <tr>
         <td> 9 </td>
@@ -122,8 +122,8 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
 
 - **Features 1,2,4** seemed appropriate and within scope of the project and capability of the development team. 
 - Regarding **Feature 3**: it was decided to **not** allow the user of the application to create an arbitary participant. While it seemed initially a good idea to allow arbitrary participants, it raised security issues especially if this system is combined with the ability to send reminder Emails - a malicious user could send Emails to arbitrary addresses and spam mails.   
-    - Solution : Instead of allowing arbitrary participants, another datasheet was added to the model with a pool of allowed participants that the user can select from. I considered this not a major limitation since most meetings that this application aim for repetitive meetings with the same people.
-    - In a future extension of this application, the user could send a request to add a user to an administrator of the system, and once approved, this participant could be added to the protected pool of participants.
+    - Solution : Instead of allowing arbitrary participants, another datasheet was added to the model with a pool of allowed participants that the user can select from. I considered this not to be a major limitation, since most meetings that this application aims for are repetitive meetings with the same people.
+    - In a future extension of this application, the user could send a request to add a user to an administrator of the system. Once approved, this participant could be added to the protected pool of participants.
 - Regarding **Feature 5** : It was decided to not add this implementation to this application as it would have increased significantly the complexity of the project including an implementation that is acceptable also in terms of security, code readibility, deployability and the encapsulation priniciple. Especially the fact that the terminal application would have to be operate securely both on the Code Institute Terminal on Heroku (as per assessment criteria) and on a local terminal would increase the complexity beyond the scope of the project. 
     - Solution: It was decided that the capability to send Emails  needs to be handled by a separate, dedicated application (which could work on the database managed by this application). It also would reflect better the prinicple of encapsulation to have one application for managing the meeting schedule, an another application that manages Email reminders: the database in this application is already designed with this scenario in mind. 
     - In fact, it would be the most appropriate to add a third terminal application in this cosmos to handle the administration and validation for adding people to the datasheet of allowed participants.
