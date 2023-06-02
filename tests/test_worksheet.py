@@ -213,3 +213,45 @@ def test_can_load_mock_participants(fixture_name, participant, request) -> None:
     model.load_mock_participants()
 
     assert participant in model.valid_participants
+
+
+@pytest.mark.parametrize(
+    "fixture_name, meeting, expected_index",
+    [
+        (
+            "load_worksheet",
+            Meeting(
+                1,
+                "Mock Meeting 1",
+                datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+                True,
+                True,
+                [],
+                "",
+            ),
+            0,
+        ),
+        (
+            "load_worksheet",
+            Meeting(
+                2,
+                "Mock Meeting 2",
+                datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+                True,
+                True,
+                [],
+                "",
+            ),
+            1,
+        ),
+    ],
+)
+def test_can_load_mock_meetings(fixture_name, meeting, expected_index, request) -> None:
+    """
+    Test to load mock meetings
+    """
+    model = request.getfixturevalue(fixture_name)
+
+    model.load_mock_meetings()
+
+    assert model.meetings[expected_index].name == meeting.name

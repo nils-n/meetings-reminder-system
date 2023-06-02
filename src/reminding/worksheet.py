@@ -61,23 +61,23 @@ class Worksheet:
         either for faster unit tests or in case of an APIError
         """
         self.meetings = []
+        self.load_mock_participants()
+
         mock_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
         mock_participants = self.valid_participants
 
-        self.meetings.append(
-            [
-                Meeting(
-                    i,
-                    f"Mock Meeting {i+1} ",
-                    mock_datetime,
-                    True,
-                    True,
-                    mock_participants,
-                    "",
-                )
-                for i in range(2)
-            ]
-        )
+        self.meetings = [
+            Meeting(
+                i + 1,
+                f"Mock Meeting {i+1}",
+                mock_datetime,
+                True,
+                True,
+                mock_participants,
+                "",
+            )
+            for i in range(2)
+        ]
 
     def load_valid_participants(self) -> None:
         """loads data of valid Participants from google sheet into a list of Participants
