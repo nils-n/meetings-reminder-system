@@ -1,5 +1,6 @@
 """This is the entry point for the application"""
-from textual import events
+from itertools import cycle
+from datetime import datetime
 from textual.app import App, ComposeResult
 from textual.widgets import (
     Footer,
@@ -7,17 +8,14 @@ from textual.widgets import (
     Input,
     DataTable,
     Markdown,
-    Input,
     Button,
     Label,
 )
-from textual.widgets import Placeholder, Checkbox
+from textual.widgets import Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical
-from reminding.schedule import Schedule, Meeting, Participant, Worksheet
-from itertools import cycle
-from datetime import datetime
+from reminding.schedule import Schedule, Meeting, Worksheet
 
 GREETING_MARKDOWN = """\
 # Meeting Manager
@@ -122,12 +120,12 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         table.clear(columns=True)
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
-        ROWS = self.new_meeting.table_row
-        table.add_columns(*ROWS[0])
-        table.add_rows(ROWS[1:])
+        rows = self.new_meeting.table_row
+        table.add_columns(*rows[0])
+        table.add_rows(rows[1:])
 
     def on_mount(self) -> None:
-        """Directly after mounting go to input screen"""
+        """called after mounting to input screen"""
         self.app.push_screen(InputMeeting(), self.check_input)
 
     def check_input(self, result: Meeting) -> None:
@@ -136,7 +134,6 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         Called when InputName is popped
         Updates also the displayed Table in the Dialog
         """
-        temp = result
         self.new_meeting = result
         self.new_meeting.name = result.name
         self.new_meeting.datetime = result.datetime
@@ -144,6 +141,7 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         self.update_table()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
+        """handles button press event"""
         if event.button.id == "input-data":
             self.app.push_screen(InputMeeting(), self.check_input)
         elif event.button.id == "yes":
@@ -226,9 +224,9 @@ class ModifyMeetingScreen(ModalScreen[int]):
         table.clear(columns=True)
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
-        ROWS = self.meeting_to_modify.table_row
-        table.add_columns(*ROWS[0])
-        table.add_rows(ROWS[1:])
+        rows = self.meeting_to_modify.table_row
+        table.add_columns(*rows[0])
+        table.add_rows(rows[1:])
 
     def update_participants_table(self, table_id) -> None:
         """updates the displayed table in the TUI with the current values of the Meeting"""
@@ -237,15 +235,17 @@ class ModifyMeetingScreen(ModalScreen[int]):
         table.cursor_type = next(cursors)
         table.zebra_stripes = True
         self.meeting_to_modify.convert_participants_to_table()
-        ROWS = self.meeting_to_modify.participant_table_rows
-        table.add_columns(*ROWS[0])
-        table.add_rows(ROWS[1:])
+        rows = self.meeting_to_modify.participant_table_rows
+        table.add_columns(*rows[0])
+        table.add_rows(rows[1:])
 
     def on_mount(self) -> None:
+        """called once after mounting the screen"""
         self.update_meeting_table("#update-meeting")
         self.update_participants_table("#update-participants")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
+        """handles button press event"""
         if event.button.id == "update-name":
             self.app.push_screen(
                 ModifyQuestionScreen("Enter New Meeting Name for the Meeting:   "),
@@ -301,7 +301,8 @@ class ModifyMeetingScreen(ModalScreen[int]):
             except (ValueError, TypeError):
                 self.app.push_screen(
                     WarningScreen(
-                        f"Time is not in the right format \n - Input   : {result} \n - Expected: DD/MM/YY HH:MM "
+                        f"Time is not in the right format \n - Input \
+                                : {result} \n - Expected: DD/MM/YY HH:MM "
                     )
                 )
 
@@ -367,7 +368,16 @@ class AddParticipantScreen(ModalScreen[list[int]]):
         )
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        """return a list of IDs with selected participants to previous input screen"""
+        """
+        return a list of IDs with selected participants to previous input screen
+
+        The line:  " checkbox in self.query("Checkbox") "
+        raises a PEP8 warning. Turns out checkbox is intended to be queried via textual's
+        reactive properties. In a next round of refactoring, I would change this.
+        For now, as it works with a single checkbox instance in the App, i leave the line untouched.
+        Should a second checkbox be added,  this function may need a rework to loop over the
+        checkbox values differently.
+        """
         if event.button.id == "aye-participant":
             selected = []
             for checkbox in self.query("Checkbox"):
@@ -416,6 +426,7 @@ class MeetingsApp(App):
         yield Footer()
 
     def on_mount(self) -> None:
+        """called after mounting the screen"""
         self.load_meetings_table(self.app.current_time_range)
 
     def action_toggle_time_range(self) -> None:
@@ -433,6 +444,7 @@ class MeetingsApp(App):
         )
 
     def load_meetings_table(self, time_range) -> None:
+        """updates the meeting table on the screen"""
         table = self.query_one("#meetings-table")
         table.zebra_stripes = True
         table.clear(columns=True)
@@ -446,6 +458,7 @@ class MeetingsApp(App):
         table.sort("Time")
 
     def key_c(self):
+        """called after key pressed"""
         table = self.query_one(DataTable)
         table.cursor_type = next(cursors)
         self.load_meetings_table(self.current_time_range)
@@ -512,7 +525,7 @@ class MeetingsApp(App):
                     WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
                 )
 
-    def check_meeting_update(self, result: Meeting) -> None:
+    def check_meeting_update(self) -> None:
         """
         Callback with modified meeting
         If meeting was updated, then update schedule and datatable
