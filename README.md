@@ -45,7 +45,6 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
       - [Schedule Sheet](#schedule-sheet)
       - [Participant Sheet](#participant-sheet)
       - [Participation-Matrix Sheet](#participation-matrix-sheet)
-    - [Demo Mode](#demo-mode)
     - [Future Implementations](#future-implementations)
     - [Accessibility](#accessibility)
   - [Technologies Used](#technologies-used)
@@ -632,16 +631,6 @@ The schedule should be available even after the application is closed. This app 
         <td>   <img src="./assets/images/sheet-participation-matrix.png"; alt="image of participant pool workseet" >  </td>
     </tr>
 </table>
-
---- 
-
-### Demo Mode
-
-- You can quickly run the application in demo mode that does not require having to setup the API for google sheets.  
-- This will mock a database of meetings and participants. Local modifcation are not stored when closing the application
-- useful for a quick demonstration, or to test if the UI works on a different computer
-- [ ONCE FINALIZED ADD INSTRUCTIONS HOW TO START THE APP IN DEMO MODE HERE ]
-
 
 ---
 
