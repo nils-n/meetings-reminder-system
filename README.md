@@ -264,15 +264,25 @@ The application consists of three main screens using a terminal user interface (
 
 On each screen, confirmation dialogs and warning messages about invalid inputs are implemented as semi-transparent popup screens that are popped on top of the current screen.
 
+
 --- 
 
 ### Main Screen 
 
-This is the entry point when you start the application from the terminal.
+
+- This is the entry point when you start the application from the terminal.
+- For fast navigation to the other screen, key bindings are added as following :
+    - A: Opens a screen to add new Meeting 
+    - R: Opens a dialog to remove a meeting
+    - M: opens a screen to modify a meeting  
+    - P: push local changes to google sheets
+    - W: Toggle meetings table view : This Week / This Month / All Meetings 
+    - D: Toggle Dark Mode
+- If you run the app on a regular terminal (not the Heroku version), it has has clickable buttons (try clicking on footer elements on this page, or on a button when a dialog pops up)
 
 <table style="width:100%;">
     <tr>
-        <th>  SCREEN FLOW - MAIN SCREEN </th>
+        <th>   MAIN SCREEN </th>
     </tr>
     <tr>
         <td>   <img src="./assets/images/screens/main-start.png"; alt="screen of therminal before starting the app " >  </td>
@@ -287,15 +297,6 @@ This is the entry point when you start the application from the terminal.
          <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " >
          </td>
     </tr>
-    <tr>
-        <td>
-            <ul>
-                <li> Screen 1 : within your terminal</li>
-                <li> Screen 2 :  loads the terminal user interface (TUI) - has clickable buttons, or for even faster navigation, key bindings that navigate to the other screens.</li>
-                <li> Screen 3 : clicking on "Dark Mode" or pressing D key switches the contrast.</li>
-            </ul>
-        </td>
-    </tr>
 </table>
 
 
@@ -307,6 +308,12 @@ This is the entry point when you start the application from the terminal.
 ---
 ### Modify Meeting Screen 
 
+---
+### Demo Mode
+
+- You can run the application in demo mode that does not require having to setup the API for google sheets.  
+- [ ONCE FINALIZED ADD INSTRUCTIONS HOW TO START THE APP IN DEMO MODE HERE ]
+
 
 ---
 
@@ -315,12 +322,11 @@ This is the entry point when you start the application from the terminal.
 - Integration of the meeting schedule with a personal calender such as Outlook / Gmail calender. This way, the application could make use of the features implemented in those calenders already, and check availability of the participants. 
 - Integration of this `MeetingsApp` with a `ReminderApp` that uses a shared database to send reminder Emails on a scheduled basis (such as 24hrs before a meeting), and a `ParticipantsApp` that handles the administration of the participants and approval requests for adding new participants from the `MeetingApp`
 - Integration of the meetings app for a more broad meaning of a schedule, such as adding other (personal) events or virtual meetings to a schedule  
-- Integration of a personal Meeting Schedule with a schedule from other another users, to allow for social interactions and messages / invitations to meetings or events
+- Integration of a personal Meeting Schedule with a schedule from other another users, to allow for social interactions and messages / invitations to meetings or events, or shared calenders.
 
 ### Accessibility
 
 - The application is entirely controllable via focusable buttons (while on a desktop version allowing for mouse control as an alternative). 
-- An 
 - A toggle for a 'Dark Mode' has been added to allow switching of the displayed colors 
 
 --- 
