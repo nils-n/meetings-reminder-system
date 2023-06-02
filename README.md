@@ -19,6 +19,60 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
 
 ## Table of Contents
 
+- [Meeting Manager](#meeting-manager)
+  - [Table of Contents](#table-of-contents)
+  - [User Experience (UX)](#user-experience-ux)
+    - [User Stories](#user-stories)
+    - [Application Aims](#application-aims)
+    - [Opportunities](#opportunities)
+    - [Feature selection](#feature-selection)
+  - [Design](#design)
+    - [Screen Flow and Design Considerations](#screen-flow-and-design-considerations)
+    - [Data Model](#data-model)
+    - [Implementation in Python](#implementation-in-python)
+  - [Features](#features)
+    - [General Features](#general-features)
+    - [Main Screen](#main-screen)
+      - [Filter Display of Upcoming Meetings](#filter-display-of-upcoming-meetings)
+      - [Toggle Dark Mode](#toggle-dark-mode)
+    - [Add Meeting Screen](#add-meeting-screen)
+    - [Modify Meeting Screen](#modify-meeting-screen)
+      - [Changing the Meeting Name](#changing-the-meeting-name)
+      - [Changing the Meeting Time](#changing-the-meeting-time)
+      - [Adding Particpants](#adding-particpants)
+      - [Removing Particpants](#removing-particpants)
+    - [Explanation of the Data Model](#explanation-of-the-data-model)
+      - [Schedule Sheet](#schedule-sheet)
+      - [Participant Sheet](#participant-sheet)
+      - [Participation-Matrix Sheet](#participation-matrix-sheet)
+    - [Demo Mode](#demo-mode)
+    - [Future Implementations](#future-implementations)
+    - [Accessibility](#accessibility)
+  - [Technologies Used](#technologies-used)
+    - [Languages](#languages)
+    - [Frameworks](#frameworks)
+    - [Python Packages](#python-packages)
+  - [Deployment and Local Development](#deployment-and-local-development)
+      - [How to Fork](#how-to-fork)
+      - [How to Clone](#how-to-clone)
+    - [(Optional) How to set up your local python environment](#optional-how-to-set-up-your-local-python-environment)
+      - [Set Up Worksheets](#set-up-worksheets)
+    - [(Optional) Increase Security by protecting your Participant Worksheet](#optional-increase-security-by-protecting-your-participant-worksheet)
+    - [(Optional) Add Worksheet for Unittest with Pytest](#optional-add-worksheet-for-unittest-with-pytest)
+    - [Link Google API to the application](#link-google-api-to-the-application)
+    - [Deployment on Heroku](#deployment-on-heroku)
+  - [Testing](#testing)
+    - [Testing Procedure](#testing-procedure)
+    - [Solved Bugs](#solved-bugs)
+    - [Open Bugs](#open-bugs)
+  - [Credits](#credits)
+    - [Code Used](#code-used)
+    - [Extensions VS Code :](#extensions-vs-code-)
+    - [Content](#content)
+  - [Acknowledgements](#acknowledgements)
+  - [Reminders](#reminders)
+  - [Creating the Heroku app](#creating-the-heroku-app)
+  - [Constraints](#constraints)
 
 
 ----
@@ -879,6 +933,10 @@ Also, this application was developed using a `test-driven development` (TDD) app
 - Textual Tutorial : Stopwatch Application [Link](https://textual.textualize.io/tutorial/)
 - Starting point for pyproject.toml file [Link](https://github.com/tiangolo/fastapi/tree/master);
 
+### Extensions VS Code :
+- Code Foramtting : Prettier , Black 
+- Syntax check : PEP8
+- Table of Contents : Markdown All in One 
 
 ### Content 
 

@@ -1,40 +1,54 @@
-
-
 # TESTING 
 
-
+---
 ## Table of Contents 
 
-  * [Table of Contents](#table-of-contents)
-  * [Functionality Tests](#functionality-tests)
-    + [PEP8 Validation Results](#pep8-validation-results)
-    + [Manual Testing Results](#manual-testing-results)
-  * [Unit Testing with Pytest](#unit-testing-with-pytest)
-  * [Tests of User Stories](#tests-of-user-stories)
-  * [Tests For Compatibility](#tests-for-compatibility)
-  * [Issues Found During Testing](#issues-found-during-testing)
-  * [Add Worksheet for Unittest with Pytest](#add-worksheet-for-unittest-with-pytest)
+- [TESTING](#testing)
+  - [Table of Contents](#table-of-contents)
+  - [Manual Testing](#manual-testing)
+    - [Results of Syntax Validation with PEP8](#results-of-syntax-validation-with-pep8)
+    - [Results of User Stories Test](#results-of-user-stories-test)
+    - [Results of Functionality Tests](#results-of-functionality-tests)
+    - [Results of Other Tests](#results-of-other-tests)
+    - [Issues Found During Manual Testing](#issues-found-during-manual-testing)
+  - [Automated Testing](#automated-testing)
+    - [Setup of Automated Testing with Pytest](#setup-of-automated-testing-with-pytest)
+    - [Results of Unit Testing with Pytest](#results-of-unit-testing-with-pytest)
+      - [Participant Class](#participant-class)
+      - [Meeting Class](#meeting-class)
+      - [Schedule Class](#schedule-class)
+      - [Worksheet Class](#worksheet-class)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+--- 
 
-## Functionality Tests 
+## Manual Testing
 
-### PEP8 Validation Results 
-
-
-### Manual Testing Results 
 
 The Manual Testing document can be found here : [Numbers Testing Results](./assets/documentation/Manual-Testing-Results.numbers).
 
-## Unit Testing with Pytest 
+### Results of Syntax Validation with PEP8
+
+### Results of User Stories Test 
+
+### Results of Functionality Tests
+
+### Results of Other Tests
+
+### Issues Found During Manual Testing
+
+--- 
+
+## Automated Testing
 
 - This project has been implemented using a `test-driven` approach, where each bit of functionality was added incrementally using a `red-green-refactor` cycle 
-- One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged during early on during development while working on the function 
-- While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saves time by reducing the time needed for finding bugs. 
+- One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged early on during development while working on the function 
+- While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saves time by reducing the time needed for finding bugs.
+- The follwing section contains: 
+  - Setup of the database used during Unit Testing
+  - Results of Unit Tests 
 
-
-### Setup Database for Unittest with Pytest
+### Setup of Automated Testing with Pytest
 
 - If you also want to pass all unit tests you need to add a fourth sheet 'unit-test' to the sheet
 - This sheet is not necessary to run the application. However, for unit testing of the methods for reading/writing, we cannot use the main sheet because the user can edit those meetings and the unit test would fail (although the read/write methods are correct). 
@@ -51,9 +65,8 @@ The Manual Testing document can be found here : [Numbers Testing Results](./asse
     </tr>
 </table>
 
-
 --- 
-### Unit Test Results 
+### Results of Unit Testing with Pytest 
 
 #### Participant Class
 
@@ -62,14 +75,6 @@ The Manual Testing document can be found here : [Numbers Testing Results](./asse
 #### Schedule Class 
 
 #### Worksheet Class 
-
----- 
-
-## Tests of User Stories 
-
-## Tests For Compatibility
-
-## Issues Found During Testing
 
 
 -----
