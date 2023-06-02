@@ -561,13 +561,29 @@ The schedule should be available even after the application is closed. This app 
     </tr>
 </table>
 
-
-
-
 #### Participation-Matrix Sheet
 
+- Stores the participation of participants for all scheduled meetings 
+- The columns contain the `Participant ID`numbers of all participants from the allowed-participants pool
+- Each rows belongs to a single meeting of the schedule, and the first cell contain the `Meeting ID` 
+- Participation of a participant can then then read as: 
+    - if (i, j) == TRUE  for Meeting `i` of Participant `j` , the the Participant `j` takes part in meeting `i`
+    - in the example below : 
+        - Participant with the ID `4`takes part in meeting with ID `1` because `(4,1) == TRUE`
+        - Participant with the ID `4`does not take part in meeting with ID `2` because `(4,2) == FALSE`
+- From this table, it is internally also calculated how many participants take part by simply summing sum the number of values in a row ( `number of participants in Meeting i = sum(row(i))`)
+
+<table style="width:100%;">
+    <tr>
+        <th> PARTICIPATION MATRIX WORKSHEET </th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/sheet-participation-matrix.png"; alt="image of participant pool workseet" >  </td>
+    </tr>
+</table>
 
 --- 
+
 ### Demo Mode
 
 - You can quickly run the application in demo mode that does not require having to setup the API for google sheets.  
