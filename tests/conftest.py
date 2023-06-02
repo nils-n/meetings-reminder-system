@@ -1,11 +1,10 @@
 """add fixtures for unittest here to follow the DRY principle"""
 from typing import List
 from datetime import datetime
-from random import randint
+import pytest
 from reminding.participant import Participant
 from reminding.meeting import Meeting
 from reminding.worksheet import Worksheet
-import pytest
 
 
 @pytest.fixture(scope="session")

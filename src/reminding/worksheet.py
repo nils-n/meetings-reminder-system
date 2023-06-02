@@ -41,6 +41,7 @@ class Worksheet:
         """loads data of valid Participants from google sheet into a list of Participants
         assumes that data are stored in sheet as [ Participant ID - Name - Email ]
         """
+
         row_list = self.valid_participants_sheet.get_all_values()
         self.valid_participants = [
             Participant(row[1], row[2], int(row[0]), True, [])
