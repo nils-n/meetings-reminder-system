@@ -335,13 +335,100 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     </tr>
 </table>
 
-
-
-
 ---
 ### Modify Meeting Screen 
 
+- The user gets to a dialog to select a meeting to modify by pushing 'M' key on the Main Screen
+- If the user enters an invalid ID, a dialog pops up with the input and a warningst
+- Once entered a valid meeting ID (as visible from the table), the Modify Meeting Screeps pops up
+- On upper part of the screen :
+    - A row of a datatable with the current values of the meeting to be modifed 
+    - A second datatable with a list of participants of that meeting (in this case, the list is still empty)
+- On the lower part of the screen is a selection of Buttons that allow different types modifcations :
+    - `Time` Button : opens a dialog to modify the meeting time
+    - `Name` Button : opens a dialog to modify the meeting name
+    - `Add Participant` Button : opens a checkbox dialog to add participants
+    - `Remove Participant` Button : opens a dialog to remove a participant from the meeting 
+    - `Save Changes` Button : saves the local changes and returns to Main Screen
+    - `Go Back` Button : discards the local changes and returns to Main Screen
+- All changes on this Screen are is still just local changes. 
+- To make these changes permanent, they need to be pushed to the remote Google API database on the Main Screen
+- This behaviour was a design decision to deal with situations where the user wants to to discard changes. It is figured to be easier to re-do to enter local changes than trying to track what has been changed by accident (but it probably would be up to a discussion and a proper testing phase with the client if that is the optimal behaviour).  
+
+<table style="width:100%;">
+    <tr>
+        <th>  MODIFY MEETING SCREEN </th>
+    </tr>
+     <tr>
+        <td>   <img src="./assets/images/screens/start/modify.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+     <tr>
+        <td> <img src="./assets/images/screens/start/modify-start-warning.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/screens/start/modify-meeting-screen.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+</table>
+
+#### Changing the Meeting Name 
+
+- The first action on this screen is to change the name of the meeting 
+- The user presses the `Name` Button
+- A dialog pops up where the user can enter a Name and then either confirm or go back without changing.
+- If confirmed, the new meeting name is updated in the data table
+
+
+<table style="width:100%;">
+    <tr>
+        <th>  MODIFY MEETING SCREEN - CHANGE MEETING NAME</th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-name/name.png"; alt="dialog to change name" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-name/name2.png"; alt="dialog to change name" >  </td>
+    </tr>
+</table>
+
+#### Changing the Meeting Time 
+
+- The next action on this screen is to change the time of the meeting 
+- The user presses the `Time` Button
+- A dialog pops up where the user can enter a Name and then either confirm or go back without changing. The dialog includes a hint with the expected format for the time input `DD/MM/YY`
+- If the user inputs with an invalid input, he will get informed about his error, and what format was expected
+- If confirmed, the new meeting name is updated in the data table
+
+<table style="width:100%;">
+    <tr>
+        <th>  MODIFY MEETING SCREEN - CHANGE MEETING TIME</th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-time/modify-time2.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-time/modify-time-error.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-time/modify-time3.png"; alt="dialog to select a meeting to modify" >  </td>
+    </tr>
+</table>
+
+#### Adding Particpants 
+
+#### Removing Particpants 
+
+
+----
+
+### Toggle Filter Upcoming Meetings
+
+--- 
+
+### Toggle Dark Mode
+
+
 ---
+
 ### Demo Mode
 
 - You can run the application in demo mode that does not require having to setup the API for google sheets.  
