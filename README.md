@@ -353,20 +353,20 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     - `Go Back` Button : discards the local changes and returns to Main Screen
 - All changes on this Screen are is still just local changes. 
 - To make these changes permanent, they need to be pushed to the remote Google API database on the Main Screen
-- This behaviour was a design decision to deal with situations where the user wants to to discard changes. It is figured to be easier to re-do to enter local changes than trying to track what has been changed by accident (but it probably would be up to a discussion and a proper testing phase with the client if that is the optimal behaviour).  
+- This behaviour was a design decision to deal with situations where the user wants to to discard changes. It is figured to be easier to re-do local changes than trying to track what has been changed by accident (but it probably would be up to a discussion and a proper testing phase with the client if that is the desired behaviour).  
 
 <table style="width:100%;">
     <tr>
         <th>  MODIFY MEETING SCREEN </th>
+    </tr>
+    <tr>
+        <td> <img src="./assets/images/screens/start/modify-meeting-screen.png"; alt="dialog to select a meeting to modify" >  </td>
     </tr>
      <tr>
         <td>   <img src="./assets/images/screens/start/modify.png"; alt="dialog to select a meeting to modify" >  </td>
     </tr>
      <tr>
         <td> <img src="./assets/images/screens/start/modify-start-warning.png"; alt="dialog to select a meeting to modify" >  </td>
-    </tr>
-    <tr>
-        <td> <img src="./assets/images/screens/start/modify-meeting-screen.png"; alt="dialog to select a meeting to modify" >  </td>
     </tr>
 </table>
 
@@ -414,6 +414,30 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 </table>
 
 #### Adding Particpants 
+
+- Another action on the 'Modify Meeting' Screen is to add participants to a meeting
+- The user presses the `Add Participants` Button
+- A dialog pops up with a checkbox of participants. The user can select, either by focusing with `TAB` and then pressing `ENTER`, or by clicking with the mouse on the particitpant ( mouse events don't work on Heroku terminal).
+- Once made a selection of participants to add, the user can confirm, and the new meeting name is updated in the data table by pressin the `Confirm` Button, or discard the changes by pressing `Go Back` Button
+- The participant were loaded from the worksheet with their Email and other information. These information cannot be changed in the app  **by design** (see reasoning for this in this section [Features and Design Decisions](#screen-flow-and-design-considerations)). 
+- As a solution, the participants can be selected from a checkbox, and details about the participant (ID, Email, contact, meetings that this participant is taking part) are loaded in the background and partly displayed in the table of the Screen
+
+
+<table style="width:100%;">
+    <tr>
+        <th>  MODIFY MEETING SCREEN - CHANGE MEETING TIME</th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-add-1.png"; alt="dialog to add participants" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-add2.png"; alt="dialog to add participant" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-add3.png"; alt="result on Screen after adding participants" >  </td>
+    </tr>
+</table>
+
 
 #### Removing Particpants 
 
