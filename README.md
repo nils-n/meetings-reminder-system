@@ -305,10 +305,38 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 </table>
 
 
-
 ---
 
 ### Add Meeting Screen 
+
+- The user gets to this screen when pushing 'A' key on the Main screen
+- On top of the screen is a description of the expected Format for the Date `DD/MM/YY` and Time `HH:MM`
+- Using the `Tab` key, or using `mouse click` (not Heroku), the user can focus an Input and type the details of a new meeting
+- After submitting by pressing `Enter` while focussing any of the input forms, a dialog pops up with the input, where the user can either confirm, discard or try to enter again.
+- If the user inputs with an invalid input, he will get informed about his error, and what format was expected 
+
+
+<table style="width:100%;">
+    <tr>
+        <th>   ADD MEETING SCREEN </th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/add-meeting-1.png"; alt="screen to add meeting" >  </td>
+    </tr>
+    <tr>
+        <td>  
+        <img src="./assets/images/screens/add-meeting-2.png"; alt="confirmation dialog " > 
+         </td>
+    </tr>
+    <tr>
+        <td>
+         <img src="./assets/images/screens/add-meeting-3.png"; alt="dialog when input was wrong format " >
+         </td>
+    </tr>
+</table>
+
+
+
 
 ---
 ### Modify Meeting Screen 
