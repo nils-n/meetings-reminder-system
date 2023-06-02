@@ -76,7 +76,7 @@ def test_table_rows_match_values_of_corresponding_meetings(load_mock_worksheet) 
         (2, does_not_raise(), "load_mock_worksheet"),
         (3, pytest.raises(ValueError), "load_mock_worksheet"),
         (444, pytest.raises(ValueError), "load_mock_worksheet"),
-        ("1", does_not_raise(), "load_worksheet"),
+        ("1", does_not_raise(), "load_mock_worksheet"),
         ("You shall not pass", pytest.raises(ValueError), "load_mock_worksheet"),
         (None, pytest.raises(TypeError), "load_mock_worksheet"),
     ],
@@ -111,7 +111,7 @@ def test_raises_error_when_meeting_id_does_not_exist(
         (2, does_not_raise(), "load_mock_worksheet"),
         (3, pytest.raises(ValueError), "load_mock_worksheet"),
         (444, pytest.raises(ValueError), "load_mock_worksheet"),
-        ("1", does_not_raise(), "load_worksheet"),
+        ("1", does_not_raise(), "load_mock_worksheet"),
         ("You shall not pass", pytest.raises(ValueError), "load_mock_worksheet"),
         (None, pytest.raises(TypeError), "load_mock_worksheet"),
     ],
@@ -128,12 +128,20 @@ def test_incorrect_input_of_meeting_id_raises_error(
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
     model = Schedule(worksheet, random_name, [], [])
-    model.add_meeting(
-        Meeting(1, "Mock Meeting 1 ", random_datetime, True, True, [], "")
-    )
-    model.add_meeting(
-        Meeting(2, "Mock Meeting 2 ", random_datetime, True, True, [], "")
-    )
+    if model.offline_mode:
+        model.add_meeting(
+            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
+        )
+        model.add_meeting(
+            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
+        )
+    else:
+        model.add_meeting(
+            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
+        )
+        model.add_meeting(
+            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
+        )
 
     with expectation:
         model.get_meeting_by_id(target_id)
@@ -224,12 +232,21 @@ def test_participation_matrix_has_correct_size(load_worksheet) -> None:
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
     model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
-    model.add_meeting(
-        Meeting(1, "Test Meeting 1 ", random_datetime, True, True, [], "")
-    )
-    model.add_meeting(
-        Meeting(2, "Test Meeting 2 ", random_datetime, True, True, [], "")
-    )
+    if model.offline_mode:
+        random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
+        model.add_meeting(
+            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
+        )
+        model.add_meeting(
+            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
+        )
+    else:
+        model.add_meeting(
+            Meeting(1, "Test Meeting 1", random_datetime, True, True, [], "")
+        )
+        model.add_meeting(
+            Meeting(2, "Test Meeting 2", random_datetime, True, True, [], "")
+        )
 
     model.calculate_participation_matrix()
 
