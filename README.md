@@ -276,7 +276,7 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     - R: Opens a dialog to remove a meeting
     - M: opens a screen to modify a meeting  
     - P: push local changes to google sheets
-    - W: Toggle meetings table view : This Week / This Month / All Meetings 
+    - W: Filter table  : This Week / This Month / All Meetings 
     - D: Toggle Dark Mode
 - If you run the app on a regular terminal (not the Heroku version), it has has clickable buttons (try clicking on footer elements on this page, or on a button when a dialog pops up)
 
@@ -304,6 +304,54 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     </tr>
 </table>
 
+
+####  Filter Display of Upcoming Meetings
+
+- The user can filter the table by pressing the `W` key on the Main Screen
+- Repeatedly pressing of `W` changes the filter and cycles through 'This Week' - 'This Month' - 'All Meetings' 
+
+<table style="width:100%;">
+    <tr>
+        <th> MAIN SCREEN - FILTER MEETINGS </th>
+    </tr>
+    <tr>
+        <td>  
+         <img src="./assets/images/screens/filter/filter-1.png"; alt="example filter meeting view" > 
+         </td>
+    </tr>
+    <tr>
+        <td>  
+         <img src="./assets/images/screens/filter/filter-2.png"; alt="example filter meeting view" > 
+         </td>
+    </tr>
+    <tr>
+        <td>
+         <img src="./assets/images/screens/filter/filter-3.png"; alt="example filter meeting view" > 
+         </td>
+    </tr>
+</table>
+
+
+#### Toggle Dark Mode
+
+- The user can toggle to Dark Mode by pressing the `T` key on the Main Screen
+- Repeatedly pressing of `T` toogle through Dark Mode On/Off
+
+<table style="width:100%;">
+    <tr>
+        <th> MAIN SCREEN - DARK MODE </th>
+    </tr>
+    <tr>
+        <td>  
+         <img src="./assets/images/screens/filter/dark-1.png"; alt="example toggle dark mode ON" > 
+         </td>
+    </tr>
+    <tr>
+        <td>  
+         <img src="./assets/images/screens/filter/dark-2.png"; alt="example  toggle dark mode OFF" > 
+         </td>
+    </tr>
+</table>
 
 ---
 
@@ -425,7 +473,7 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 <table style="width:100%;">
     <tr>
-        <th>  MODIFY MEETING SCREEN - CHANGE MEETING TIME</th>
+        <th>  MODIFY MEETING SCREEN - ADDING PARTICIPANTS </th>
     </tr>
     <tr>
         <td>   <img src="./assets/images/screens/modify-participants/modify-add-1.png"; alt="dialog to add participants" >  </td>
@@ -441,14 +489,27 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 #### Removing Particpants 
 
+- Another action on the 'Modify Meeting' Screen is to remove participants from a meeting
+- The user presses the `Remove Participants` Button
+- A dialog pops up with a where the user can enter a participant ID with the participant he want to remove from the meeting  
+- Once made a selection, the user can press the `Confirm` Button, or discard the changes by pressing `Go Back` Button
+- If the user entered an invalid ID, he will get informed about his error, and what ID entered 
+- if the user entered a valid ID, the participant returns to the 'Modify Meeting' Screen where it can be seen that the participant has been removed from the list of participants of that meeting 
 
-----
-
-### Toggle Filter Upcoming Meetings
-
---- 
-
-### Toggle Dark Mode
+<table style="width:100%;">
+    <tr>
+        <th>  MODIFY MEETING SCREEN - REMOVING PARTICIPANTS </th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-remove1.png"; alt="dialog to remove a participant" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-remove2.png"; alt="resulting screen after invalid input" >  </td>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/screens/modify-participants/modify-remove3.png"; alt="result after valid input" >  </td>
+    </tr>
+</table>
 
 
 ---
