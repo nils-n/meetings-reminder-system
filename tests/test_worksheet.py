@@ -195,11 +195,11 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
     "fixture_name, participant",
     [
         (
-            "load_worksheet",
+            "load_mock_worksheet",
             Participant("Mock Participant 1", "mockemail-1@testmail.com", 1, True),
         ),
         (
-            "load_worksheet",
+            "load_mock_worksheet",
             Participant("Mock Participant 2", "mockemail-2@testmail.com", 2, True),
         ),
     ],
@@ -219,7 +219,7 @@ def test_can_load_mock_participants(fixture_name, participant, request) -> None:
     "fixture_name, meeting, expected_index",
     [
         (
-            "load_worksheet",
+            "load_mock_worksheet",
             Meeting(
                 1,
                 "Mock Meeting 1",
@@ -232,7 +232,7 @@ def test_can_load_mock_participants(fixture_name, participant, request) -> None:
             0,
         ),
         (
-            "load_worksheet",
+            "load_mock_worksheet",
             Meeting(
                 2,
                 "Mock Meeting 2",
