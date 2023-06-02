@@ -29,6 +29,7 @@ class Worksheet:
     schedule_sheet: gspread.Worksheet
     valid_participants: list[Participant] = field(default_factory=list)
     meetings: list[Meeting] = field(default_factory=list)
+    offline_mode: bool = False
 
     def __post_init__(self) -> None:
         self.schedule_sheet = SHEET.worksheet("schedule")
@@ -38,10 +39,13 @@ class Worksheet:
             try:
                 self.load_valid_participants()
                 self.meetings = self.load_meetings("schedule")
+                self.offline_mode = False
             except gspread.exceptions.APIError:
+                self.offline_mode = True
                 self.valid_participants = []
                 self.load_mock_meetings()
         else:
+            self.offline_mode = True
             self.valid_participants = []
             self.load_mock_participants()
             self.load_mock_meetings()
@@ -106,11 +110,23 @@ class Worksheet:
             if i > 0
         ]
 
-    def load_participation_matrix(self, worksheet_name):
+    def load_participation_matrix(self, worksheet_name, offline_mode):
         """loads the participation matrix from the worksheet"""
-        sheet = SHEET.worksheet(worksheet_name)
-        row_list = sheet.get_all_values()
-        return row_list[0], row_list[1:]
+        if not offline_mode:
+            sheet = SHEET.worksheet(worksheet_name)
+            row_list = sheet.get_all_values()
+            return row_list[0], row_list[1:]
+        else:
+            row_header = [f"{i}" for i in range(len(self.valid_participants))]
+            row_entries = []
+            for meeting in self.meetings:
+                row_entries.append(
+                    [
+                        "TRUE" if participant in meeting.participants else "FALSE"
+                        for participant in self.valid_participants
+                    ]
+                )
+            return row_header, row_entries
 
     def push_meetings(self, meetings, worksheet_name) -> None:
         """this function replaces all rows on the worksheet with the current meetings"""

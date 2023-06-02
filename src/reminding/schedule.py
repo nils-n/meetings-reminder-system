@@ -38,7 +38,7 @@ class Schedule:
                 for j, participant in enumerate(self.allowed_participants):
                     if self.participation_matrix_rows[i][j + 1] in ["TRUE", True, 1]:
                         meeting.participants.append(participant)
-        except gspread.exceptions.APIError as error:
+        except (gspread.exceptions.APIError, IndexError) as error:
             print(
                 f"Could not read data from API (error : {error})\n Loading Mock Meetings instead..."
             )
@@ -54,10 +54,12 @@ class Schedule:
         """
         if worksheet_name == "Mock Sheet":
             self.load_mock_meetings()
+            self.offline_mode = True
             return
         try:
             self.worksheet.load_meetings(worksheet_name)
             self.meetings = self.worksheet.meetings
+            self.offline_mode = False
         except gspread.exceptions.APIError as error:
             print(
                 f"Could not read data from API (error : {error})\n Loading Mock Meetings instead..."
@@ -114,10 +116,13 @@ class Schedule:
 
     def load_participation_matrix(self):
         """loads the participation matrix as stored in the API"""
+
         (
             self.participation_matrix_row_header,
             self.participation_matrix_rows,
-        ) = self.worksheet.load_participation_matrix("participation-matrix")
+        ) = self.worksheet.load_participation_matrix(
+            "participation-matrix", self.offline_mode
+        )
 
     def load_allowed_participants(self):
         """
