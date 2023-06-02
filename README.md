@@ -516,7 +516,9 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 ### Demo Mode
 
-- You can run the application in demo mode that does not require having to setup the API for google sheets.  
+- You can quickly run the application in demo mode that does not require having to setup the API for google sheets.  
+- This will mock a database of meetings and participants. Local modifcation are not stored when closing the application
+- useful for a quick demonstration, or to test if the UI works on a different computer
 - [ ONCE FINALIZED ADD INSTRUCTIONS HOW TO START THE APP IN DEMO MODE HERE ]
 
 
