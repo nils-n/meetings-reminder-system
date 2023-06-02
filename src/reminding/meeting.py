@@ -2,9 +2,9 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Union
-from reminding.participant import Participant
-import re
 from random import randint
+import re
+from reminding.participant import Participant
 
 
 @dataclass(frozen=False)
@@ -160,7 +160,8 @@ class Meeting:
             raise ValueError(
                 f"Error! Could not find participant \
                     with this ID (participant ID : {target_id}) \
-                    ( num_participants : {self.num_participants} == len(Participants) : {len(self.participants)})"
+                    ( num_participants : {self.num_participants} \
+                        == len(Participants) : {len(self.participants)})"
             )
         self.num_participants = len(self.participants)
 

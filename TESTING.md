@@ -44,7 +44,8 @@ The Manual Testing document can be found here : [Numbers Testing Results](./asse
 - This project has been implemented using a `test-driven` approach, where each bit of functionality was added incrementally using a `red-green-refactor` cycle 
 - One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged early on during development while working on the function 
 - While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saves time by reducing the time needed for finding bugs.
-- The follwing section contains: 
+
+The follwing section contains: 
   - Setup of the database used during Unit Testing
   - Results of Unit Tests 
 
