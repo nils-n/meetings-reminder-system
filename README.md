@@ -525,6 +525,7 @@ The schedule should be available even after the application is closed. This app 
 
 - Stores all current meetings on the schedule that are loaded when the app starts
 - The sheet contains columns for : 
+    - Meeting ID : A unique ID number (0-1000)
     - Name : Name of Meeting
     - Time : Time of Meeting
     - Place : Place of Meeting (Not implemented)
@@ -542,6 +543,24 @@ The schedule should be available even after the application is closed. This app 
 
 
 #### Participant Sheet
+
+- Stores all **valid** participants that could be added to a meeting - Note that you cannot create participants from within the app for security / fail-safe reasons (i.e. typo in the Email address)
+- The sheet is locked and should be read-only in order to prevent changes from within the application. 
+- This was achived by creating this sheet with a different owner that **allows only read-only** access for this sheet, while allowing read/write access to the other sheets from the app 
+- The sheet contains columns for : 
+    - Participant ID : A unique ID number (0-1000) 
+    - Name : Name of Participant 
+    - Email : Email of the participant 
+
+<table style="width:100%;">
+    <tr>
+        <th> PARTICIPANT POOL WORKSHEET </th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/sheet-participant-pool.png"; alt="image of participant pool workseet" >  </td>
+    </tr>
+</table>
+
 
 
 
