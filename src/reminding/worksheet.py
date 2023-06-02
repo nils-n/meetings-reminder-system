@@ -1,9 +1,10 @@
+"""class to describe I/O to a remote worksheet """
 from dataclasses import dataclass, field
-from reminding.participant import Participant
-from reminding.meeting import Meeting
+from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import datetime
+from reminding.participant import Participant
+from reminding.meeting import Meeting
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -128,6 +129,7 @@ class Worksheet:
 
 
 def main() -> None:
+    """Just a function for manual Testing"""
     data = Worksheet("Test Data", [])
     sheet = data.unittest_sheet
     row_list = sheet.get_all_values()
