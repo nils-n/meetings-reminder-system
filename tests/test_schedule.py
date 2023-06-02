@@ -9,15 +9,15 @@ A ssert
 
 """
 import pytest
+from datetime import datetime
 from reminding.meeting import Meeting
 from reminding.schedule import Schedule
 from reminding.participant import Participant
 from reminding.worksheet import Worksheet
-from datetime import datetime
 from contextlib import nullcontext as does_not_raise
 
 
-def test_can_create_new_schedule(create_random_meetings, load_mock_worksheet) -> None:
+def test_can_create_new_schedule(load_mock_worksheet) -> None:
     """Tests if a new Schedule can be instaniated"""
     worksheet = load_mock_worksheet
     random_name = "Random Schedule"
@@ -38,11 +38,12 @@ def test_can_create_empty_schedule(load_mock_worksheet) -> None:
     random_name = "Random Schedule"
 
     model = Schedule(worksheet, random_name, [], [])
-    model.add_meeting(Meeting(0, "Test Meeting 1", datetime.now(), True, True, [], ""))
-    model.add_meeting(Meeting(1, "Test Meeting 2", datetime.now(), True, True, [], ""))
+    random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
+    model.add_meeting(Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], ""))
+    model.add_meeting(Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], ""))
 
-    assert model.meetings[0].name == "Test Meeting 1"
-    assert model.meetings[1].name == "Test Meeting 2"
+    assert model.meetings[0].name == "Mock Meeting 1"
+    assert model.meetings[1].name == "Mock Meeting 2"
     assert (
         0 < model.meetings[0].meeting_id < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
@@ -150,8 +151,8 @@ def test_incorrect_input_of_meeting_id_raises_error(
 @pytest.mark.parametrize(
     "target_id, expectation, fixture_name",
     [
-        (1, "Test Meeting 1", "load_mock_worksheet"),
-        (2, "Test Meeting 2", "load_mock_worksheet"),
+        (1, "Mock Meeting 1", "load_mock_worksheet"),
+        (2, "Mock Meeting 2", "load_mock_worksheet"),
     ],
 )
 def test_correct_input_of_meeting_id_returns_correct_meeting(
@@ -166,10 +167,10 @@ def test_correct_input_of_meeting_id_returns_correct_meeting(
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
     random_schedule = Schedule(worksheet, random_name, [], [])
     random_schedule.add_meeting(
-        Meeting(1, "Test Meeting 1", random_datetime, True, True, [], "")
+        Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
     )
     random_schedule.add_meeting(
-        Meeting(2, "Test Meeting 2", random_datetime, True, True, [], "")
+        Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
     )
 
     model = random_schedule.get_meeting_by_id(target_id)
@@ -222,7 +223,7 @@ def test_that_only_allowed_participants_will_be_added_to_the_datatable(
         model.validate_participant(potential_participant)
 
 
-def test_participation_matrix_has_correct_size(load_worksheet) -> None:
+def test_participation_matrix_has_correct_size() -> None:
     """
     Test whether the meetings with current participants
     maps correctly into the participation matrix
@@ -231,7 +232,7 @@ def test_participation_matrix_has_correct_size(load_worksheet) -> None:
     random_name = "Random Schedule"
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
-    model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
+    model = Schedule(Worksheet("Mock Sheet", None), random_name, [], [])
     if model.offline_mode:
         random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
         model.add_meeting(
