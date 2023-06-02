@@ -826,14 +826,13 @@ Most of the features of this application run fine on a local computer (any inter
 ## Testing 
 
 ### Testing Procedure 
-The website was tested extensively for several apsects , and the results were documented in [---TO DO ---TESTING.md](./TESTING.md) 
+This application was tested extensively for several apsects , and the results were documented in [TESTING.md](./TESTING.md):
 
 - Functionality
 - User Stories
 - Usability and Accessibility 
-- Compatibility and Responsiveness 
 
-Also, this website was developed using a `test-driven development` (TDD) approach using the `pytest` framework for python. Results of of the unit tests are documented in same document above. The reasons for TDD is to 
+Also, this application was developed using a `test-driven development` (TDD) approach using the `pytest` framework for python. Results of of the unit tests are documented in same document above. The reasons for TDD is to 
 - ... ensure core functionality
 - ... better code re-usability 
 - ... better code readibility by enforcing smaller functions.
