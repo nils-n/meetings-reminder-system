@@ -516,9 +516,34 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 ### Explanation of the Data Model 
 
-#### Meetings Sheet
+The schedule should be available even after the application is closed. This app uses the Google Sheets API to store: 
+- Currently scheduled meetings 
+- A pool of participants that can potentially be added to a meeting
+- A participation matrix that represents the attendence of participants in the scheduled meetings 
+
+#### Schedule Sheet
+
+- Stores all current meetings on the schedule that are loaded when the app starts
+- The sheet contains columns for : 
+    - Name : Name of Meeting
+    - Time : Time of Meeting
+    - Place : Place of Meeting (Not implemented)
+    - Number of participants: Number of participants that attend the meeting
+    - Reminder Email sent : if an Email has been sent already, to avoid sending duplicate Emails (not used in this app)
+
+<table style="width:100%;">
+    <tr>
+        <th> SCHEDULE WORKSHEET </th>
+    </tr>
+    <tr>
+        <td>   <img src="./assets/images/sheet-schedule.png"; alt="image of schedule workseet" >  </td>
+    </tr>
+</table>
+
 
 #### Participant Sheet
+
+
 
 #### Participation-Matrix Sheet
 
