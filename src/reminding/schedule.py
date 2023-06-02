@@ -2,9 +2,9 @@
 from dataclasses import dataclass, field
 from typing import Union
 from datetime import datetime
+import gspread
 from reminding.meeting import Meeting, Participant
 from reminding.worksheet import Worksheet
-import gspread
 
 
 @dataclass
@@ -22,6 +22,7 @@ class Schedule:
     allowed_participants: list[Participant] = field(default_factory=list)
     participation_matrix_row_header: list[str] = field(default_factory=list)
     participation_matrix_rows: list[str] = field(default_factory=list)
+    offline_mode: bool = False
 
     def __post_init__(self):
         self.load_allowed_participants()
@@ -37,8 +38,10 @@ class Schedule:
                 for j, participant in enumerate(self.allowed_participants):
                     if self.participation_matrix_rows[i][j + 1] in ["TRUE", True, 1]:
                         meeting.participants.append(participant)
-        except Exception:
-            print("Could not load participants from API")
+        except gspread.exceptions.APIError as error:
+            print(
+                f"Could not read data from API (error : {error})\n Loading Mock Meetings instead..."
+            )
 
     def load_meetings(self, worksheet_name):
         """
@@ -132,9 +135,9 @@ class Schedule:
         It also makes sense to load this on the schedule level - it only needs to load once to
         avoid unnecessary traffic.
         """
-        try:
+        if not self.offline_mode:
             self.allowed_participants = self.worksheet.valid_participants
-        except Exception:
+        else:
             self.allowed_participants = []
             self.allowed_participants.append(
                 Participant("Mock Participant 1", "mockemail-1@fakemail.com", 1, True)
@@ -252,6 +255,7 @@ class Schedule:
 
 
 def main() -> None:
+    """Just a function for manual Testing"""
     model = Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
 
     print(type(model.meetings))
