@@ -516,7 +516,7 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 ### Explanation of the Data Model 
 
-The schedule should be available even after the application is closed. This app uses the Google Sheets API to store: 
+The schedule should be available even after the application is closed. This app uses the Google Sheets API to permanently store: 
 - Currently scheduled meetings 
 - A pool of participants that can potentially be added to a meeting
 - A participation matrix that represents the attendence of participants in the scheduled meetings 
@@ -698,35 +698,46 @@ Most of the features of this application run fine on a local computer (any inter
 
 - Create a personal google account (if needed)
 - Go to Sheets
-- Create New Sheet and rename to `Meeting-Reminders` 
-    - rename first sheet to 'schedule'
-    - add the Headings (and some dummy initial data if you want) 
+- You can setup your own sheets as per instructions below, or use the example sheet [here](./assets/documentation/example.xlsx)
+- Create New Sheet Document and give it a name, i.e. `Meeting-Reminders` (or a name of your liking)
+    - Rename first sheet to 'schedule'
+    - Add the Headings as seen below 
+    - You could add some initial data but I would recommend filling the sheep from within the app to avoid mistakes, only adding the headings is enough.
     <table style='width:80%'>
-        <tr>
-            <th style='text-align:center'>Schedule Worksheet</th>
-        </tr>
-        <tr>
-            <td> <img src="./assets/images/sheets-schedule-init.png"; alt="example of the schedule worksheet" >  </td>
-        </tr>
+    <tr>
+       <th style='text-align:center'>Add Schedule Worksheet</th>
+     </tr>
+      <tr>
+       <td> <img src="./assets/images/sheet-schedule.png"; alt="example of the schedule worksheet" >  </td>
+     </tr>
     </table>
-- add another sheet and name it 'valid-participants'
-- add the Headings (and some dummy initial data if you want) 
+
+    - Add a new sheet to the Document and name it 'valid-participants'
+    - Add Headings as seen below 
+    - I would recommend to add the values exactly as seen below. 
+    - Once familiar with the system, you can add your own data 
+    - (Optional) add some initial data (but can be done from within the app ) 
     <table style='width:80%'>
-        <tr>
-            <th style='text-align:center'>Participants Worksheet</th>
-        </tr>
-        <tr>
-            <td> <img src="./assets/images/sheets-valid-participants.png"; alt="example of the  worksheet with valid participants" >  </td>
-        </tr>
+    <tr>
+       <th style='text-align:center'>Add Participants Worksheet</th>
+       </tr>
+       <tr>
+       <td> <img src="./assets/images/sheet-participant-pool.png"; alt="example of the  worksheet with valid participants" >  </td>
+     </tr>
     </table>
-- add another sheet and name it 'participation-matrix'
-- This matrix is a binary graph that tells which participant is part of which meeting
+
+    - In the same Document, add a new sheet and name it 'participation-matrix'
+        - It is important that the columns exaclty match to match the pool of participants
+        - For the example above, copy the values from below 
+        - If you have added a meeting manually, add a row for each meeting, starting with their `Meeting ID` and random values for each column (either `FALSE` or `TRUE`)
+        - Note: i would recommend to either start without meetings in the schedule, or with the example sheet ( [here](./assets/documentation/example.xlsx)), and then start adding meetings from within the app.
+
     <table style='width:80%'>
-        <tr>
-            <th style='text-align:center'>Participation Matrix Worksheet</th>
-        </tr>
-        <tr>
-            <td> <img src="./assets/images/sheets-participation-matrix.png"; alt="example of the  worksheet to store participation of valid participants in the meetings" >  </td>
+       <tr>
+           <th style='text-align:center'>Add Participation Matrix Worksheet</th>
+       </tr>
+       <tr>
+       <td> <img src="./assets/images/sheet-participation-matrix.png"; alt="example of the  worksheet to store participation of valid participants in the meetings" >  </td>
         </tr>
     </table>
 
