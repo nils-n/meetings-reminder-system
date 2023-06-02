@@ -299,7 +299,7 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     </tr>
     <tr>
     <td>
-         <img src="./assets/images/application-terminal.png"; alt="screen of therminal app from regular terminal  " >
+         <img src="./assets/images/screens/application-terminal.png"; alt="screen of therminal app from regular terminal  " >
          </td>
     </tr>
 </table>
