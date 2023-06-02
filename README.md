@@ -289,12 +289,17 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     </tr>
     <tr>
         <td>  
-        <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal before starting the app " > 
+        <img src="./assets/images/screens/main-screen.png"; alt="screen of therminal at starting the app " > 
          </td>
     </tr>
     <tr>
         <td>
-         <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal before starting the app " >
+         <img src="./assets/images/screens/main-dark.png"; alt="screen of therminal in dark mode at starting the app " >
+         </td>
+    </tr>
+    <tr>
+    <td>
+         <img src="./assets/images/application-terminal.png"; alt="screen of therminal app from regular terminal  " >
          </td>
     </tr>
 </table>
