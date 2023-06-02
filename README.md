@@ -759,19 +759,19 @@ Most of the features of this application run fine on a local computer (any inter
 ### (Optional) Add Worksheet for Unittest with Pytest
 
 - If you also want to pass all unit tests you need to add a fourth sheet 'unit-test' to the sheet
-- More details how this sheet is being used during unit testing in this document : [TESTING](./TESTING.md_)
+- More details how this sheet is being used during unit testing in this document : [TESTING](./TESTING.md)
 - Go to your sheet `Meeting-Reminders` :
     - add another sheet and name it 'unit-test'
     - Enter the exact values from the sheet from the image. This is your expectation that pytest can now reference to within the unit test 
 
-  <table style='width:80%'>
-     <tr>
+<table style='width:80%'>
+    <tr>
        <th style='text-align:center'>Unit Test Worksheet</th>
-      </tr>
-       <tr>
+    </tr>
+    <tr>
        <td> <img src="./assets/images/sheet-unit-test.png"; alt="example of the  worksheet to test the read/write functions of the unit test" >  </td>
-       </tr>
-  </table>
+    </tr>
+</table>
 
 ---- 
 ### Link Google API to the application 
