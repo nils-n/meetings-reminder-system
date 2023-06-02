@@ -33,9 +33,51 @@ class Worksheet:
     def __post_init__(self) -> None:
         self.schedule_sheet = SHEET.worksheet("schedule")
         self.valid_participants_sheet = SHEET.worksheet("valid-participants")
-        self.load_valid_participants()
-        self.meetings = self.load_meetings("schedule")
         self.unittest_sheet = SHEET.worksheet("unit-test")
+        if self.name != "Mock Sheet":
+            try:
+                self.load_valid_participants()
+                self.meetings = self.load_meetings("schedule")
+            except gspread.exceptions.APIError:
+                self.valid_participants = []
+                self.load_mock_meetings()
+        else:
+            self.valid_participants = []
+            self.load_mock_participants()
+            self.load_mock_meetings()
+
+    def load_mock_participants(self):
+        """load mock participants
+        either for faster unit tests or in case of an APIError
+        """
+        self.valid_participants = [
+            Participant(f"Mock Participant {i}", f"mockemail-{i}@testmail.com", i, True)
+            for i in range(1, 5)
+        ]
+
+    def load_mock_meetings(self):
+        """
+        load mock meetings
+        either for faster unit tests or in case of an APIError
+        """
+        self.meetings = []
+        mock_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
+        mock_participants = self.valid_participants
+
+        self.meetings.append(
+            [
+                Meeting(
+                    i,
+                    f"Mock Meeting {i+1} ",
+                    mock_datetime,
+                    True,
+                    True,
+                    mock_participants,
+                    "",
+                )
+                for i in range(2)
+            ]
+        )
 
     def load_valid_participants(self) -> None:
         """loads data of valid Participants from google sheet into a list of Participants

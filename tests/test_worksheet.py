@@ -189,3 +189,27 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
 
     # push back the old meetings
     model.push_meetings(old_meetings, "unit-test")
+
+
+@pytest.mark.parametrize(
+    "fixture_name, participant",
+    [
+        (
+            "load_worksheet",
+            Participant("Mock Participant 1", "mockemail-1@testmail.com", 1, True),
+        ),
+        (
+            "load_worksheet",
+            Participant("Mock Participant 2", "mockemail-2@testmail.com", 2, True),
+        ),
+    ],
+)
+def test_can_load_mock_participants(fixture_name, participant, request) -> None:
+    """
+    Test to load mock participants
+    """
+    model = request.getfixturevalue(fixture_name)
+
+    model.load_mock_participants()
+
+    assert participant in model.valid_participants
