@@ -514,6 +514,16 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 ---
 
+### Explanation of the Data Model 
+
+#### Meetings Sheet
+
+#### Participant Sheet
+
+#### Participation-Matrix Sheet
+
+
+--- 
 ### Demo Mode
 
 - You can quickly run the application in demo mode that does not require having to setup the API for google sheets.  
