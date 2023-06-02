@@ -651,6 +651,9 @@ The schedule should be available even after the application is closed. This app 
 - Integration of this `MeetingsApp` with a `ReminderApp` that uses a shared database to send reminder Emails on a scheduled basis (such as 24hrs before a meeting), and a `ParticipantsApp` that handles the administration of the participants and approval requests for adding new participants from the `MeetingApp`
 - Integration of the meetings app for a more broad meaning of a schedule, such as adding other (personal) events or virtual meetings to a schedule  
 - Integration of a personal Meeting Schedule with a schedule from other another users, to allow for social interactions and messages / invitations to meetings or events, or shared calenders.
+- A visual cue that informs the user whether the synchronization of the local changes with the Google Sheets has been successful , and that the local repository differs from the Google sheets (Perhaps following a color code such as : Green/Yellow/Red for in sync/modified/error in the repository )
+- A Feedback dialog when the synchronization of the local changes with the remote database on Google sheets has finished. Additionally, I am not very happy that the application freezes while it synchronizes with Google Sheets - the next rework would address this problem, perhaps by not loading the entire sheet at a time and only sheets that are queried (for example, there is no need to load the unit-test sheet every time). 
+
 
 ### Accessibility
 
