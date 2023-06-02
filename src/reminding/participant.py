@@ -1,8 +1,8 @@
 """Class to describe a participant of a meeting"""
 from dataclasses import dataclass, astuple, asdict, field
-from email_validator import validate_email
 from random import randint
 from typing import Union
+from email_validator import validate_email
 
 
 @dataclass
