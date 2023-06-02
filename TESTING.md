@@ -6,9 +6,9 @@
 - [TESTING](#testing)
   - [Table of Contents](#table-of-contents)
   - [Manual Testing](#manual-testing)
-    - [Results of Syntax Validation with PEP8](#results-of-syntax-validation-with-pep8)
-    - [Results of User Stories Test](#results-of-user-stories-test)
     - [Results of Functionality Tests](#results-of-functionality-tests)
+    - [Results of User Stories Test](#results-of-user-stories-test)
+    - [Results of Syntax Validation with PEP8](#results-of-syntax-validation-with-pep8)
     - [Results of Other Tests](#results-of-other-tests)
     - [Issues Found During Manual Testing](#issues-found-during-manual-testing)
   - [Automated Testing](#automated-testing)
@@ -27,15 +27,62 @@
 
 The Manual Testing document can be found here : [Numbers Testing Results](./assets/documentation/Manual-Testing-Results.numbers).
 
-### Results of Syntax Validation with PEP8
-
-### Results of User Stories Test 
 
 ### Results of Functionality Tests
 
+The application has been tested that it works functionally correct. All testes have passed except TC19 which failed. Working on a fix is scheduled. 
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Test Results - Functionality</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/images/testing/functionality.png"; alt="results of manual testing for functionality" >  </td>
+    </tr>
+</table>
+
+### Results of User Stories Test 
+
+The application has been tested for its user stories case-by-case. All testes have passed.
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Test Results - Functionality</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/images/testing/user-stories.png"; alt="results of manual testing for functionality" >  </td>
+    </tr>
+</table>
+
+### Results of Syntax Validation with PEP8
+
+The application has been tested that a pylinter does not flag any significant errors. All testes have passed.
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Test Results - Functionality</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/images/testing/pep8.png"; alt="results of manual testing for functionality" >  </td>
+    </tr>
+</table>
+
 ### Results of Other Tests
 
+The application has been tested for consistency across browsers of the deployed version on Heroku. All testes have passed.
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Test Results - Functionality</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/images/testing/deployment.png"; alt="results of manual testing for functionality" >  </td>
+    </tr>
+</table>
+
 ### Issues Found During Manual Testing
+
+
 
 --- 
 
