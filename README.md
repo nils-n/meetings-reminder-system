@@ -903,26 +903,38 @@ Also, this application was developed using a `test-driven development` (TDD) app
 
 ### Solved Bugs 
 
-- After packaging the python code into an installable package ( so that we can use classes via `from reminding.meeting import Meeting`), the app would not deploy  on Heroku: 
-    <table style='max-width:100%; text-align: left'>
 
+Here is a list of the many bugs encountered during the implementation of the project. 
+
+<table style="width:100%;">
     <tr>
-    <td> Error Message</td>
-    <td> <img src="./assets/images/heroku-build-error.png"; alt="
-    image of heroku error message caused by python dependencies. Here the message on the image: 
-        Running command git clone --filter=blob:none --quiet https://github.com/nils-n/meetings-reminder-system.git /app/.heroku/src/reminding
-        fatal: could not read Username for 'https://github.com': No such device or address
-        error: subprocess-exited-with-error
-        × git clone --filter=blob:none --quiet https://github.com/nils-n/meetings-reminder-system.git /app/.heroku/src/reminding did not run successfully.
-        │ exit code: 128 " >   </td>
+        <th>  # </th>
+        <th>  Bug Description </th>
+        <th>  Solution</th>
+        <th>  Screenshot</th>
     </tr>
     <tr>
-    <td> Solution</td>
-    <td> 
-    Setting the visibility of the repository from `private` to `public`. In this way, the `reminding` dependency from this repository could be installed successfully. There are other options for private repositories (see [Heroku Devcenter](https://devcenter.heroku.com/articles/python-pip) or [Stackoverflow ](https://stackoverflow.com/questions/21297755/heroku-python-dependencies-in-private-repos-without-storing-my-password)) but none of these were deemed safe or good practice (i.e. storing private SSH-KEYs as environment variable). Being mindful about the scope of this project, it was chosen to follow the easier and safer approach by setting visibility to 'public'. 
-    </td>
+        <td> 1</td>
+        <td> After packaging the python code into an installable package ( so that we can use classes via `from reminding.meeting import Meeting`), the app would not deploy  on Heroku
+        </td>
+        <td> Setting the visibility of the repository from `private` to `public`. In this way, the `reminding` dependency from this repository could be installed successfully. There are other options for private repositories (see [Heroku Devcenter](https://devcenter.heroku.com/articles/python-pip) or [Stackoverflow ](https://stackoverflow.com/questions/21297755/heroku-python-dependencies-in-private-repos-without-storing-my-password)) but none of these were deemed safe or good practice (i.e. storing private SSH-KEYs as environment variable). Being mindful about the scope of this project, it was chosen to follow the easier and safer approach by setting visibility to 'public'. 
+        </td>
+        <td style='width:50%'>  <img src="./assets/images/heroku-build-error.png"; alt="
+    image of heroku error message caused by python dependencies. " >   </td>
     </tr>
-    </table>
+    <tr>
+        <td> 2 </td>
+        <td> Adding a participant to a meeting that this participant was already part of would cause duplicate entries
+        </td>
+        <td>   added a check that a participant was already in a meeting in the function to add a participant to a meeting. If the participant was already in the meeting, i would skip to enter
+        </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/bug7-multiple-times-same-particpant.png"; alt='duplicate participants'>    </td>
+    </tr>
+
+</table>
+
+
+
 
 
 ### Open Bugs 
@@ -939,7 +951,7 @@ Also, this application was developed using a `test-driven development` (TDD) app
     <td> Approaches</td>
     <td> 
       <ul>
-       <li> I tried to mock parts of the API calls with partial success. In this way, at least functions that don't necessarily require API access (such as creating test to create an empty Schedule) pass. However, this only delayed the onset of the error when testing functions that need actual API calls.
+       <li> I tried to mock parts of the API calls with partial success. In this way, at least functions that don't necessarily require API access pass (such as a test to create an empty Schedule). However, this only delayed the onset of the error when testing functions that need actual API calls.
        </li>
        <li>  I may try to find a way how to load only parts of the Sheet, and not loading the entire sheet for each call to somehow reduce the number of read requests.
        </li>
