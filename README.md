@@ -926,10 +926,51 @@ Here is a list of the many bugs encountered during the implementation of the pro
         <td> 2 </td>
         <td> Adding a participant to a meeting that this participant was already part of would cause duplicate entries
         </td>
-        <td>   added a check that a participant was already in a meeting in the function to add a participant to a meeting. If the participant was already in the meeting, i would skip to enter
+        <td>   added a check that a participant was already in a meeting in the function to add a participant to a meeting. If the participant was already in the meeting, skip to enter
         </td>
         <td style='width:50%'>  <img src="./assets/documentation/bugs/bug7-multiple-times-same-particpant.png"; alt='duplicate participants'>    </td>
     </tr>
+    <tr>
+        <td> 3 </td>
+        <td> After adding a new field to a dataclass, a constructor error was thrown 'adding a non-default argument after a default argument"
+        </td>
+        <td>   add a non-default argument to the dataclass variable
+        </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/bug8-dataclass-adding-field-causes-constructor-error.png"; alt='error non-default argument after default argument'>    </td>
+    </tr>
+    <tr>
+        <td> 4 </td>
+        <td> TypeError after trying to write a `datetime` variable into a JSON
+        </td>
+        <td>   convert datetime object into a string using its `strftime` function see [Stackoverflow](https://stackoverflow.com/questions/10624937/convert-datetime-object-to-a-string-of-date-only-in-python)
+        </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/bug9-write-error-worksheet.png"; alt='error non-default argument after default argument'>    </td>
+    </tr>
+    <tr>
+        <td> 5 </td>
+        <td> Logical Error in Unit Test
+        </td>
+        <td>   This was a logical error : The unit Test used the same google sheet that was also used by the main application. The solution was to create a dedicated read-only 'unit-test' sheet that was not modified by the app and could therefore be used during testing.
+          </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/unit-test-meeting.png"; alt='logical error of unit test with a non-constant google sheet'>    </td>
+    </tr>
+     <tr>
+        <td> 6 </td>
+        <td> Unit Test detects tiny mismatch
+        </td>
+        <td>   The unit test failed although the function seemed to work properly. The problem was there was a slight mismatch between the object created in the fixture and the object in the app. The solution was to enure that the function creates the identical object as expected - finding this error without this unit test would have been very time-consuming. 
+          </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/bug10-error.png"; alt='logical error of unit test with a non-constant google sheet'>    </td>
+    </tr>
+    <tr>
+        <td> 7 </td>
+        <td> Cultural References in Test Data
+        </td>
+        <td>   Turned out that many cultural refernces were being used during testing - which is not appropriate and may lead to more confusion than to clarify potential problems. Solution was to remove any cultural references and stick to more generic naming. 
+          </td>
+        <td style='width:50%'>  <img src="./assets/documentation/bugs/bug11-cultural references.png"; alt='logical error of unit test with a non-constant google sheet'>    </td>
+    </tr>
+
 
 </table>
 
