@@ -904,7 +904,7 @@ Also, this application was developed using a `test-driven development` (TDD) app
 ### Solved Bugs 
 
 - After packaging the python code into an installable package ( so that we can use classes via `from reminding.meeting import Meeting`), the app would not deploy  on Heroku: 
-    <table style='max-width:80%; text-align: left'>
+    <table style='max-width:100%; text-align: left'>
 
     <tr>
     <td> Error Message</td>
@@ -924,9 +924,30 @@ Also, this application was developed using a `test-driven development` (TDD) app
     </tr>
     </table>
 
+
 ### Open Bugs 
 
+- The Unit Test hits the quota for read access to the google sheets causing some of the unit tests for the Schedule class to fail. When running the tests indivually, they pass. Still need to investigate how to fix this this bug, for the moment I leave it here in this section. 
 
+   <table style='max-width:100%; text-align: left'>
+
+    <tr>
+    <td> Error Message</td>
+    <td> <img src="./assets/documentation/bugs/bug12-api-quota-unit-test.png"; alt=''>   </td>
+    </tr>
+    <tr>
+    <td> Approaches</td>
+    <td> 
+      <ul>
+       <li> I tried to mock parts of the API calls with partial success. In this way, at least functions that don't necessarily require API access (such as creating test to create an empty Schedule) pass. However, this only delayed the onset of the error when testing functions that need actual API calls.
+       </li>
+       <li>  I may try to find a way how to load only parts of the Sheet, and not loading the entire sheet for each call to somehow reduce the number of read requests.
+       </li>
+      </ul>
+    </td>
+    </tr>
+    </table>
+    
 
 ---- 
 
