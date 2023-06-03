@@ -15,6 +15,7 @@ from textual.widgets import Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical
+from gspread.exceptions import APIError
 from reminding.schedule import Schedule, Meeting, Worksheet
 
 GREETING_MARKDOWN = """\
@@ -49,6 +50,25 @@ class WarningScreen(ModalScreen[None]):
         yield Label(f"{self.error_message}", id="invalid-input-msg")
         yield Grid(
             Button("Try again", variant="error", id="return-to-previous"),
+            classes="dialog",
+        )
+
+    def on_button_pressed(self) -> None:
+        """return to previous input screen"""
+        self.app.pop_screen()
+
+
+class NotificationScreen(ModalScreen[None]):
+    """Notification dialog that pops up on top of current screen"""
+
+    def __init__(self, message: str = "Operation was successful.") -> None:
+        self.notification_message = message
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        yield Label(f"{self.notification_message}", id="valid-input-msg")
+        yield Grid(
+            Button("OK", variant="primary", id="return-to-previous"),
             classes="dialog",
         )
 
@@ -469,10 +489,18 @@ class MeetingsApp(App):
 
     def action_push_changes(self) -> None:
         """An action to update worksheet with local changes"""
-        self.schedule.push_meetings("schedule")
-        self.schedule.calculate_participation_matrix()
-        self.schedule.push_participation_matrix()
-        self.load_meetings_table(self.current_time_range)
+        try:
+            self.schedule.push_meetings("schedule")
+            self.schedule.calculate_participation_matrix()
+            self.schedule.push_participation_matrix()
+            self.load_meetings_table(self.current_time_range)
+            self.app.push_screen(NotificationScreen("Local Changes successful pushed!"))
+        except (ValueError, APIError):
+            self.app.push_screen(
+                WarningScreen(
+                    f"Could not connect to Google Sheet.\nLocal Changes are not saved! )"
+                )
+            )
 
     def action_add_meeting(self) -> None:
         """an action to add a meeting"""

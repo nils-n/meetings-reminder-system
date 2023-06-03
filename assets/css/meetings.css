@@ -81,6 +81,12 @@ Button {
     width: 70;
 }
 
+#valid-input-msg {
+    padding: 0 1;
+    height: 5;
+    width: 70;
+}
+
 #return-to-previous {
     column-span: 3
 }
