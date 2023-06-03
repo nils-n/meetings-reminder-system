@@ -35,6 +35,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     - [Main Screen](#main-screen)
       - [Filter Display of Upcoming Meetings](#filter-display-of-upcoming-meetings)
       - [Toggle Dark Mode](#toggle-dark-mode)
+      - [Push Changes](#push-changes)
     - [Add Meeting Screen](#add-meeting-screen)
     - [Modify Meeting Screen](#modify-meeting-screen)
       - [Changing the Meeting Name](#changing-the-meeting-name)
@@ -399,6 +400,22 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
     <tr>
         <td>  
          <img src="./assets/images/screens/filter/dark-2.png"; alt="example  toggle dark mode OFF" > 
+         </td>
+    </tr>
+</table>
+
+#### Push Changes 
+
+- The user can push local changes to the Google Sheet by pressing the `P` key on the Main Screen
+- After the operation is finished, a dialog pops up whether it was successful or not 
+
+<table style="width:100%;">
+    <tr>
+        <th> MAIN SCREEN -PUSH CHANGES </th>
+    </tr>
+    <tr>
+        <td>  
+         <img src="./assets/images/screens/push-changes.png"; alt="example toggle dark mode ON" > 
          </td>
     </tr>
 </table>
