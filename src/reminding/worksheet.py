@@ -29,10 +29,10 @@ class Worksheet:
     schedule_sheet: gspread.Worksheet
     valid_participants: list[Participant] = field(default_factory=list)
     meetings: list[Meeting] = field(default_factory=list)
-    is_modified: bool = False
     schedule_sheet_values: list[list[str]] = field(default_factory=list)
     unittest_sheet_values: list[list[str]] = field(default_factory=list)
     participation_matrix_sheet_values: list[list[str]] = field(default_factory=list)
+    is_modified: bool = False
 
     def __post_init__(self) -> None:
         """
@@ -111,13 +111,14 @@ class Worksheet:
     def load_meetings(self) -> list[Meeting]:
         """
         Load meetings from the worksheet and transfer into a list of Meetings
-        During Unit Test : load mock data instead of the actual meetings
+        - During the App, load  data from schedule sheet
+        - During Unit Test without Mocking, load data from unit-test sheet
+        - During Unit Tests with Mocking, create mock data
         """
         if self.name == "Mock Sheet":
             self.load_mock_meetings()
             return self.meetings
 
-        # to load testable data during unit test
         if self.name == "Test Sheet":
             row_list = self.unittest_sheet_values
         else:
@@ -147,36 +148,35 @@ class Worksheet:
             return row_header, row_entries
 
     def push_meetings(self, meetings, worksheet_name) -> None:
-        """this function replaces all rows on the worksheet with the current meetings
-
-        Note for later : This function should only update the values if
-        the is_modified flag is set to true (to reduce unnecessary API calls )
-        For now, to keep the changes atomic, i will leave this comment.
-        --> Remove once implemented and tested.
         """
-        sheet = SHEET.worksheet(worksheet_name)
-        sheet.clear()
-        header_row = [
-            "Meeting ID",
-            "Name",
-            "Time",
-            "Place",
-            "Invited",
-            "reminder sent?",
-        ]
-        sheet.append_row(header_row)
-        new_rows = [
-            [
-                str(meeting.meeting_id),
-                str(meeting.name),
-                meeting.datetime.strftime("%d/%m/%y %H:%M"),
-                "",
-                str(len(meeting.participants)),
-                "no",
+        this function replaces all rows on the worksheet with the current meetings
+
+        push changes only if your sheet was actually modified (to reduce unnecessary API calls )
+        """
+        if self.is_modified:
+            sheet = SHEET.worksheet(worksheet_name)
+            sheet.clear()
+            header_row = [
+                "Meeting ID",
+                "Name",
+                "Time",
+                "Place",
+                "Invited",
+                "reminder sent?",
             ]
-            for meeting in meetings
-        ]
-        sheet.append_rows(new_rows)
+            sheet.append_row(header_row)
+            new_rows = [
+                [
+                    str(meeting.meeting_id),
+                    str(meeting.name),
+                    meeting.datetime.strftime("%d/%m/%y %H:%M"),
+                    "",
+                    str(len(meeting.participants)),
+                    "no",
+                ]
+                for meeting in meetings
+            ]
+            sheet.append_rows(new_rows)
 
     def add_meeting(self, new_meeting) -> None:
         """
@@ -234,7 +234,6 @@ class Worksheet:
         sheet.clear()
         sheet.append_row(row_header)
         sheet.append_rows(new_rows)
-
 
 def main() -> None:
     """Just a function for manual Testing"""

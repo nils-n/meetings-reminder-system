@@ -21,6 +21,7 @@ class Meeting:
     table_row: Union[str, int] = field(default_factory=list)
     num_participants: int = 0
     participant_table_rows: list[Union[str, int]] = field(default_factory=list)
+    is_modified: bool = False
 
     def __post_init__(self):
         """validate that the attributes have correct form"""
