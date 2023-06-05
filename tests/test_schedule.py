@@ -39,20 +39,20 @@ def test_can_create_empty_schedule(load_mock_worksheet) -> None:
 
     model = Schedule(worksheet, random_name, [], [])
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
-    model.add_meeting(
+    model.worksheet.add_meeting(
         Meeting(1, "New Test Meeting 1", random_datetime, True, True, [], "")
     )
-    model.add_meeting(
+    model.worksheet.add_meeting(
         Meeting(1, "New Test Meeting 1", random_datetime, True, True, [], "")
     )
 
-    assert model.meetings[0].name == "Unit Test Meeting 1"
-    assert model.meetings[1].name == "Unit Test Meeting 2"
+    assert model.worksheet.meetings[0].name == "Unit Test Meeting 1"
+    assert model.worksheet.meetings[1].name == "Unit Test Meeting 2"
     assert (
-        0 < model.meetings[0].meeting_id < 1000
+        0 < model.worksheet.meetings[0].meeting_id < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
     assert (
-        0 < model.meetings[1].meeting_id < 1000
+        0 < model.worksheet.meetings[1].meeting_id < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
 
 
@@ -71,7 +71,7 @@ def test_table_rows_match_values_of_corresponding_meetings(load_mock_worksheet) 
         0 < model.table_rows[1][0] < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
     assert model.table_rows[0][1] == "Name"
-    assert model.table_rows[1][1] == model.meetings[0].name
+    assert model.table_rows[1][1] == model.worksheet.meetings[0].name
 
 
 @pytest.mark.parametrize(
@@ -133,20 +133,8 @@ def test_incorrect_input_of_meeting_id_raises_error(
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
     model = Schedule(worksheet, random_name, [], [])
-    if model.offline_mode:
-        model.add_meeting(
-            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
-        )
-        model.add_meeting(
-            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
-        )
-    else:
-        model.add_meeting(
-            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
-        )
-        model.add_meeting(
-            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
-        )
+    model.add_meeting(Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], ""))
+    model.add_meeting(Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], ""))
 
     with expectation:
         model.get_meeting_by_id(target_id)
@@ -242,10 +230,10 @@ def test_participation_matrix_has_correct_size() -> None:
 
     model.calculate_participation_matrix()
 
-    assert len(model.participation_matrix_rows) == len(model.meetings)
+    assert len(model.participation_matrix_rows) == len(model.worksheet.meetings)
     assert (
         len(model.participation_matrix_row_header)
-        == len(model.allowed_participants) + 1
+        == len(model.worksheet.valid_participants) + 1
     )
 
 
@@ -257,8 +245,8 @@ def xtest_participation_matrix_has_correct_values() -> None:
 
     random_name = "Random Schedule"
     model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
-    model.meetings[0].add_participant(model.allowed_participants[0])
-    model.meetings[0].add_participant(model.allowed_participants[1])
+    model.meetings[0].add_participant(model.worksheet.valid_participants[0])
+    model.meetings[0].add_participant(model.worksheet.valid_participants[1])
 
     model.calculate_participation_matrix()
 

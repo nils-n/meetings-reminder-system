@@ -72,11 +72,9 @@ class Worksheet:
                     self.load_mock_participation_matrix_values()
                 )
                 print(
-                    f"You are not mock Data \
-                      \nName of your Sheet   : {self.name}  \
-                      \nConisder using name  : Test Sheet  "
+                    f"Loading Test Data...\
+                      \nName of your Sheet   : {self.name}  "
                 )
-
         # fill datastructures used during the App
         self.load_valid_participants()
         self.meetings = self.load_meetings()
@@ -136,31 +134,17 @@ class Worksheet:
             if i > 0
         ]
 
-    def load_participation_matrix(self, worksheet_name, offline_mode):
-        """loads the participation matrix from the worksheet"""
-        if not offline_mode:
-            row_list = self.participation_matrix_sheet_values
-            return row_list[0], row_list[1:]
-        else:
-            row_header = [f"{i}" for i in range(len(self.valid_participants))]
-            row_entries = []
-            for meeting in self.meetings:
-                row_entries.append(
-                    [
-                        "TRUE" if participant in meeting.participants else "FALSE"
-                        for participant in self.valid_participants
-                    ]
-                )
-            return row_header, row_entries
+    def load_participation_matrix(self):
+        """loads the participation matrix from the local copy of the worksheet"""
+        row_list = self.participation_matrix_sheet_values
+        return row_list[0], row_list[1:]
 
-    def push_meetings(self, meetings, worksheet_name) -> None:
+    def push_schedule_to_repository(self) -> None:
         """
-        this function replaces all rows on the Google Sheet API worksheet with the current meetings
-
-        push changes only if your sheet was actually modified (to reduce unnecessary API calls )
+        this function uploads the local copy of the worksheet if is has been modified
         """
         if self.is_modified:
-            sheet = self.SHEET.worksheet(worksheet_name)
+            sheet = self.SHEET.worksheet("schedule")
             sheet.clear()
             header_row = [
                 "Meeting ID",
@@ -180,22 +164,15 @@ class Worksheet:
                     str(len(meeting.participants)),
                     "no",
                 ]
-                for meeting in meetings
+                for meeting in self.meetings
             ]
             sheet.append_rows(new_rows)
 
     def add_meeting(self, new_meeting) -> None:
         """
         adds a meeting to the local copy of the worksheet
-
-        Note for later -> this should not work on the online values but rather on the
-        local copy and the is_modified flag to True. (to reduce API calls)
-        in a later version :
-         - use sheet.append_row(new_row) to push those changes
-         - creates method to push local changes to google sheet
         """
-        meetings = self.load_meetings()
-        if new_meeting not in meetings:
+        if new_meeting not in self.meetings:
             new_row = [
                 str(new_meeting.meeting_id),
                 str(new_meeting.name),
@@ -205,7 +182,7 @@ class Worksheet:
                 "no",
             ]
             self.schedule_sheet_values.append(new_row)
-            # inform the main app that the local copy now differs from the cloud
+            self.meetings.append(new_meeting)
             self.is_modified = True
 
     def remove_meeting_by_id(self, target_id) -> None:
@@ -220,13 +197,13 @@ class Worksheet:
         if self.is_modified:
             self.schedule_sheet_values = modified_row_list
 
-    def push_participation_matrix(self, row_header, new_rows, worksheet_name) -> None:
+    def push_participation_matrix(self, row_header, new_rows) -> None:
         """
         pushes the current participation matrix to to the worksheet
         Note for later -> this should not work on the online values but rather on the
         local copy and the is_modified flag to True. (to reduce API calls)
         """
-        sheet = self.SHEET.worksheet(worksheet_name)
+        sheet = self.SHEET.worksheet("participation-matrix")
         sheet.clear()
         sheet.append_row(row_header)
         sheet.append_rows(new_rows)
