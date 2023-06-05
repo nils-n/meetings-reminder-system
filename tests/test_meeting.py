@@ -452,3 +452,36 @@ def test_can_tell_if_meeting_is_within_time_range(
     result = model.is_within_time_range(current_time, time_range)
 
     assert result == expectation
+
+
+@pytest.mark.parametrize(
+    "fixture_name, new_participant, expectation",
+    [
+        (
+            "create_random_meeting",
+            Participant("New Participant 1", "new-email+1@test.com", 42, True),
+            True,
+        ),
+        (
+            "create_random_meeting",
+            Participant("New Participant 2", "new-email+2@test.com", 42, True),
+            True,
+        ),
+        (
+            "create_random_meeting",
+            Participant("Test User 1", "test.user+1@test.com", 1, True),
+            False,
+        ),
+    ],
+)
+def test_adding_new_participant_changes_meeting_state_to_modified(
+    fixture_name, new_participant, expectation, request
+):
+    """
+    test whether adding a participant to a meeting changes it state to 'modified'
+    """
+    model = request.getfixturevalue(fixture_name)
+
+    model.add_participant(new_participant)
+
+    assert model.is_modified is expectation
