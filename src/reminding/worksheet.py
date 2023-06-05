@@ -58,30 +58,26 @@ class Worksheet:
                 self.SCOPED_CREDS = self.CREDS.with_scopes(SCOPE)
                 self.GSPREAD_CLIENT = gspread.authorize(self.SCOPED_CREDS)
                 self.SHEET = self.GSPREAD_CLIENT.open("Meeting-Reminders")
-            except FileNotFoundError:
-                # if there is no creds file, use mock data (demo mode)
-                self.schedule_sheet_values = self.load_mock_unittest_sheet()
-                self.participation_matrix_sheet_values = (
-                    self.load_mock_participation_matrix_values()
-                )
-            # then download the values from the sheets once
-            try:
                 self.schedule_sheet_values = self.SHEET.worksheet(
                     "schedule"
                 ).get_all_values()
                 self.participation_matrix_sheet_values = self.SHEET.worksheet(
                     "valid-participants"
                 ).get_all_values()
-            except gspread.exceptions.APIError:
-                print(
-                    f"You are not mock Data \nName of your Sheet : {self.name} \nConisder using name: Test Sheet (or Mock Sheet ) "
+
+            except (FileNotFoundError, gspread.exceptions.APIError):
+                # if there is no creds file, use mock data (demo mode)
+                self.schedule_sheet_values = self.load_mock_unittest_sheet()
+                self.participation_matrix_sheet_values = (
+                    self.load_mock_participation_matrix_values()
                 )
                 print(
-                    "I am aware that this call can make the App fail - but for now i want to double check that the unit test NEVER calls the API"
+                    f"You are not mock Data \
+                      \nName of your Sheet   : {self.name}  \
+                      \nConisder using name  : Test Sheet  "
                 )
 
-        # now, unit test or not, the values from a worksheet are loaded into memory. Now fill local copies
-        self.meetings = self.load_meetings()
+        # fill datastructures used during the App
         self.load_valid_participants()
         self.meetings = self.load_meetings()
 
