@@ -12,11 +12,6 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-CREDS = Credentials.from_service_account_file("creds.json")
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open("Meeting-Reminders")
-
 
 @dataclass
 class Worksheet:
@@ -30,66 +25,91 @@ class Worksheet:
     valid_participants: list[Participant] = field(default_factory=list)
     meetings: list[Meeting] = field(default_factory=list)
     schedule_sheet_values: list[list[str]] = field(default_factory=list)
-    unittest_sheet_values: list[list[str]] = field(default_factory=list)
     participation_matrix_sheet_values: list[list[str]] = field(default_factory=list)
     is_modified: bool = False
 
     def __post_init__(self) -> None:
         """
         read all values from the google API once and store the data in a local copy.
-        This has two advantages :
-        -  the API is queried less often
-        -  It is also easier to keep track of changes
-        """
-        try:
-            self.load_valid_participants()
-            self.meetings = self.load_meetings()
-            if self.name == "Test Sheet":
-                self.unittest_sheet_values = SHEET.worksheet(
-                    "unit-test"
-                ).get_all_values()
-                return
-            self.schedule_sheet_values = SHEET.worksheet("schedule").get_all_values()
-            self.participation_matrix_sheet_values = SHEET.worksheet(
-                "valid-participants"
-            ).get_all_values()
-            self.meetings = self.load_meetings()
-        except gspread.exceptions.APIError:
-            self.valid_participants = []
-            self.load_mock_participants()
-            self.load_mock_meetings()
 
-    def load_mock_participants(self):
-        """load mock participants
-        either for faster unit tests or in case of an APIError
+        Note: during unit test, replace values from schedule sheet with mock data
         """
-        self.valid_participants = [
-            Participant(f"Mock Participant {i}", f"mockemail-{i}@testmail.com", i, True)
-            for i in range(1, 5)
+        self.valid_participants = []
+
+        # this part should be exectuted during a unit test
+        if any(
+            [
+                "Mock" in self.name,
+                "mock" in self.name,
+                "test" in self.name,
+                "Test" in self.name,
+            ]
+        ):
+            self.schedule_sheet_values = self.load_mock_unittest_sheet()
+            self.participation_matrix_sheet_values = (
+                self.load_mock_participation_matrix_values()
+            )
+
+        else:
+            # this part should be exectured during runtime of the app with actual API calls
+            # first try to connect to the API
+            try:
+                self.CREDS = Credentials.from_service_account_file("creds.json")
+                self.SCOPED_CREDS = self.CREDS.with_scopes(SCOPE)
+                self.GSPREAD_CLIENT = gspread.authorize(self.SCOPED_CREDS)
+                self.SHEET = self.GSPREAD_CLIENT.open("Meeting-Reminders")
+            except FileNotFoundError:
+                # if there is no creds file, use mock data (demo mode)
+                self.schedule_sheet_values = self.load_mock_unittest_sheet()
+                self.participation_matrix_sheet_values = (
+                    self.load_mock_participation_matrix_values()
+                )
+            # then download the values from the sheets once
+            try:
+                self.schedule_sheet_values = self.SHEET.worksheet(
+                    "schedule"
+                ).get_all_values()
+                self.participation_matrix_sheet_values = self.SHEET.worksheet(
+                    "valid-participants"
+                ).get_all_values()
+            except gspread.exceptions.APIError:
+                print(
+                    f"You are not mock Data \nName of your Sheet : {self.name} \nConisder using name: Test Sheet (or Mock Sheet ) "
+                )
+                print(
+                    "I am aware that this call can make the App fail - but for now i want to double check that the unit test NEVER calls the API"
+                )
+
+        # now, unit test or not, the values from a worksheet are loaded into memory. Now fill local copies
+        self.meetings = self.load_meetings()
+        self.load_valid_participants()
+        self.meetings = self.load_meetings()
+
+    def load_mock_participation_matrix_values(self):
+        """
+        load a set of mock participants as if it were read from a worksheet
+        Reason for this : to run unit tests without actually calling values from API
+        """
+        print("--> DEBUG INFO : loading a mock participant sheet ")
+        return [
+            ["Participant ID", "Name", "Email"],
+            ["1", "Test User 1", "student.reminder.test.user+1@gmail.com"],
+            ["2", "Test User 2", "student.reminder.test.user+2@gmail.com"],
+            ["3", "Test User 3", "student.reminder.test.user+3@gmail.com"],
+            ["4", "Test User 4", "student.reminder.test.user+4@gmail.com"],
+            ["5", "Test User 5", "student.reminder.test.user+5@gmail.com"],
         ]
 
-    def load_mock_meetings(self):
+    def load_mock_unittest_sheet(self):
         """
-        load mock meetings
-        either for faster unit tests or in case of an APIError
+        load a set of mock meetings as if they were read from a worksheet
+        Reason for this : to run unit tests without actually calling values from APIr
         """
-        self.meetings = []
-        self.load_mock_participants()
-
-        mock_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
-        mock_participants = self.valid_participants
-
-        self.meetings = [
-            Meeting(
-                i + 1,
-                f"Mock Meeting {i+1}",
-                mock_datetime,
-                True,
-                True,
-                mock_participants,
-                "",
-            )
-            for i in range(2)
+        print("--> DEBUG INFO : loading a mock schedule sheet ")
+        return [
+            ["Meeting ID", "Name", "Time", "Place", "Invited", "reminder sent?"],
+            ["1", "Unit Test Meeting 1", "11/11/11 11:11", "", "0", "no"],
+            ["2", "Unit Test Meeting 2", "30/05/23 14:00", "", "0", "no"],
         ]
 
     def load_valid_participants(self) -> None:
@@ -110,19 +130,9 @@ class Worksheet:
 
     def load_meetings(self) -> list[Meeting]:
         """
-        Load meetings from the worksheet and transfer into a list of Meetings
-        - During the App, load  data from schedule sheet
-        - During Unit Test without Mocking, load data from unit-test sheet
-        - During Unit Tests with Mocking, create mock data
+        Load meetings from a worksheet and transfer into a list of Meetings
         """
-        if self.name == "Mock Sheet":
-            self.load_mock_meetings()
-            return self.meetings
-
-        if self.name == "Test Sheet":
-            row_list = self.unittest_sheet_values
-        else:
-            row_list = self.schedule_sheet_values
+        row_list = self.schedule_sheet_values
 
         return [
             Meeting(int(row[0]), row[1], datetime.strptime(row[2], "%d/%m/%y %H:%M"))
@@ -149,12 +159,12 @@ class Worksheet:
 
     def push_meetings(self, meetings, worksheet_name) -> None:
         """
-        this function replaces all rows on the worksheet with the current meetings
+        this function replaces all rows on the Google Sheet API worksheet with the current meetings
 
         push changes only if your sheet was actually modified (to reduce unnecessary API calls )
         """
         if self.is_modified:
-            sheet = SHEET.worksheet(worksheet_name)
+            sheet = self.SHEET.worksheet(worksheet_name)
             sheet.clear()
             header_row = [
                 "Meeting ID",
@@ -198,31 +208,21 @@ class Worksheet:
                 str(len(new_meeting.participants)),
                 "no",
             ]
-            if self.name == "Test Sheet":
-                self.unittest_sheet_values.append(new_row)
-            else:
-                self.schedule_sheet_values.append(new_row)
+            self.schedule_sheet_values.append(new_row)
             # inform the main app that the local copy now differs from the cloud
             self.is_modified = True
 
     def remove_meeting_by_id(self, target_id) -> None:
-        """remove meeting with given ID from local copy of worksheet
-        Note for later -> this should not work on the online values but rather on the
-        local copy and the is_modified flag to True. (to reduce API calls)
-
-        in a different function: remove the row on the sheet using
-        sheet.delete_rows(i + 1)
-        """
-        if self.name == "Test Sheet":
-            row_list = self.unittest_sheet_values
-        else:
-            row_list = self.schedule_sheet_values
+        """remove meeting with given ID from local copy of a worksheet"""
+        row_list = self.schedule_sheet_values
         modified_row_list = []
         for row in row_list:
             if row[0] != str(target_id):
                 modified_row_list.append(row)
             else:
                 self.is_modified = True
+        if self.is_modified:
+            self.schedule_sheet_values = modified_row_list
 
     def push_participation_matrix(self, row_header, new_rows, worksheet_name) -> None:
         """
@@ -230,22 +230,19 @@ class Worksheet:
         Note for later -> this should not work on the online values but rather on the
         local copy and the is_modified flag to True. (to reduce API calls)
         """
-        sheet = SHEET.worksheet(worksheet_name)
+        sheet = self.SHEET.worksheet(worksheet_name)
         sheet.clear()
         sheet.append_row(row_header)
         sheet.append_rows(new_rows)
+
 
 def main() -> None:
     """Just a function for manual Testing"""
     # data = Worksheet("Test Sheet", None)
     # row_list = data.unittest_sheet_values
-    data = Worksheet("Schedule Sheet", None)
-    row_list = data.schedule_sheet_values
-    print(type(row_list))
+    data = Worksheet("Mock Sheet", None)
+    row_list = data.participation_matrix_sheet_values
     print(row_list)
-    print(row_list[0])
-    print(row_list[1])
-    print(f" Meetings in meetings array : {data.meetings}")
 
 
 if __name__ == "__main__":

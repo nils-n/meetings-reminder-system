@@ -102,10 +102,16 @@ def create_random_meeting() -> Meeting:
 def load_worksheet() -> Worksheet:
     """initialize and load the spreadsheet from the cloud once for all tests
 
-    sleeping for 10 seconds to meet Google Sheet quota requirmements of requests per second
-    "
+    After many considerations, i will not test any functionality during
+    unit test that depend on an Actual API call. It was briefly considered to mock the API call but
+    then decided against , see argumentation here:
+    https://chemaclass.medium.com/to-mock-or-not-to-mock-af995072b22e
     """
-    return Worksheet("Test Sheet", None)
+    raise RuntimeError(
+        "You are trying to read actual values during an API during unit test. This will \
+not be supported any more to avoid spam behaviour that would lead to problems \
+with the Google Sheets API as it violates their Terms of Service "
+    )
 
 
 @pytest.fixture(scope="session")
@@ -114,4 +120,4 @@ def load_mock_worksheet() -> Worksheet:
     initialize a spreadsheet that does not depend on values from the cloud
     to reduce API requests per minutes
     """
-    return Worksheet("Mock Sheet", None)
+    return Worksheet("Test Sheet", None)
