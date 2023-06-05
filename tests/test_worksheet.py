@@ -26,7 +26,7 @@ def test_can_create_new_worksheet(load_worksheet) -> None:
 def test_can_read_values_from_worksheet(load_worksheet) -> None:
     """test if the class can read values from worksheet"""
     data = load_worksheet
-    model = data.unittest_sheet.get_all_values()
+    model = data.unittest_sheet_values
 
     assert model[1][1] == "Unit Test Meeting 1"
     assert model[1][2] == "11/11/11 11:11"
@@ -116,7 +116,7 @@ def test_can_read_meetings_from_worksheet(load_worksheet) -> None:
     ]
 
     model = load_worksheet
-    meetings = model.load_meetings("unit-test")
+    meetings = model.load_meetings()
 
     assert meetings[0] == unit_test_meetings[0]
     assert meetings[1] == unit_test_meetings[1]
@@ -136,8 +136,8 @@ def test_can_add_meeting_to_worksheet(load_worksheet) -> None:
         datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
     )
 
-    model.add_meeting(new_meeting, "unit-test")
-    meetings = model.load_meetings("unit-test")
+    model.add_meeting(new_meeting)
+    meetings = model.load_meetings()
 
     assert new_meeting in meetings
 
@@ -156,7 +156,7 @@ def test_can_delete_meeting_by_id_from_worksheet(load_worksheet) -> None:
     )
     model.add_meeting(new_meeting, "unit-test")
     model.remove_meeting_by_id(42, "unit-test")
-    meetings = model.load_meetings("unit-test")
+    meetings = model.load_meetings()
 
     assert new_meeting not in meetings
 
@@ -165,10 +165,10 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
     """
     This is a test if one can push all local meetings to a worksheet to replace its content
 
-    (note: I disabled the other tests to make testing faster)
+    (note: this should fail currently as the load_meetings works on a local copy now)
     """
     model = load_worksheet
-    old_meetings = model.load_meetings("unit-test")
+    old_meetings = model.load_meetings()
     new_unit_test_meetings = [
         Meeting(
             44,
@@ -183,7 +183,7 @@ def test_can_push_all_local_meetings_to_worksheet(load_worksheet) -> None:
     ]
 
     model.push_meetings(new_unit_test_meetings, "unit-test")
-    updated_meetings = model.load_meetings("unit-test")
+    updated_meetings = model.load_meetings()
 
     assert updated_meetings == new_unit_test_meetings
 

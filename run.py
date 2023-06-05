@@ -425,7 +425,7 @@ class MeetingsApp(App):
     CSS_PATH = "./assets/css/meetings.css"
 
     schedule = reactive(
-        Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
+        Schedule(Worksheet("Schedule Sheet", None), "An example Schedule", [], [])
     )
 
     def __init__(self):

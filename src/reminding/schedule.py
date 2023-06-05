@@ -57,7 +57,7 @@ class Schedule:
             self.offline_mode = True
             return
         try:
-            self.worksheet.load_meetings(worksheet_name)
+            self.worksheet.load_meetings()
             self.meetings = self.worksheet.meetings
             self.offline_mode = False
         except gspread.exceptions.APIError as error:
