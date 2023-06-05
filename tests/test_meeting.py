@@ -343,7 +343,7 @@ def test_can_remove_participant_from_a_meeting_via_its_id(
     Test if participant can be removed from a meeting
     """
     model = create_random_meeting
-    random_participant = 0
+    random_participant = 1
     target_participant_id = model.participants[random_participant].id_number
 
     model.remove_participant_by_id(target_participant_id)
@@ -483,5 +483,25 @@ def test_adding_new_participant_changes_meeting_state_to_modified(
     model = request.getfixturevalue(fixture_name)
 
     model.add_participant(new_participant)
+
+    assert model.is_modified is expectation
+
+
+@pytest.mark.parametrize(
+    "fixture_name, target_id, expectation",
+    [
+        ("create_random_meeting", 1, True),
+        ("create_random_meeting", 2, True),
+    ],
+)
+def test_removing_valid_participant_changes_meeting_state_to_modified(
+    fixture_name, target_id, expectation, request
+):
+    """
+    test whether remove a participant with a valid ID changes meeting state to modified
+    """
+    model = request.getfixturevalue(fixture_name)
+
+    model.remove_participant_by_id(target_id)
 
     assert model.is_modified is expectation
