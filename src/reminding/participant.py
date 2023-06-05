@@ -20,7 +20,7 @@ class Participant:
         validate_email(self.email)
         self.validate_name(self.name)
         self.validate_meeting_id(self.id_number)
-        if not self.id_number:
+        if not isinstance(self.id_number, int):
             self.id_number = randint(0, 1000)
 
     def validate_name(self, name):

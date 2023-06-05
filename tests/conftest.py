@@ -78,13 +78,13 @@ def create_random_meetings() -> List[Meeting]:
 def create_random_meeting() -> Meeting:
     """initialize a random meeting with a few random participants"""
     random_number_of_participants = 4
-    random_names = [f"Test User {i}" for i in range(random_number_of_participants)]
+    random_names = [f"Test User {i + 1}" for i in range(random_number_of_participants)]
     random_emails = [
-        f"test.user+{i}@test.com" for i in range(random_number_of_participants)
+        f"test.user+{i + 1}@test.com" for i in range(random_number_of_participants)
     ]
     random_participants = []
     for i, (name, email) in enumerate(zip(random_names, random_emails)):
-        random_participants.append(Participant(name, email, i, True))
+        random_participants.append(Participant(name, email, i + 1, True))
     random_name = "Test Meeting"
     random_meeting_id = 5
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
@@ -94,7 +94,7 @@ def create_random_meeting() -> Meeting:
     )
     for participant in random_participants:
         random_meeting.add_participant(participant)
-
+    random_meeting.is_modified = False
     return random_meeting
 
 

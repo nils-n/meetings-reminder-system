@@ -131,6 +131,7 @@ class Meeting:
         if new_participant not in self.participants:
             self.participants.append(new_participant)
             self.num_participants += 1
+            self.is_modified = True
 
     def convert_participants_to_table(self):
         """
