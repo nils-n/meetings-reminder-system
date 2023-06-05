@@ -6,13 +6,6 @@ All unit tests are laid out in the form
 A rrange
 A ct 
 A ssert
-
-Note: After each test, the program will go to sleep for 10 seconds
-
-time.sleep(10)
-
-This is intended to reduce number of API calls per second to meet Google API quota limit per minute, see
-https://stackoverflow.com/questions/53765222/python-google-sheets-api-limit-429-error-with-loop
 """
 import pytest
 import time
@@ -34,8 +27,6 @@ def test_can_create_new_schedule(load_mock_worksheet) -> None:
     assert isinstance(model, Schedule)
     assert model.name == random_name
 
-    time.sleep(10)
-
 
 def test_can_create_empty_schedule(load_mock_worksheet) -> None:
     """
@@ -44,15 +35,19 @@ def test_can_create_empty_schedule(load_mock_worksheet) -> None:
        -> Once the Mock Classes are removed, the test should pass
     """
     worksheet = load_mock_worksheet
-    random_name = "Random Schedule"
+    random_name = "Unit Test Schedule"
 
     model = Schedule(worksheet, random_name, [], [])
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
-    model.add_meeting(Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], ""))
-    model.add_meeting(Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], ""))
+    model.add_meeting(
+        Meeting(1, "New Test Meeting 1", random_datetime, True, True, [], "")
+    )
+    model.add_meeting(
+        Meeting(1, "New Test Meeting 1", random_datetime, True, True, [], "")
+    )
 
-    assert model.meetings[0].name == "Mock Meeting 1"
-    assert model.meetings[1].name == "Mock Meeting 2"
+    assert model.meetings[0].name == "Unit Test Meeting 1"
+    assert model.meetings[1].name == "Unit Test Meeting 2"
     assert (
         0 < model.meetings[0].meeting_id < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
@@ -160,8 +155,8 @@ def test_incorrect_input_of_meeting_id_raises_error(
 @pytest.mark.parametrize(
     "target_id, expectation, fixture_name",
     [
-        (1, "Mock Meeting 1", "load_mock_worksheet"),
-        (2, "Mock Meeting 2", "load_mock_worksheet"),
+        (101, "Mock Meeting 1", "load_mock_worksheet"),
+        (102, "Mock Meeting 2", "load_mock_worksheet"),
     ],
 )
 def test_correct_input_of_meeting_id_returns_correct_meeting(
@@ -176,10 +171,10 @@ def test_correct_input_of_meeting_id_returns_correct_meeting(
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
     random_schedule = Schedule(worksheet, random_name, [], [])
     random_schedule.add_meeting(
-        Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
+        Meeting(101, "Mock Meeting 1", random_datetime, True, True, [], "")
     )
     random_schedule.add_meeting(
-        Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
+        Meeting(102, "Mock Meeting 2", random_datetime, True, True, [], "")
     )
 
     model = random_schedule.get_meeting_by_id(target_id)
@@ -195,26 +190,26 @@ def test_correct_input_of_meeting_id_returns_correct_meeting(
                 "Test User 0", "student.reminder.test.user+0@gmail.com", 0, True
             ),
             pytest.raises(ValueError),
-            "load_worksheet",
+            "load_mock_worksheet",
         ),
         (
             Participant(
                 "Test User 1", "student.reminder.test.user+1@gmail.com", 1, True
             ),
             does_not_raise(),
-            "load_worksheet",
+            "load_mock_worksheet",
         ),
         (
             Participant("Invalid User", "invalid-user@fakemail.com", 1, True),
             pytest.raises(ValueError),
-            "load_worksheet",
+            "load_mock_worksheet",
         ),
         (
             Participant(
                 "Another Invalid User", "another-invalid-user@fakemail.com", 1, True
             ),
             pytest.raises(ValueError),
-            "load_worksheet",
+            "load_mock_worksheet",
         ),
     ],
 )
@@ -225,7 +220,6 @@ def test_that_only_allowed_participants_will_be_added_to_the_datatable(
     Test that participants which are not on the list of allowed participants raise an error
     """
     worksheet = request.getfixturevalue(fixture_name)
-    time.sleep(10)   # temporary fix to reduce number of API requests per second that cause APIError of exceeding quota. Need to find source of problem
     random_name = "Random Schedule"
     model = Schedule(worksheet, random_name, [], [])
 
@@ -242,22 +236,9 @@ def test_participation_matrix_has_correct_size() -> None:
     random_name = "Random Schedule"
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
-    model = Schedule(Worksheet("Mock Sheet", None), random_name, [], [])
-    if model.offline_mode:
-        random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
-        model.add_meeting(
-            Meeting(1, "Mock Meeting 1", random_datetime, True, True, [], "")
-        )
-        model.add_meeting(
-            Meeting(2, "Mock Meeting 2", random_datetime, True, True, [], "")
-        )
-    else:
-        model.add_meeting(
-            Meeting(1, "Test Meeting 1", random_datetime, True, True, [], "")
-        )
-        model.add_meeting(
-            Meeting(2, "Test Meeting 2", random_datetime, True, True, [], "")
-        )
+    model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
+    model.add_meeting(Meeting(1, "Test Meeting 1", random_datetime, True, True, [], ""))
+    model.add_meeting(Meeting(2, "Test Meeting 2", random_datetime, True, True, [], ""))
 
     model.calculate_participation_matrix()
 
