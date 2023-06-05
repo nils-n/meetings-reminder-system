@@ -100,7 +100,11 @@ def create_random_meeting() -> Meeting:
 
 @pytest.fixture(scope="session")
 def load_worksheet() -> Worksheet:
-    """initialize and load the spreadsheet from the cloud once for all tests"""
+    """initialize and load the spreadsheet from the cloud once for all tests
+
+    sleeping for 10 seconds to meet Google Sheet quota requirmements of requests per second
+    "
+    """
     return Worksheet("Test Sheet", None)
 
 

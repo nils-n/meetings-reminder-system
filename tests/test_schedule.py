@@ -7,8 +7,15 @@ A rrange
 A ct 
 A ssert
 
+Note: After each test, the program will go to sleep for 10 seconds
+
+time.sleep(10)
+
+This is intended to reduce number of API calls per second to meet Google API quota limit per minute, see
+https://stackoverflow.com/questions/53765222/python-google-sheets-api-limit-429-error-with-loop
 """
 import pytest
+import time
 from datetime import datetime
 from reminding.meeting import Meeting
 from reminding.schedule import Schedule
@@ -26,6 +33,8 @@ def test_can_create_new_schedule(load_mock_worksheet) -> None:
 
     assert isinstance(model, Schedule)
     assert model.name == random_name
+
+    time.sleep(10)
 
 
 def test_can_create_empty_schedule(load_mock_worksheet) -> None:
@@ -216,6 +225,7 @@ def test_that_only_allowed_participants_will_be_added_to_the_datatable(
     Test that participants which are not on the list of allowed participants raise an error
     """
     worksheet = request.getfixturevalue(fixture_name)
+    time.sleep(10)   # temporary fix to reduce number of API requests per second that cause APIError of exceeding quota. Need to find source of problem
     random_name = "Random Schedule"
     model = Schedule(worksheet, random_name, [], [])
 
