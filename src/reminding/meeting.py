@@ -45,7 +45,9 @@ class Meeting:
                 f"The meeting name should be of type string \
                              ( {new_name} is not a string)"
             )
-        self.name = new_name
+        if self.name != new_name:
+            self.name = new_name
+            self.is_modified = True
 
     def validate_id(self, new_id):
         """validate that new id is a positive integer"""
