@@ -313,3 +313,28 @@ def test_state_changes_to_modified_when_a_participant_is_added(
     model.check_if_modified()
 
     assert model.is_modified
+
+
+def test_state_changes_to_modified_when_a_participant_is_removed(
+    load_mock_worksheet,
+) -> None:
+    """
+    this is a test that the state of the worksheet changes to modified when removing a participant
+    """
+    model = load_mock_worksheet
+    random_meeting_id = 0
+    random_participant_id = 1
+    random_participant = Participant(
+        "Test User 1",
+        "student.reminder.test.user+1@gmail.com",
+        random_participant_id,
+        True,
+        [],
+    )
+    model.meetings[random_meeting_id].add_participant(random_participant)
+    model.is_modified = False
+
+    model.meetings[random_meeting_id].remove_participant_by_id(random_participant_id)
+    model.check_if_modified()
+
+    assert model.is_modified
