@@ -262,3 +262,54 @@ def test_can_load_mock_meetings(fixture_name, meeting, expected_index, request) 
     model.load_meetings()
 
     assert model.meetings[expected_index].name == meeting.name
+
+
+def test_state_changes_to_modified_when_adding_meeting(load_mock_worksheet) -> None:
+    """
+    this is a test that the state of the worksheet changes to modified when adding a meeting
+    """
+    model = load_mock_worksheet
+    new_meeting = Meeting(
+        42,
+        "UT Write Method Test",
+        datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
+    )
+
+    model.add_meeting(new_meeting)
+
+    assert model.is_modified
+
+
+def test_state_changes_to_modified_when_removing_a_meeting(load_mock_worksheet) -> None:
+    """
+    this is a test that the state of the worksheet changes to modified when adding a meeting
+    """
+    model = load_mock_worksheet
+    random_meeting_id = 1
+
+    model.remove_meeting_by_id(random_meeting_id)
+
+    assert model.is_modified
+
+
+def test_state_changes_to_modified_when_a_participant_is_added(
+    load_mock_worksheet,
+) -> None:
+    """
+    this is a test that the state of the worksheet changes to modified when adding a participant
+    """
+    model = load_mock_worksheet
+    random_meeting_id = 0
+    random_participant_id = 1
+    random_participant = Participant(
+        "Test User 1",
+        "student.reminder.test.user+1@gmail.com",
+        random_participant_id,
+        True,
+        [],
+    )
+    model.meetings[random_meeting_id].add_participant(random_participant)
+
+    model.check_if_modified()
+
+    assert model.is_modified
