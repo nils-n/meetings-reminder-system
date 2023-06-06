@@ -57,7 +57,7 @@ def create_random_meetings() -> List[Meeting]:
         # create random fake meeting with these participants
         random_meeting_id = meeting_id
         random_meeting_name = f"Test Meeting {meeting_id}"
-        random_date_time = datetime.now()
+        random_date_time = datetime.strptime("01/01/01 00:00")
         random_meeting_notes = "This is a test note for this meeting \
             to be sent along with the reminder. "
         random_meetings.append(

@@ -505,3 +505,29 @@ def test_removing_valid_participant_changes_meeting_state_to_modified(
     model.remove_participant_by_id(target_id)
 
     assert model.is_modified is expectation
+
+
+@pytest.mark.parametrize(
+    "fixture_name, new_time, expectation",
+    [
+        (
+            "create_random_meeting",
+            datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M"),
+            True,
+        ),
+        (
+            "create_random_meeting",
+            datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M"),
+            False,
+        ),
+    ],
+)
+def test_changing_meeting_time_changes_state_to_modified(
+    fixture_name, new_time, expectation, request
+):
+    """Test whether changing meeting time changes meeting state to 'is_modified'"""
+    model = request.getfixturevalue(fixture_name)
+
+    model.validate_meeting_time(new_time)
+
+    assert model.is_modified == expectation
