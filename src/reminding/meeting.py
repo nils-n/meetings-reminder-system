@@ -75,7 +75,9 @@ class Meeting:
                 f"Meeting time should be a built-in datetime type\
                             ( {new_time} is not of type datetime)"
             )
-        self.datetime = new_time
+        if self.datetime != new_time:
+            self.datetime = new_time
+            self.is_modified = True
 
     def validate_meeting_time_string(self, new_time_string):
         """validate that string that contains meeting time has valid format
