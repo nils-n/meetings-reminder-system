@@ -208,6 +208,15 @@ class Worksheet:
         sheet.append_row(row_header)
         sheet.append_rows(new_rows)
 
+    def check_if_modified(self) -> None:
+        """
+        Checks if one of the meeting in the sheet is modified. If yes, set state
+        of the sheet to modified
+        """
+        for meeting in self.meetings:
+            if meeting.is_modified:
+                self.is_modified = True
+
 
 def main() -> None:
     """Just a function for manual Testing"""
