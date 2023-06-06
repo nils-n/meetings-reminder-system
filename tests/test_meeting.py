@@ -531,3 +531,21 @@ def test_changing_meeting_time_changes_state_to_modified(
     model.validate_meeting_time(new_time)
 
     assert model.is_modified == expectation
+
+
+@pytest.mark.parametrize(
+    "fixture_name, new_name, expectation",
+    [
+        ("create_random_meeting", "New Meeting Name", True),
+        ("create_random_meeting", "Test Meeting", False),
+    ],
+)
+def test_changing_meeting_name_changes_state_to_modified(
+    fixture_name, new_name, expectation, request
+):
+    """Test whether changing meeting name changes meeting state to 'is_modified'"""
+    model = request.getfixturevalue(fixture_name)
+
+    model.validate_name(new_name)
+
+    assert model.is_modified == expectation
