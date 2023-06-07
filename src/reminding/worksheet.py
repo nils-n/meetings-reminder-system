@@ -217,6 +217,15 @@ class Worksheet:
             if meeting.is_modified:
                 self.is_modified = True
 
+    def reset_modified_state(self) -> None:
+        """
+        sets status of worksheet and its meeting to 'not modified'
+        this would be called when syncning with repository was successfull
+        """
+        self.is_modified = False
+        for meeting in self.meetings:
+            meeting.is_modified = False
+
 
 def main() -> None:
     """Just a function for manual Testing"""

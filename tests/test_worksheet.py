@@ -338,3 +338,20 @@ def test_state_changes_to_modified_when_a_participant_is_removed(
     model.check_if_modified()
 
     assert model.is_modified
+
+
+def test_can_reset_state_to_not_modified(load_mock_worksheet) -> None:
+    """This is a test of the function to reset the state of the
+    worksheet and all its meetings to not-modified
+    """
+    model = load_mock_worksheet
+    new_meeting = Meeting(
+        42,
+        "UT Write Method Test",
+        datetime.strptime("24/12/00 10:00", "%d/%m/%y %H:%M"),
+    )
+    model.add_meeting(new_meeting)
+
+    model.reset_modified_state()
+
+    assert model.is_modified is False

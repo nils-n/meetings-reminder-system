@@ -504,6 +504,7 @@ class MeetingsApp(App):
                 self.app.push_screen(
                     NotificationScreen("Local Changes successful pushed!")
                 )
+                self.schedule.worksheet.reset_modified_state()
             else:
                 self.app.push_screen(
                     NotificationScreen(
