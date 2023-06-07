@@ -15,8 +15,10 @@ from textual.widgets import Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical
+from textual import log
 from gspread.exceptions import APIError
 from reminding.schedule import Schedule, Meeting, Worksheet
+
 
 GREETING_MARKDOWN = """\
 # Meeting Manager
@@ -292,8 +294,11 @@ class ModifyMeetingScreen(ModalScreen[int]):
                 ),
                 self.check_add_participant_to_meeting,
             )
+        elif event.button.id == "update-now":
+            self.dismiss(1)
         else:
-            self.app.pop_screen()
+            self.dismiss(0)
+            # self.app.pop_screen()
 
     def check_update_meeting_name(self, result: str):
         """
@@ -376,7 +381,7 @@ class AddParticipantScreen(ModalScreen[list[int]]):
             id="which-participant-to-add",
         )
         with VerticalScroll():
-            for participant in self.app.schedule.allowed_participants:
+            for participant in self.app.schedule.worksheet.valid_participants:
                 yield Checkbox(
                     label=f"{participant.name} :sweat:", name=f"{participant.id_number}"
                 )
@@ -447,6 +452,7 @@ class MeetingsApp(App):
 
     def on_mount(self) -> None:
         """called after mounting the screen"""
+        log("--> app successfully mounted ")
         self.load_meetings_table(self.app.current_time_range)
 
     def action_toggle_time_range(self) -> None:
@@ -490,11 +496,22 @@ class MeetingsApp(App):
     def action_push_changes(self) -> None:
         """An action to update worksheet with local changes"""
         try:
-            self.schedule.push_meetings("schedule")
-            self.schedule.calculate_participation_matrix()
-            self.schedule.push_participation_matrix()
-            self.load_meetings_table(self.current_time_range)
-            self.app.push_screen(NotificationScreen("Local Changes successful pushed!"))
+            if self.schedule.worksheet.is_modified:
+                self.schedule.push_schedule_to_repository()
+                self.schedule.calculate_participation_matrix()
+                self.schedule.push_participation_matrix_to_repository()
+                self.load_meetings_table(self.current_time_range)
+                self.app.push_screen(
+                    NotificationScreen("Local Changes successful pushed!")
+                )
+            else:
+                self.app.push_screen(
+                    NotificationScreen(
+                        "No Local Changes detected - \
+Your schedule is identical with the schedule on the remote sheet."
+                    )
+                )
+
         except (ValueError, APIError):
             self.app.push_screen(
                 WarningScreen(
@@ -546,6 +563,7 @@ class MeetingsApp(App):
         """
         if result is not False:
             try:
+                log(f"--> checking if meeting with id {result} exists")
                 self.schedule.validate_meeting_id(result)
                 self.push_screen(ModifyMeetingScreen(result), self.check_meeting_update)
             except (ValueError, TypeError):
@@ -553,13 +571,17 @@ class MeetingsApp(App):
                     WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
                 )
 
-    def check_meeting_update(self) -> None:
+    def check_meeting_update(self, result: int) -> None:
         """
         Callback with modified meeting
         If meeting was updated, then update schedule and datatable
-        To be implmemented
         """
-        self.load_meetings_table(self.current_time_range)
+        log("--> entering callback from  ModifyMeeting Screen")
+        log(f"--> result was {result}")
+        if result:
+            log(locals())  # Log local variables
+            self.app.schedule.worksheet.check_if_modified()
+            self.app.load_meetings_table(self.app.current_time_range)
 
 
 if __name__ == "__main__":
