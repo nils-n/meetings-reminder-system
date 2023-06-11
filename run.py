@@ -464,6 +464,8 @@ class MeetingsApp(App):
         """called after mounting the screen"""
         self.schedule.calculate_participation_matrix()
         self.load_meetings_table(self.app.current_time_range)
+        sync_status = self.query_one("#sync-status")
+        sync_status.add_class("in-sync")
 
     def action_toggle_time_range(self) -> None:
         """Toggles the view of the Meetings table
@@ -510,6 +512,12 @@ class MeetingsApp(App):
         new_text = f"""**In Sync:** [ { self.in_sync} ]"""
         sync_status = self.query_one("#sync-status")
         sync_status.update(new_text)
+        if not self.in_sync:
+            sync_status.add_class("not-in-sync")
+            sync_status.remove_class("in-sync")
+        else:
+            sync_status.remove_class("not-in-sync")
+            sync_status.add_class("in-sync")
 
     def action_push_changes(self) -> None:
         """An action to update worksheet with local changes"""

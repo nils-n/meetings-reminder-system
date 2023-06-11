@@ -122,12 +122,19 @@ Checkbox {
 
 }
 
+.not-in-sync {
+    color: red;
+}
+
+.in-sync {
+    color: green;
+}
+
 #sync-status {
     dock: right;
     max-width: 20%;
     max-height: 3;
 }
-
 
 #entry-markdown{
     max-height: 10; 
