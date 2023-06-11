@@ -38,7 +38,7 @@ pyasn1-modules==0.3.0
 Pygments==2.15.1
 pylint==2.17.3
 pytest==7.3.1
--e git+https://github.com/nils-n/meetings-reminder-system.git@b5e0477bc031368be07266f30afee79b15eea834#egg=reminding
+-e git+https://github.com/nils-n/meetings-reminder-system.git@f8a7161546eb8555d3732343d1dc196949dc2e2a#egg=reminding
 requests==2.31.0
 requests-oauthlib==1.3.1
 rich==13.3.5
