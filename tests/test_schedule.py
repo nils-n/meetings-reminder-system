@@ -7,14 +7,13 @@ A rrange
 A ct 
 A ssert
 """
-import pytest
-import time
 from datetime import datetime
+from contextlib import nullcontext as does_not_raise
+import pytest
 from reminding.meeting import Meeting
 from reminding.schedule import Schedule
 from reminding.participant import Participant
 from reminding.worksheet import Worksheet
-from contextlib import nullcontext as does_not_raise
 
 
 def test_can_create_new_schedule(load_mock_worksheet) -> None:
@@ -245,8 +244,8 @@ def xtest_participation_matrix_has_correct_values() -> None:
 
     random_name = "Random Schedule"
     model = Schedule(Worksheet("Test Sheet", None), random_name, [], [])
-    model.meetings[0].add_participant(model.worksheet.valid_participants[0])
-    model.meetings[0].add_participant(model.worksheet.valid_participants[1])
+    model.worksheet.meetings[0].add_participant(model.worksheet.valid_participants[0])
+    model.worksheet.meetings[0].add_participant(model.worksheet.valid_participants[1])
 
     model.calculate_participation_matrix()
 

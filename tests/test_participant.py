@@ -9,9 +9,9 @@ A ssert
 
 """
 from contextlib import nullcontext as does_not_raise
-from reminding.participant import Participant
-from email_validator import EmailNotValidError
 import pytest
+from email_validator import EmailNotValidError
+from reminding.participant import Participant
 
 
 def test_can_create_new_participant(init_values) -> None:

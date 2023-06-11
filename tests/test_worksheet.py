@@ -8,12 +8,12 @@ A ct
 A ssert
 
 """
+from contextlib import nullcontext as does_not_raise
+from datetime import datetime
+import pytest
 from reminding.worksheet import Worksheet
 from reminding.participant import Participant
 from reminding.meeting import Meeting
-import pytest
-from contextlib import nullcontext as does_not_raise
-from datetime import datetime
 
 
 def test_can_create_new_worksheet(load_mock_worksheet) -> None:
@@ -91,19 +91,22 @@ def test_can_read_meetings_from_worksheet(load_mock_worksheet) -> None:
     """
     this is a bit tricky: what to test first, reading or writing a meeting?
     If we test read first -> How do we know during unit test what to expect on the editable sheet?
-    If we test write first -> How do we know during unit test that we actually edited the sheet correctly?
+    If we test write first -> How do we know during unit test that we
+    actually edited the sheet correctly?
 
     This could be done by mocking a database and i will explore that option in future.
 
     Another option is to connect to a known database and test the code with those sheets:
     https://stackoverflow.com/questions/1217736/how-to-write-unit-tests-for-database-calls
 
-    I modify this idea by adding a fourth sheet 'unit-test' to our google sheet that is not used by the app,
+    I modify this idea by adding a fourth sheet 'unit-test' to our google sheet
+    that is not used by the app,
     just for the unit test, using same columns as the first (schedule) sheet. then i would assume:
     if i can read/write to the fourth sheet, it should work for the first and second as well.
 
-    Update (5 june 2023): While the idea above was not bad per se, it lead to a violation of Googles Terms and
-    Serives by using the API for spam-like usage, see  https://developers.google.com/terms
+    Update (5 june 2023): While the idea above was not bad per se,
+    it lead to a violation of Googles Terms and  Serives by using the API for spam-like usage,
+      see  https://developers.google.com/terms
     """
     unit_test_meetings = [
         Meeting(
@@ -168,7 +171,8 @@ def xtest_can_push_all_local_meetings_to_worksheet(load_mock_sworksheet) -> None
     """
     This is a test if one can push all local meetings to a worksheet to replace its content
 
-    (note:  this test is disabled because of a design descision to purge all API calls from the unit test)
+    (note:  this test is disabled because of a design descision
+      to purge all API calls from the unit test)
     """
     model = load_mock_sworksheet
     old_meetings = model.load_meetings()

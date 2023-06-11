@@ -17,8 +17,9 @@ from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical, Horizontal
 from textual import log
 from gspread.exceptions import APIError
-from reminding.schedule import Schedule, Meeting, Worksheet
-
+from reminding.schedule import Schedule
+from reminding.meeting import Meeting
+from reminding.worksheet import Worksheet
 
 GREETING_MARKDOWN = """\
 # Meeting Manager
@@ -545,7 +546,7 @@ Your schedule is identical with the schedule on the remote sheet."
         except (ValueError, APIError):
             self.app.push_screen(
                 WarningScreen(
-                    f"Could not connect to Google Sheet.\nLocal Changes are not saved! )"
+                    "Could not connect to Google Sheet.\nLocal Changes are not saved! )"
                 )
             )
 

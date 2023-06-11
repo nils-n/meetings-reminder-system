@@ -2,10 +2,7 @@
 from dataclasses import dataclass, field
 from typing import Union
 from datetime import datetime
-import gspread
-from reminding.meeting import Meeting, Participant
 from reminding.worksheet import Worksheet
-from textual import log
 
 
 @dataclass
@@ -164,12 +161,3 @@ class Schedule:
                     for participant in self.worksheet.valid_participants
                 ]
             )
-
-
-def main() -> None:
-    """Just a function for manual Testing"""
-    model = Schedule(Worksheet("Test Sheet", None), "An example Schedule", [], [])
-
-
-if __name__ == "__main__":
-    main()
