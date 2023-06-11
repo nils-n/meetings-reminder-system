@@ -452,7 +452,10 @@ class MeetingsApp(App):
                 f""" **Your Meetings:** [ {self.current_time_range} ]""",
                 id="time-range-label",
             ),
-            Markdown(f"""**In Sync:** [ { self.in_sync} ]""", id="sync-status"),
+            Markdown(
+                f"""**In Sync:** [ { self.in_sync} ]""",
+                id="sync-status",
+            ),
             id="datatable-status",
         )
         yield DataTable(id="meetings-table", show_cursor=False)
@@ -467,8 +470,6 @@ class MeetingsApp(App):
         """ensures that displayed sync status gets displayed"""
         log(f"update displayed sync status to : {self.in_sync}")
         log(locals())
-        # sync_status = self.query_one("#time-range-label")
-        # sync_status.markdown = "Test Updated MD Text"
 
     def action_toggle_time_range(self) -> None:
         """Toggles the view of the Meetings table
@@ -508,6 +509,13 @@ class MeetingsApp(App):
         """An action to toggle dark mode."""
         self.dark = not self.dark
 
+    def update_sync_status(self) -> None:
+        """Updates a markdown that displayes on the Main Screen whether
+        the current schedule is in sync with the remote repository"""
+        new_text = f"""**In Sync:** [ { self.in_sync} ]"""
+        sync_status = self.query_one("#sync-status")
+        sync_status.update(new_text)
+
     def action_push_changes(self) -> None:
         """An action to update worksheet with local changes"""
         try:
@@ -516,12 +524,13 @@ class MeetingsApp(App):
                 self.schedule.calculate_participation_matrix()
                 self.schedule.push_participation_matrix_to_repository()
                 self.load_meetings_table(self.current_time_range)
-                self.app.push_screen(
-                    NotificationScreen("Local Changes successful pushed!")
-                )
                 self.schedule.worksheet.reset_modified_state()
                 self.in_sync = not self.schedule.worksheet.is_modified
                 log(f"setting the sync paramater. New value {self.in_sync}")
+                self.update_sync_status()
+                self.app.push_screen(
+                    NotificationScreen("Local Changes successful pushed!")
+                )
             else:
                 self.app.push_screen(
                     NotificationScreen(
@@ -600,7 +609,7 @@ Your schedule is identical with the schedule on the remote sheet."
             log(locals())  # Log local variables
             self.app.schedule.worksheet.check_if_modified()
             self.in_sync = False
-            print(f"Change detected. Setting sync to value {self.in_sync}")
+            self.update_sync_status()
             self.app.load_meetings_table(self.app.current_time_range)
 
 
