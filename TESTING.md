@@ -94,15 +94,22 @@ There were several issues found during Manual Testing that required refactoring 
     <tr>
       <td style="text-align:center"> TC1  </td>
       <td> Validate that python modules pass PEP8 Validator with no significant issues   </td>
-      <td> Various errors in the first pass, including: 
+      <td> Various warnings and one error in the first pass, including: 
           <ul>
             <li>  warning regarding Line Too Long </li>
             <li>  warning regarding order of standard imports </li>
             <li>  warning regarding missing docstrings </li>
             <li>  warning regarding catchting a too general Exception </li>
-            <li>  Flagged a ‘Non-iterable value used in an iterating context</li>
+            <li>  error regarding: Non-iterable value self.query('Checkbox') is used in an iterating context</li>
          </ul> 
-         All warnings have been addressed in the code. After refactoring, the validation passed.
+         All warnings have been addressed in the code. After refactoring, all warnings disappeared. Error was addressed separately (see next item in table for TC1)
+      </td>
+    </tr>
+  <tr>
+      <td style="text-align:center"> TC1 (second pass) </td>
+      <td> Validate that python modules pass PEP8 Validator with no significant issues  </td>
+      <td> The line:  " checkbox in self.query("Checkbox") "
+        raised a PEP8 warning. Textuals `query` method does not return iterables and therefore rasied this error. After converting the output of the `query` into an iterable, all tests passed.
       </td>
     </tr>
     <tr>

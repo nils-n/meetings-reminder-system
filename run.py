@@ -396,17 +396,10 @@ class AddParticipantScreen(ModalScreen[list[int]]):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """
         return a list of IDs with selected participants to previous input screen
-
-        The line:  " checkbox in self.query("Checkbox") "
-        raises a PEP8 warning. Turns out checkbox is intended to be queried via textual's
-        reactive properties. In a next round of refactoring, I would change this.
-        For now, as it works with a single checkbox instance in the App, i leave the line untouched.
-        Should a second checkbox be added,  this function may need a rework to loop over the
-        checkbox values differently.
         """
         if event.button.id == "aye-participant":
             selected = []
-            for checkbox in self.query("Checkbox"):
+            for checkbox in self.query("Checkbox").results(Checkbox):
                 if checkbox.value:
                     selected.append(int(checkbox.name))
             self.dismiss(selected)
