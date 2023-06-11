@@ -977,10 +977,9 @@ Here is a list of the many bugs encountered during the implementation of the pro
 
 
 
-
 ### Open Bugs 
 
-- The Unit Test hits the quota for read access to the google sheets causing some of the unit tests for the Schedule class to fail. When running the tests indivually, they pass. Still need to investigate how to fix this this bug, for the moment I leave it here in this section. 
+- The Unit Test hits the quota for read access to the google sheets causing some of the unit tests for the Schedule class to fail. When running the tests indivually, they pass. The solution was to remove all API calls from the Unit Test. See description of the problem here :  [Lesson learned for Automated Testing APIs.MD](APPENDIX.md) 
 
    <table style='max-width:100%; text-align: left'>
 
@@ -992,9 +991,9 @@ Here is a list of the many bugs encountered during the implementation of the pro
     <td> Approaches</td>
     <td> 
       <ul>
-       <li> I tried to mock parts of the API calls with partial success. In this way, at least functions that don't necessarily require API access pass (such as a test to create an empty Schedule). However, this only delayed the onset of the error when testing functions that need actual API calls.
+       <li> Removing all API access during the unit tests .
        </li>
-       <li>  I may try to find a way how to load only parts of the Sheet, and not loading the entire sheet for each call to somehow reduce the number of read requests.
+       <li> Using only Mock Data to test the logic of the functions 
        </li>
       </ul>
     </td>
