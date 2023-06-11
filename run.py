@@ -14,8 +14,9 @@ from textual.widgets import (
 from textual.widgets import Checkbox
 from textual.reactive import reactive, var
 from textual.screen import ModalScreen
-from textual.containers import Grid, VerticalScroll, Vertical
+from textual.containers import Grid, VerticalScroll, Vertical, Horizontal
 from textual import log
+from textual.widgets import Placeholder
 from gspread.exceptions import APIError
 from reminding.schedule import Schedule, Meeting, Worksheet
 
@@ -432,6 +433,7 @@ class MeetingsApp(App):
     schedule = reactive(
         Schedule(Worksheet("Schedule Sheet", None), "An example Schedule", [], [])
     )
+    in_sync = reactive(True)
 
     def __init__(self):
         self.time_ranges = ["Week", "Month", "All Meetings"]
@@ -443,9 +445,15 @@ class MeetingsApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Markdown(GREETING_MARKDOWN, id="entry-markdown")
-        yield Markdown(
-            f""" **Your Meetings:** [ {self.current_time_range} ]""",
-            id="time-range-label",
+        yield Horizontal(
+            # Placeholder(id="time-range-label"),
+            # Placeholder(id="sync-status"),
+            Markdown(
+                f""" **Your Meetings:** [ {self.current_time_range} ]""",
+                id="time-range-label",
+            ),
+            Markdown(f"""**In Sync:** [ { self.in_sync} ]""", id="sync-status"),
+            id="datatable-status",
         )
         yield DataTable(id="meetings-table", show_cursor=False)
         yield Footer()
@@ -454,6 +462,13 @@ class MeetingsApp(App):
         """called after mounting the screen"""
         log("--> app successfully mounted ")
         self.load_meetings_table(self.app.current_time_range)
+
+    def watch_in_sync(self) -> None:
+        """ensures that displayed sync status gets displayed"""
+        log(f"update displayed sync status to : {self.in_sync}")
+        log(locals())
+        # sync_status = self.query_one("#time-range-label")
+        # sync_status.markdown = "Test Updated MD Text"
 
     def action_toggle_time_range(self) -> None:
         """Toggles the view of the Meetings table
@@ -505,6 +520,8 @@ class MeetingsApp(App):
                     NotificationScreen("Local Changes successful pushed!")
                 )
                 self.schedule.worksheet.reset_modified_state()
+                self.in_sync = not self.schedule.worksheet.is_modified
+                log(f"setting the sync paramater. New value {self.in_sync}")
             else:
                 self.app.push_screen(
                     NotificationScreen(
@@ -582,6 +599,8 @@ Your schedule is identical with the schedule on the remote sheet."
         if result:
             log(locals())  # Log local variables
             self.app.schedule.worksheet.check_if_modified()
+            self.in_sync = False
+            print(f"Change detected. Setting sync to value {self.in_sync}")
             self.app.load_meetings_table(self.app.current_time_range)
 
 
