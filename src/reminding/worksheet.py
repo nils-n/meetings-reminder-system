@@ -196,6 +196,7 @@ class Worksheet:
                 self.is_modified = True
         if self.is_modified:
             self.schedule_sheet_values = modified_row_list
+            self.meetings = self.load_meetings()
 
     def push_participation_matrix(self, row_header, new_rows) -> None:
         """
@@ -229,8 +230,6 @@ class Worksheet:
 
 def main() -> None:
     """Just a function for manual Testing"""
-    # data = Worksheet("Test Sheet", None)
-    # row_list = data.unittest_sheet_values
     data = Worksheet("Mock Sheet", None)
     row_list = data.participation_matrix_sheet_values
     print(row_list)

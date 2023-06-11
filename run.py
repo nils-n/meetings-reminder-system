@@ -16,7 +16,6 @@ from textual.reactive import reactive, var
 from textual.screen import ModalScreen
 from textual.containers import Grid, VerticalScroll, Vertical, Horizontal
 from textual import log
-from textual.widgets import Placeholder
 from gspread.exceptions import APIError
 from reminding.schedule import Schedule, Meeting, Worksheet
 
@@ -463,13 +462,7 @@ class MeetingsApp(App):
 
     def on_mount(self) -> None:
         """called after mounting the screen"""
-        log("--> app successfully mounted ")
         self.load_meetings_table(self.app.current_time_range)
-
-    def watch_in_sync(self) -> None:
-        """ensures that displayed sync status gets displayed"""
-        log(f"update displayed sync status to : {self.in_sync}")
-        log(locals())
 
     def action_toggle_time_range(self) -> None:
         """Toggles the view of the Meetings table
@@ -509,9 +502,10 @@ class MeetingsApp(App):
         """An action to toggle dark mode."""
         self.dark = not self.dark
 
-    def update_sync_status(self) -> None:
+    def update_sync_status(self, new_status) -> None:
         """Updates a markdown that displayes on the Main Screen whether
         the current schedule is in sync with the remote repository"""
+        self.in_sync = new_status
         new_text = f"""**In Sync:** [ { self.in_sync} ]"""
         sync_status = self.query_one("#sync-status")
         sync_status.update(new_text)
@@ -525,9 +519,8 @@ class MeetingsApp(App):
                 self.schedule.push_participation_matrix_to_repository()
                 self.load_meetings_table(self.current_time_range)
                 self.schedule.worksheet.reset_modified_state()
-                self.in_sync = not self.schedule.worksheet.is_modified
-                log(f"setting the sync paramater. New value {self.in_sync}")
-                self.update_sync_status()
+                new_sync_status = not self.schedule.worksheet.is_modified
+                self.update_sync_status(new_sync_status)
                 self.app.push_screen(
                     NotificationScreen("Local Changes successful pushed!")
                 )
@@ -574,6 +567,7 @@ Your schedule is identical with the schedule on the remote sheet."
             try:
                 self.schedule.validate_meeting_id(result)
                 self.schedule.remove_meeting(result)
+                self.update_sync_status(False)
                 self.load_meetings_table(self.current_time_range)
             except (ValueError, TypeError):
                 self.app.push_screen(
@@ -606,10 +600,8 @@ Your schedule is identical with the schedule on the remote sheet."
         log("--> entering callback from  ModifyMeeting Screen")
         log(f"--> result was {result}")
         if result:
-            log(locals())  # Log local variables
             self.app.schedule.worksheet.check_if_modified()
-            self.in_sync = False
-            self.update_sync_status()
+            self.update_sync_status(False)
             self.app.load_meetings_table(self.app.current_time_range)
 
 
