@@ -5,6 +5,7 @@ from datetime import datetime
 import gspread
 from reminding.meeting import Meeting, Participant
 from reminding.worksheet import Worksheet
+from textual import log
 
 
 @dataclass
@@ -24,7 +25,7 @@ class Schedule:
     def __post_init__(self):
         self.load_meetings()
         self.load_allowed_participants()
-        self.calculate_participation_matrix()
+        self.load_participation_matrix()
         self.load_participants()
         self.convert_meetings_to_table("All Meetings")
 

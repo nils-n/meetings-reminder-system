@@ -26,6 +26,7 @@ class Worksheet:
     meetings: list[Meeting] = field(default_factory=list)
     schedule_sheet_values: list[list[str]] = field(default_factory=list)
     participation_matrix_sheet_values: list[list[str]] = field(default_factory=list)
+    valid_participant_sheet_values: list[list[str]] = field(default_factory=list)
     is_modified: bool = False
 
     def __post_init__(self) -> None:
@@ -49,6 +50,9 @@ class Worksheet:
             self.participation_matrix_sheet_values = (
                 self.load_mock_participation_matrix_values()
             )
+            self.valid_participant_sheet_values = (
+                self.load_mock_valid_participant_values()
+            )
 
         else:
             # this part should be exectured during runtime of the app with actual API calls
@@ -62,6 +66,9 @@ class Worksheet:
                     "schedule"
                 ).get_all_values()
                 self.participation_matrix_sheet_values = self.SHEET.worksheet(
+                    "participation-matrix"
+                ).get_all_values()
+                self.valid_participant_sheet_values = self.SHEET.worksheet(
                     "valid-participants"
                 ).get_all_values()
 
@@ -71,6 +78,10 @@ class Worksheet:
                 self.participation_matrix_sheet_values = (
                     self.load_mock_participation_matrix_values()
                 )
+                self.valid_participant_sheet_values = (
+                    self.load_mock_valid_participant_values()
+                )
+
                 print(
                     f"Loading Test Data...\
                       \nName of your Sheet   : {self.name}  "
@@ -79,9 +90,9 @@ class Worksheet:
         self.load_valid_participants()
         self.meetings = self.load_meetings()
 
-    def load_mock_participation_matrix_values(self):
+    def load_mock_valid_participant_values(self):
         """
-        load a set of mock participants as if it were read from a worksheet
+        load a set of mock valid participants as if it were read from a worksheet
         Reason for this : to run unit tests without actually calling values from API
         """
         print("--> DEBUG INFO : loading a mock participant sheet ")
@@ -92,6 +103,18 @@ class Worksheet:
             ["3", "Test User 3", "student.reminder.test.user+3@gmail.com"],
             ["4", "Test User 4", "student.reminder.test.user+4@gmail.com"],
             ["5", "Test User 5", "student.reminder.test.user+5@gmail.com"],
+        ]
+
+    def load_mock_participation_matrix_values(self):
+        """
+        load how the mock participants participants in the mock meetings
+        Reason for this : to run unit tests without actually calling values from API
+        """
+        print("--> DEBUG INFO : loading a mock participant sheet ")
+        return [
+            ["Meeting ID / Participant ID", "1", "2", "3", "4", "5"],
+            ["1", "TRUE", "TRUE", "TRUE", "TRUE", "TRUE"],
+            ["2", "FALSE", "FALSE", "FALSE", "FALSE", "FALSE"],
         ]
 
     def load_mock_unittest_sheet(self):
@@ -110,7 +133,7 @@ class Worksheet:
         """loads data of valid Participants from google sheet into a list of Participants
         assumes that data are stored in sheet as [ Participant ID - Name - Email ]
         """
-        row_list = self.participation_matrix_sheet_values
+        row_list = self.valid_participant_sheet_values
         self.valid_participants = [
             Participant(row[1], row[2], int(row[0]), True, [])
             for i, row in enumerate(row_list)

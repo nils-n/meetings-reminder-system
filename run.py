@@ -462,6 +462,7 @@ class MeetingsApp(App):
 
     def on_mount(self) -> None:
         """called after mounting the screen"""
+        self.schedule.calculate_participation_matrix()
         self.load_meetings_table(self.app.current_time_range)
 
     def action_toggle_time_range(self) -> None:
@@ -516,6 +517,7 @@ class MeetingsApp(App):
             if self.schedule.worksheet.is_modified:
                 self.schedule.push_schedule_to_repository()
                 self.schedule.calculate_participation_matrix()
+                self.schedule.load_participants()
                 self.schedule.push_participation_matrix_to_repository()
                 self.load_meetings_table(self.current_time_range)
                 self.schedule.worksheet.reset_modified_state()
