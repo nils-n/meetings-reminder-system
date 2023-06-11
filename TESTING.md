@@ -12,7 +12,7 @@
     - [Results of Other Tests](#results-of-other-tests)
     - [Issues Found During Manual Testing](#issues-found-during-manual-testing)
   - [Automated Testing](#automated-testing)
-    - [Setup of Automated Testing with Pytest](#setup-of-automated-testing-with-pytest)
+    - [Automated Testing with Pytest](#automated-testing-with-pytest)
     - [Results of Unit Testing with Pytest](#results-of-unit-testing-with-pytest)
       - [Participant Class](#participant-class)
       - [Meeting Class](#meeting-class)
@@ -109,7 +109,7 @@ There were several issues found during Manual Testing that required refactoring 
       <td style="text-align:center"> TC1 (second pass) </td>
       <td> Validate that python modules pass PEP8 Validator with no significant issues  </td>
       <td> The line:  " checkbox in self.query("Checkbox") "
-        raised a PEP8 warning. Textuals `query` method does not return iterables and therefore rasied this error. After converting the output of the `query` into an iterable, all tests passed.
+        raised a PEP8 error. Textuals `query` method does not return iterables and therefore rasied this error. After converting the output of the `query` into an iterable, all tests passed.
       </td>
     </tr>
     <tr>
@@ -152,22 +152,11 @@ The follwing section contains:
   - Setup of the database used during Unit Testing
   - Results of Unit Tests 
 
-### Setup of Automated Testing with Pytest
+### Automated Testing with Pytest
 
-- If you also want to pass all unit tests you need to add a fourth sheet 'unit-test' to the sheet
-- This sheet is not necessary to run the application. However, for unit testing of the methods for reading/writing, we cannot use the main sheet because the user can edit those meetings and the unit test would fail (although the read/write methods are correct). 
-- There are a few strategies to mitigate this problem including mocking of the worksheet. A better option was suggested on [stackoverflow]( https://stackoverflow.com/questions/1217736/how-to-write-unit-tests-for-database-calls) to instead connect to a known database and test the code with those sheets
-- I modified this idea by adding a fourth sheet 'unit-test' to our google sheet that is not used by the app, just for the unit test, but mimicks exactly the columns as the first (schedule) sheet. This sheet will never be modifed by the app. We then assume: if the function works for reading and writing to the fourth sheet, it should work for the first and second as well.
-- This is how the unit test worksheet looks like:
+- On the first approach, also the I/O access to the google sheets was tested during the Unit Tests. This has turned out to a wrong approach and lead to Google permanently disabling access to the account due to `bot-like` activity on the google sheets when running `pytest`.  A description of this (wrong) approach is left in an appendix Markdown file :  [Lesson learned for Automated Testing APIs.MD](APPENDIX.md) 
+- As a result 
 
-<table style='width:80%'>
-    <tr>
-        <th style='text-align:center'>Unit Test Worksheet</th>
-    </tr>
-    <tr>
-       <td> <img src="./assets/images/sheet-unit-test.png"; alt="example of the  worksheet to test the read/write functions of the unit test" >  </td>
-    </tr>
-</table>
 
 --- 
 ### Results of Unit Testing with Pytest 
