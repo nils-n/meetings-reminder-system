@@ -117,7 +117,7 @@ Checkbox {
 
 #time-range-label {
     dock: left;
-    max-width: 30%;
+    max-width: 40%;
     max-height: 3;
 
 }
@@ -132,7 +132,7 @@ Checkbox {
 
 #sync-status {
     dock: right;
-    max-width: 20%;
+    max-width: 40%;
     max-height: 3;
 }
 
