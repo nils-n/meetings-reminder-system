@@ -1,15 +1,18 @@
-""" 
-The screens are moved into this sepearate file to keep main (run.py) better readable
+"""
+The screens are moved into this sepearate file to keep main (run.py)
+better readable
 
-The starting point for this app was the Stopwatch Example of the Textualize Tutorial:
+The starting point for this app was the Stopwatch Example of the
+Textualize Tutorial:
 https://textual.textualize.io/tutorial/
 
-Explanation that helped me understand how to use screens with textualize: 
+Explanation that helped me understand how to use screens with textualize:
 https://textual.textualize.io/guide/screens/
 
-All Widgets (such as Checkbox, Grid, Input, DataTable or reactive attribues) were based on 
-the Textualize documentation and then modified to fit the needs of this app. 
-Starting point for widgets : 
+All Widgets (such as Checkbox, Grid, Input, DataTable or reactive attribues)
+ were based on
+the Textualize documentation and then modified to fit the needs of this app.
+Starting point for widgets
 https://textual.textualize.io/widget_gallery/
 
 """
@@ -31,7 +34,7 @@ from textual.containers import Grid, VerticalScroll, Vertical, Horizontal
 from reminding.meeting import Meeting
 
 INPUT_MARKDOWN = """\
-# Meeting Manager 
+# Meeting Manager
 
 Enter Details for New Meeting. Use *TAB* key to focus input
 - Date Format DD/MM/YY
@@ -92,11 +95,15 @@ class InputMeeting(ModalScreen[Meeting]):
                 id="input-name",
                 classes="columns",
             ),
-            Input(placeholder="DD/MM/YY", id="input-date", classes="columns"),
+            Input(
+                placeholder="DD/MM/YY", id="input-date", classes="columns"
+            ),
             Input(placeholder="HH:MM", id="input-time", classes="columns"),
             Horizontal(
                 Button("Submit", id="submit-input", variant="primary"),
-                Button("Go Back", id="not-submit-input", variant="default"),
+                Button(
+                    "Go Back", id="not-submit-input", variant="default"
+                ),
             ),
             id="meeting-inputs",
         )
@@ -117,7 +124,9 @@ class InputMeeting(ModalScreen[Meeting]):
         new_date = self.query_one("#input-date").value
         new_time = self.query_one("#input-time").value
         new_datetime = f"{new_date} {new_time}"
-        new_meeting = Meeting(0, "New Meeting", datetime.now(), True, False, [], "")
+        new_meeting = Meeting(
+            0, "New Meeting", datetime.now(), True, False, [], ""
+        )
         new_meeting.validate_name(new_name)
         try:
             new_meeting.validate_meeting_time_string(new_datetime)
@@ -126,7 +135,8 @@ class InputMeeting(ModalScreen[Meeting]):
         except (ValueError, TypeError):
             self.app.push_screen(
                 WarningScreen(
-                    f"Meeting Time invalid ( {new_datetime} is not DD/MM/YY HH:MM )"
+                    f"Meeting Time invalid ( {new_datetime} is \
+not DD/MM/YY HH:MM )"
                 )
             )
 
@@ -134,7 +144,9 @@ class InputMeeting(ModalScreen[Meeting]):
 class NewMeetingScreen(ModalScreen[Meeting]):
     """Screen with a dialog to enter details of new meeting"""
 
-    new_meeting = var(Meeting(0, "New Meeting", datetime.now(), True, False, [], ""))
+    new_meeting = var(
+        Meeting(0, "New Meeting", datetime.now(), True, False, [], "")
+    )
 
     def compose(self) -> ComposeResult:
         yield Label("Do you want to add this meeting?", id="question")
@@ -142,12 +154,20 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         yield Grid(
             Button("No", variant="error", id="no", classes="column"),
             Button("Yes", variant="success", id="yes", classes="column"),
-            Button("Reset", variant="primary", id="input-data", classes="column"),
+            Button(
+                "Reset",
+                variant="primary",
+                id="input-data",
+                classes="column",
+            ),
             classes="dialog",
         )
 
     def update_table(self) -> None:
-        """updates the displayed table in the TUI with the current values of the Meeting"""
+        """
+        updates the displayed table in the TUI with
+          the current values of the Meeting
+        """
         table = self.query_one("#new-meeting")
         table.clear(columns=True)
         table.cursor_type = next(cursors)
@@ -191,7 +211,8 @@ class ModifyQuestionScreen(ModalScreen[str]):
     """
 
     def __init__(
-        self, message: str = "Which meeting do you want to modify? (Use Meeting ID)"
+        self,
+        message: str = "Which meeting do you want to modify? (Use Meeting ID)",
     ) -> None:
         self.question_message = message
         super().__init__()
@@ -212,7 +233,9 @@ class ModifyQuestionScreen(ModalScreen[str]):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """return to previous input screen"""
         if event.button.id == "which-meeting":
-            target_meeting_id = self.query_one("#input-which-meeting").value
+            target_meeting_id = self.query_one(
+                "#input-which-meeting"
+            ).value
             self.dismiss(target_meeting_id)
         else:
             self.dismiss(False)
@@ -223,16 +246,30 @@ class ModifyMeetingScreen(ModalScreen[int]):
 
     def __init__(self, meeting_id: int) -> None:
         self.target_meeting_id = meeting_id
-        self.meeting_to_modify = self.app.schedule.get_meeting_by_id(int(meeting_id))
+        self.meeting_to_modify = self.app.schedule.get_meeting_by_id(
+            int(meeting_id)
+        )
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        yield Label("What you want to modify of this meeting?", id="question")
+        yield Label(
+            "What you want to modify of this meeting?", id="question"
+        )
         yield DataTable(id="update-meeting", show_cursor=False)
         yield DataTable(id="update-participants", show_cursor=False)
         yield Grid(
-            Button("Name", variant="default", id="update-name", classes="column"),
-            Button("Time", variant="default", id="update-time", classes="column"),
+            Button(
+                "Name",
+                variant="default",
+                id="update-name",
+                classes="column",
+            ),
+            Button(
+                "Time",
+                variant="default",
+                id="update-time",
+                classes="column",
+            ),
             Button(
                 "Add Participant",
                 variant="default",
@@ -246,14 +283,23 @@ class ModifyMeetingScreen(ModalScreen[int]):
                 classes="column",
             ),
             Button(
-                "Save Changes", variant="primary", id="update-now", classes="column"
+                "Save Changes",
+                variant="primary",
+                id="update-now",
+                classes="column",
             ),
-            Button("Go Back", variant="error", id="not-update-now", classes="column"),
+            Button(
+                "Go Back",
+                variant="error",
+                id="not-update-now",
+                classes="column",
+            ),
             classes="update-dialog",
         )
 
     def update_meeting_table(self, table_id) -> None:
-        """updates the displayed table in the TUI with the current values of the Meeting"""
+        """updates the displayed table in the TUI with
+        the current values of the Meeting"""
         table = self.query_one(table_id)
         table.clear(columns=True)
         table.cursor_type = next(cursors)
@@ -263,7 +309,8 @@ class ModifyMeetingScreen(ModalScreen[int]):
         table.add_rows(rows[1:])
 
     def update_participants_table(self, table_id) -> None:
-        """updates the displayed table in the TUI with the current values of the Meeting"""
+        """updates the displayed table in the TUI
+        with the current values of the Meeting"""
         table = self.query_one(table_id)
         table.clear(columns=True)
         table.cursor_type = next(cursors)
@@ -282,20 +329,24 @@ class ModifyMeetingScreen(ModalScreen[int]):
         """handles button press event"""
         if event.button.id == "update-name":
             self.app.push_screen(
-                ModifyQuestionScreen("Enter New Meeting Name for the Meeting:   "),
+                ModifyQuestionScreen(
+                    "Enter New Meeting Name for the Meeting:   "
+                ),
                 self.check_update_meeting_name,
             )
         elif event.button.id == "update-time":
             self.app.push_screen(
                 ModifyQuestionScreen(
-                    "Enter New Meeting Time for the Meeting: (Format DD/MM/YY HH:MM)   "
+                    "Enter New Meeting Time for the Meeting: \
+(Format DD/MM/YY HH:MM)   "
                 ),
                 self.check_update_meeting_time,
             )
         elif event.button.id == "remove-participant":
             self.app.push_screen(
                 ModifyQuestionScreen(
-                    "Select Which Participant to Remove (Use Participant ID)   "
+                    "Select Which Participant \
+to Remove (Use Participant ID)   "
                 ),
                 self.check_remove_participant_from_meeting,
             )
@@ -323,7 +374,9 @@ class ModifyMeetingScreen(ModalScreen[int]):
                 self.update_meeting_table("#update-meeting")
             except (ValueError, TypeError):
                 self.app.push_screen(
-                    WarningScreen(f"Name is not a string ( Name : {result} )")
+                    WarningScreen(
+                        f"Name is not a string ( Name : {result} )"
+                    )
                 )
 
     def check_update_meeting_time(self, result: str):
@@ -350,13 +403,16 @@ class ModifyMeetingScreen(ModalScreen[int]):
         if result is not False:
             try:
                 self.meeting_to_modify.validate_id(int(result))
-                self.meeting_to_modify.remove_participant_by_id(int(result))
+                self.meeting_to_modify.remove_participant_by_id(
+                    int(result)
+                )
                 self.meeting_to_modify.convert_to_table_row()
                 self.update_participants_table("#update-participants")
             except (ValueError, TypeError):
                 self.app.push_screen(
                     WarningScreen(
-                        f"Participant with that ID does not exist \n - Input was  : {result} "
+                        f"Participant with that ID does not exist\
+\n - Input was  : {result} "
                     )
                 )
 
@@ -366,8 +422,10 @@ class ModifyMeetingScreen(ModalScreen[int]):
         """
         if result is not False:
             try:
-                new_participants = self.app.schedule.get_allowed_participants_by_id(
-                    result
+                new_participants = (
+                    self.app.schedule.get_allowed_participants_by_id(
+                        result
+                    )
                 )
                 for participant in new_participants:
                     self.meeting_to_modify.add_participant(participant)
@@ -377,7 +435,7 @@ class ModifyMeetingScreen(ModalScreen[int]):
                 self.app.push_screen(
                     WarningScreen(
                         f"Could not add Participant to meeting\
-                                                     \n - Participant : {result.__repr__} "
+\n - Participant : {result.__repr__} "
                     )
                 )
 
@@ -393,9 +451,12 @@ class AddParticipantScreen(ModalScreen[list[int]]):
             id="which-participant-to-add",
         )
         with VerticalScroll():
-            for participant in self.app.schedule.worksheet.valid_participants:
+            for (
+                participant
+            ) in self.app.schedule.worksheet.valid_participants:
                 yield Checkbox(
-                    label=f"{participant.name} :sweat:", name=f"{participant.id_number}"
+                    label=f"{participant.name} :sweat:",
+                    name=f"{participant.id_number}",
                 )
 
         yield Grid(
@@ -406,7 +467,8 @@ class AddParticipantScreen(ModalScreen[list[int]]):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """
-        return a list of IDs with selected participants to previous input screen
+        return a list of IDs with selected
+        participants to previous input screen
         """
         if event.button.id == "aye-participant":
             selected = []

@@ -25,10 +25,10 @@ from screens import (
 GREETING_MARKDOWN = """\
 # Meeting Manager
 
-This Terminal Application helps you organize your upcoming meetings. 
-- Press **'A'** to *add*, 'R' to *remove* or 'M' to *modify* a meeting 
-- Press **'P'** to push your local changes 
-- Press **'W'** to toggle display  between **Week**, **Month** and **All Meetings** 
+This Terminal Application helps you organize your upcoming meetings.
+- Press **'A'** to *add*, 'R' to *remove* or 'M' to *modify* a meeting
+- Press **'P'** to push your local changes
+- Press **'W'** to toggle between **Week**, **Month** and **All Meetings**
 """
 
 
@@ -52,7 +52,12 @@ class MeetingsApp(App):
     CSS_PATH = "./assets/css/meetings.css"
 
     schedule = reactive(
-        Schedule(Worksheet("Schedule Sheet", None), "An example Schedule", [], [])
+        Schedule(
+            Worksheet("Schedule Sheet", None),
+            "An example Schedule",
+            [],
+            [],
+        )
     )
     in_sync = reactive(True)
 
@@ -167,7 +172,8 @@ Your schedule is identical with the schedule on the remote sheet."
         except (ValueError, AttributeError, APIError):
             self.app.push_screen(
                 WarningScreen(
-                    "Could not connect to Google Sheet.\nLocal Changes are not saved!"
+                    "Could not connect to Google Sheet.\
+                        \nLocal Changes are not saved!"
                 )
             )
 
@@ -189,7 +195,9 @@ Your schedule is identical with the schedule on the remote sheet."
         an action to remove a meeting
         """
         self.push_screen(
-            ModifyQuestionScreen("Select Which Meeting to Remove (Use Meeting ID)"),
+            ModifyQuestionScreen(
+                "Select Which Meeting to Remove (Use Meeting ID)"
+            ),
             self.check_which_meeting_to_remove,
         )
 
@@ -204,17 +212,23 @@ Your schedule is identical with the schedule on the remote sheet."
                 self.schedule.load_meetings()
                 self.schedule.calculate_participation_matrix()
                 self.schedule.load_participants()
-                self.schedule.convert_meetings_to_table(self.current_time_range)
+                self.schedule.convert_meetings_to_table(
+                    self.current_time_range
+                )
                 self.update_sync_status(False)
                 self.load_meetings_table(self.current_time_range)
             except (ValueError, TypeError):
                 self.app.push_screen(
-                    WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
+                    WarningScreen(
+                        f"Meeting ID does not exist ( ID : {result} )"
+                    )
                 )
 
     def action_modify_meeting(self) -> None:
         """an action to modify and exisisting meeting"""
-        self.push_screen(ModifyQuestionScreen(), self.check_which_meeting_to_modify)
+        self.push_screen(
+            ModifyQuestionScreen(), self.check_which_meeting_to_modify
+        )
 
     def check_which_meeting_to_modify(self, result: int) -> None:
         """
@@ -224,10 +238,14 @@ Your schedule is identical with the schedule on the remote sheet."
             try:
                 log(f"--> checking if meeting with id {result} exists")
                 self.schedule.validate_meeting_id(result)
-                self.push_screen(ModifyMeetingScreen(result), self.check_meeting_update)
+                self.push_screen(
+                    ModifyMeetingScreen(result), self.check_meeting_update
+                )
             except (ValueError, TypeError):
                 self.app.push_screen(
-                    WarningScreen(f"Meeting ID does not exist ( ID : {result} )")
+                    WarningScreen(
+                        f"Meeting ID does not exist ( ID : {result} )"
+                    )
                 )
 
     def check_meeting_update(self, result: int) -> None:
