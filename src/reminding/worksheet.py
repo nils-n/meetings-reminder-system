@@ -95,7 +95,6 @@ class Worksheet:
         load a set of mock valid participants as if it were read from a worksheet
         Reason for this : to run unit tests without actually calling values from API
         """
-        print("--> DEBUG INFO : loading a mock participant sheet ")
         return [
             ["Participant ID", "Name", "Email"],
             ["1", "Test User 1", "student.reminder.test.user+1@gmail.com"],
@@ -110,7 +109,6 @@ class Worksheet:
         load how the mock participants participants in the mock meetings
         Reason for this : to run unit tests without actually calling values from API
         """
-        print("--> DEBUG INFO : loading a mock participant sheet ")
         return [
             ["Meeting ID / Participant ID", "1", "2", "3", "4", "5"],
             ["1", "TRUE", "TRUE", "TRUE", "TRUE", "TRUE"],
@@ -122,7 +120,6 @@ class Worksheet:
         load a set of mock meetings as if they were read from a worksheet
         Reason for this : to run unit tests without actually calling values from APIr
         """
-        print("--> DEBUG INFO : loading a mock schedule sheet ")
         return [
             ["Meeting ID", "Name", "Time", "Place", "Invited", "reminder sent?"],
             ["1", "Unit Test Meeting 1", "11/11/11 11:11", "", "0", "no"],

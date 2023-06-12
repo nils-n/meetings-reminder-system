@@ -12,7 +12,7 @@
     - [Results of Other Tests](#results-of-other-tests)
     - [Issues Found During Manual Testing](#issues-found-during-manual-testing)
   - [Automated Testing](#automated-testing)
-    - [Automated Testing with Pytest](#automated-testing-with-pytest)
+    - [Results of Automated Testing with Pytest](#results-of-automated-testing-with-pytest)
     - [Results of Unit Testing with Pytest](#results-of-unit-testing-with-pytest)
       - [Participant Class](#participant-class)
       - [Meeting Class](#meeting-class)
@@ -142,26 +142,61 @@ There were several issues found during Manual Testing that required refactoring 
 
 --- 
 
-## Automated Testing
+## Automated Testing 
 
-- This project has been implemented using a `test-driven` approach, where each bit of functionality was added incrementally using a `red-green-refactor` cycle 
-- One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged early on during development while working on the function 
+This project has been implemented using a `test-driven` approach, where each bit of functionality was added incrementally using a `red-green-refactor` cycle.
+- One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged directly while implementing these changes 
 - While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saves time by reducing the time needed for finding bugs.
+- On the first approach, also the I/O access to the google sheets was included during the Unit Tests. This has turned out to a wrong approach and lead to Google flagging `bot-like` activity on the google sheets when running `pytest`.  A description of this (wrong) approach is left in an appendix Markdown file :  [Lesson learned for Automated Testing APIs.MD](APPENDIX.md) 
+- As a consequence, it was focussed on testing the correct functioning of each class and method used in this project. The only excepion were methods for I/O to the Google sheets, which were only tested during Manual testing. 
+  
+### Results of Automated Testing with Pytest
 
-The follwing section contains: 
-  - Setup of the database used during Unit Testing
-  - Results of Unit Tests 
+The follwing section contains a summary of the results from Unit Testing using the Pytest Framework. 
 
-### Automated Testing with Pytest
 
-- On the first approach, also the I/O access to the google sheets was tested during the Unit Tests. This has turned out to a wrong approach and lead to Google permanently disabling access to the account due to `bot-like` activity on the google sheets when running `pytest`.  A description of this (wrong) approach is left in an appendix Markdown file :  [Lesson learned for Automated Testing APIs.MD](APPENDIX.md) 
-- As a result 
+- 137 Unit Tests were used in this project, all tests passed. Summary can be found [Here](./assets/documentation/report.html)
+- Coverage of the unit tests was 90%
 
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Summary</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report.png"; alt="results of manual testing for syntax validation" >  </td>
+    </tr>
+</table>
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Coverage</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report-coverage.png"; alt="results of manual testing for syntax validation" >  </td>
+    </tr>
+</table>
 
 --- 
 ### Results of Unit Testing with Pytest 
 
 #### Participant Class
+
+The participant class was tested for : 
+- valid constructor calls
+- valid input of Name, Email, Participant ID
+- valid conversion into a row format for I/O of Google Sheets
+
+All tests passed.
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Summary</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report-participant.png"; alt="results of automatic testing" >  </td>
+    </tr>
+</table>
+
 
 #### Meeting Class 
 

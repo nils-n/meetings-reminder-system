@@ -11,3 +11,4 @@ creds.json
 credentials.json
 .DS_Store
 */.DS_Store
+.coverage

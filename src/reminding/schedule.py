@@ -22,7 +22,7 @@ class Schedule:
     def __post_init__(self):
         self.load_meetings()
         self.load_allowed_participants()
-        self.load_participation_matrix()
+        self.calculate_participation_matrix()
         self.load_participants()
         self.convert_meetings_to_table("All Meetings")
 
