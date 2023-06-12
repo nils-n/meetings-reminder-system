@@ -200,7 +200,6 @@ class ModifyQuestionScreen(ModalScreen[str]):
         yield Label(self.question_message, id="which-meeting")
         yield Grid(
             Input(
-                "1",
                 placeholder="Input here",
                 id="input-which-meeting",
                 classes="columns",
