@@ -61,13 +61,14 @@ def test_table_rows_match_values_of_corresponding_meetings(load_mock_worksheet) 
     """
     worksheet = load_mock_worksheet
     random_name = "Random Schedule"
+    random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
 
     model = Schedule(worksheet, random_name, [], [])
-    model.add_meeting(Meeting(0, "Test Meeting 1", datetime.now(), True, True, [], ""))
+    model.add_meeting(Meeting(0, "Test Meeting 1", random_datetime, True, True, [], ""))
 
     assert model.table_rows[0][0] == "ID"
     assert (
-        0 < model.table_rows[1][0] < 1000
+        0 < int(model.table_rows[1][0]) < 1000
     )  # ensure that model.meeting_id is between 0 and 1000
     assert model.table_rows[0][1] == "Name"
     assert model.table_rows[1][1] == model.worksheet.meetings[0].name
