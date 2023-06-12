@@ -65,7 +65,6 @@ class Participant:
         ID -  Name - Email - has confirmed - has been notified
         """
         self.table_row = []
-        # self.table_row.append( ("ID", "Name", "Email", "confirmed", "notified" ))
         self.table_row.append((self.id_number, self.name, self.email, True, True))
 
 
