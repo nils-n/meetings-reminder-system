@@ -213,8 +213,9 @@ class Worksheet:
         self.meetings = [
             meeting for meeting in self.meetings if meeting.meeting_id != target_id
         ]
-        self.schedule_sheet_values = []
-        [row for row in self.schedule_sheet_values if str(row[0]) != str(target_id)]
+        self.schedule_sheet_values = [
+            row for row in self.schedule_sheet_values if str(row[0]) != str(target_id)
+        ]
         self.is_modified = True
 
     def push_participation_matrix(self, row_header, new_rows) -> None:
