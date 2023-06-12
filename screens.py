@@ -1,3 +1,18 @@
+""" 
+The screens are moved into this sepearate file to keep main (run.py) better readable
+
+The starting point for this app was the Stopwatch Example of the Textualize Tutorial:
+https://textual.textualize.io/tutorial/
+
+Explanation that helped me understand how to use screens with textualize: 
+https://textual.textualize.io/guide/screens/
+
+All Widgets (such as Checkbox, Grid, Input, DataTable or reactive attribues) were based on 
+the Textualize documentation and then modified to fit the needs of this app. 
+Starting point for widgets : 
+https://textual.textualize.io/widget_gallery/
+
+"""
 from itertools import cycle
 from datetime import datetime
 from textual.app import ComposeResult
@@ -12,13 +27,13 @@ from textual.widgets import (
 from textual.widgets import Checkbox
 from textual.reactive import var
 from textual.screen import ModalScreen
-from textual.containers import Grid, VerticalScroll, Vertical
+from textual.containers import Grid, VerticalScroll, Vertical, Horizontal
 from reminding.meeting import Meeting
 
 INPUT_MARKDOWN = """\
 # Meeting Manager 
 
-Enter Details for New Meeting. Note:
+Enter Details for New Meeting. Use *TAB* key to focus input
 - Date Format DD/MM/YY
 - Time Format HH:MM
 
@@ -73,16 +88,25 @@ class InputMeeting(ModalScreen[Meeting]):
         yield Markdown(INPUT_MARKDOWN)
         yield Vertical(
             Input(
-                "Test", placeholder="Name", id="input-name", classes="columns"
-            ),  # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
-            Input(
-                "11/11/11", placeholder="DD/MM/YY", id="input-date", classes="columns"
-            ),  # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
-            Input(
-                "11:11", placeholder="HH:MM", id="input-time", classes="columns"
-            ),  # just adding a placeholder Meeting 11/11/11 - at 11:11 for faster debugging)
+                placeholder="Enter Meeting Name",
+                id="input-name",
+                classes="columns",
+            ),
+            Input(placeholder="DD/MM/YY", id="input-date", classes="columns"),
+            Input(placeholder="HH:MM", id="input-time", classes="columns"),
+            Horizontal(
+                Button("Submit", id="submit-input", variant="primary"),
+                Button("Go Back", id="not-submit-input", variant="default"),
+            ),
             id="meeting-inputs",
         )
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        """handles button press event on the Input screen"""
+        if event.button.id == "submit-input":
+            self.on_input_submitted()
+        else:
+            self.dismiss(False)
 
     def on_input_submitted(self) -> None:
         """
@@ -142,11 +166,14 @@ class NewMeetingScreen(ModalScreen[Meeting]):
         Called when InputName is popped
         Updates also the displayed Table in the Dialog
         """
-        self.new_meeting = result
-        self.new_meeting.name = result.name
-        self.new_meeting.datetime = result.datetime
-        self.new_meeting.convert_to_table_row()
-        self.update_table()
+        if result is not False:
+            self.new_meeting = result
+            self.new_meeting.name = result.name
+            self.new_meeting.datetime = result.datetime
+            self.new_meeting.convert_to_table_row()
+            self.update_table()
+        else:
+            self.app.pop_screen()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """handles button press event"""

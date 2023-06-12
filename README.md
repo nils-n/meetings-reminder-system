@@ -1031,6 +1031,9 @@ Here is a list of the many bugs encountered during the implementation of the pro
     - Effective Python Testing with Pytest [Link](https://realpython.com/pytest-python-testing/)
     - Okken, Brian. "Python Testing with pytest." Pragmatic Bookshelf, 2022.
 - Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
+  - Example Textual App which was used as a starting point [Textual Tutorial : Stopwatch Application](https://textual.textualize.io/tutorial/)
+  - Widget Gallery where all of the widgets used in the app are based on [Widget List](https://textual.textualize.io/widget_gallery/)
+  - Helpful explanation how to use screens in Textualize : [Screens](https://textual.textualize.io/guide/screens/)
 - Code Formatting and General Tips for using Python Sweigart, Al. Beyond the Basic Stuff with Python: Best Practices for Writing Clean Code. No Starch Press, 2020.
 - How to setup up Google Gmail / EZGmail API [Al Sweikarts's ezgmail Github](https://github.com/asweigart/ezgmail)
 - Advice on how to deal with API interactions during pytest / unit testing [Jose Maria Valera Reales, To Mock or Not to Mock: How to escape the mocking hell](https://chemaclass.medium.com/to-mock-or-not-to-mock-af995072b22e)

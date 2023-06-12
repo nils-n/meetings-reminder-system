@@ -140,3 +140,13 @@ Checkbox {
     max-height: 10; 
 }
 
+#submit-input {
+    width: 20;
+    margin: 0 2;
+}
+
+#not-submit-input {
+    width: 20;
+    margin: 0 2;
+}
+

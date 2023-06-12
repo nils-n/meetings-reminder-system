@@ -179,9 +179,10 @@ Your schedule is identical with the schedule on the remote sheet."
         """
         Callback to get return value (a meeting) from NewMeetingScreen Widget
         """
-        self.schedule.add_meeting(result)
-        self.update_sync_status(not isinstance(result, Meeting))
-        self.load_meetings_table(self.current_time_range)
+        if result is not False:
+            self.schedule.add_meeting(result)
+            self.update_sync_status(not isinstance(result, Meeting))
+            self.load_meetings_table(self.current_time_range)
 
     def action_remove_meeting(self) -> None:
         """
