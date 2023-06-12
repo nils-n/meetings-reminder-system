@@ -29,9 +29,12 @@ def init_participant() -> Participant:
 def create_random_participants() -> List[Participant]:
     """returns a list of participants"""
     number_of_random_participants = 2
-    random_names = [f"Test User {i}" for i in range(number_of_random_participants)]
+    random_names = [
+        f"Test User {i}" for i in range(number_of_random_participants)
+    ]
     random_emails = [
-        f"test.user+{i}@test.com" for i in range(number_of_random_participants)
+        f"test.user+{i}@test.com"
+        for i in range(number_of_random_participants)
     ]
     participants = []
     for i, (name, email) in enumerate(zip(random_names, random_emails)):
@@ -47,12 +50,17 @@ def create_random_meetings() -> List[Meeting]:
     number_of_random_participants = 4
     for meeting_id in range(number_of_random_meetings):
         # create random fake participants
-        random_names = [f"Test User {i}" for i in range(number_of_random_participants)]
+        random_names = [
+            f"Test User {i}" for i in range(number_of_random_participants)
+        ]
         random_emails = [
-            f"test.user+{i}@test.com" for i in range(number_of_random_participants)
+            f"test.user+{i}@test.com"
+            for i in range(number_of_random_participants)
         ]
         random_participants = []
-        for i, (name, email) in enumerate(zip(random_names, random_emails)):
+        for i, (name, email) in enumerate(
+            zip(random_names, random_emails)
+        ):
             random_participants.append(Participant(name, email, i, True))
         # create random fake meeting with these participants
         random_meeting_id = meeting_id
@@ -78,9 +86,12 @@ def create_random_meetings() -> List[Meeting]:
 def create_random_meeting() -> Meeting:
     """initialize a random meeting with a few random participants"""
     random_number_of_participants = 4
-    random_names = [f"Test User {i + 1}" for i in range(random_number_of_participants)]
+    random_names = [
+        f"Test User {i + 1}" for i in range(random_number_of_participants)
+    ]
     random_emails = [
-        f"test.user+{i + 1}@test.com" for i in range(random_number_of_participants)
+        f"test.user+{i + 1}@test.com"
+        for i in range(random_number_of_participants)
     ]
     random_participants = []
     for i, (name, email) in enumerate(zip(random_names, random_emails)):
@@ -90,7 +101,13 @@ def create_random_meeting() -> Meeting:
     random_datetime = datetime.strptime("01/01/01 00:00", "%d/%m/%y %H:%M")
     random_notes = "This is just a Test"
     random_meeting = Meeting(
-        random_meeting_id, random_name, random_datetime, True, True, [], random_notes
+        random_meeting_id,
+        random_name,
+        random_datetime,
+        True,
+        True,
+        [],
+        random_notes,
     )
     for participant in random_participants:
         random_meeting.add_participant(participant)
@@ -103,14 +120,16 @@ def load_worksheet() -> Worksheet:
     """initialize and load the spreadsheet from the cloud once for all tests
 
     After many considerations, i will not test any functionality during
-    unit test that depend on an Actual API call. It was briefly considered to mock the API call but
+    unit test that depend on an Actual API call. It was briefly considered
+    to mock the API call but
     then decided against , see argumentation here:
     https://chemaclass.medium.com/to-mock-or-not-to-mock-af995072b22e
     """
     raise RuntimeError(
-        "You are trying to read actual values during an API during unit test. This will \
-not be supported any more to avoid spam behaviour that would lead to problems \
-with the Google Sheets API as it violates their Terms of Service "
+        "You are trying to read actual values during an API during unit test. \
+            This will not be supported any more to avoid spam behaviour \
+            that would lead to problems with the Google Sheets API \
+                as it violates their Terms of Service "
     )
 
 

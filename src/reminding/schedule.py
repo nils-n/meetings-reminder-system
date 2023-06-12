@@ -9,14 +9,17 @@ from reminding.worksheet import Worksheet
 class Schedule:
     """
     describes a schedule of meetings
-    for table rows :how to load a mixed variables into dataclass variables from:
+    for table rows :how to load a mixed variables into dataclass
+      variables from:
     https://stackoverflow.com/questions/69915050/how-to-make-list-in-python-dataclass-that-can-accept-multiple-different-types
     """
 
     worksheet: Worksheet
     name: str
     table_rows: list[Union[str, int]] = field(default_factory=list)
-    participation_matrix_row_header: list[str] = field(default_factory=list)
+    participation_matrix_row_header: list[str] = field(
+        default_factory=list
+    )
     participation_matrix_rows: list[str] = field(default_factory=list)
 
     def __post_init__(self):
@@ -29,8 +32,14 @@ class Schedule:
     def load_participants(self):
         """loads all participants stored in the participation matrix"""
         for i, meeting in enumerate(self.worksheet.meetings):
-            for j, participant in enumerate(self.worksheet.valid_participants):
-                if self.participation_matrix_rows[i][j + 1] in ["TRUE", True, 1]:
+            for j, participant in enumerate(
+                self.worksheet.valid_participants
+            ):
+                if self.participation_matrix_rows[i][j + 1] in [
+                    "TRUE",
+                    True,
+                    1,
+                ]:
                     self.worksheet.meetings[i].add_participant(participant)
 
     def load_meetings(self):
@@ -40,7 +49,8 @@ class Schedule:
         self.worksheet.load_meetings()
 
     def push_schedule_to_repository(self):
-        """pushes all meetings (including all local modifications) to the worksheet"""
+        """pushes all meetings (including all local modifications) to the
+        worksheet"""
         self.worksheet.push_schedule_to_repository()
 
     def push_participation_matrix_to_repository(self):
@@ -59,14 +69,17 @@ class Schedule:
 
     def load_allowed_participants(self):
         """
-        loads all valid participants form the local copy of the google worksheet
+        loads all valid participants form the local copy of the
+          google worksheet
         """
         self.worksheet.load_valid_participants()
 
     def validate_participant(self, potential_participant):
         """
-        checks whether a supplied participant is in the list of allowed participants
-        more of a security check to prevent sending emails to arbitrary locations
+        checks whether a supplied participant is in the list
+          of allowed participants
+        more of a security check to prevent sending emails
+          to arbitrary locations
         """
         if potential_participant not in self.worksheet.valid_participants:
             raise ValueError("This is not an allowed participant!")
@@ -98,10 +111,13 @@ class Schedule:
 
     def convert_meetings_to_table(self, time_range):
         """
-        convert the meetings object into a table format that the TUI can display and update
+        convert the meetings object into a table format that
+          the TUI can display and update
         """
         self.table_rows = []
-        self.table_rows.append(("ID", "Name", "Time", "invited", "confirmed"))
+        self.table_rows.append(
+            ("ID", "Name", "Time", "invited", "confirmed")
+        )
         for meeting in self.worksheet.meetings:
             if meeting.is_within_time_range(datetime.now(), time_range):
                 self.table_rows.append(
@@ -147,19 +163,24 @@ class Schedule:
 
         - the first row contains all allowed participant IDs
         - the first column contains all current meeting IDs
-        - if  element (i,j) is True   -->  participant i is participating in meeting j
-        - if  element (i,j) is False  -->  participant i is not participating in meeting j
+        - if  element (i,j) is True  --> participant i is in meeting j
+        - if  element (i,j) is False --> participant i is not in meeting j
         """
 
-        self.participation_matrix_row_header = ["Meeting ID / Participant ID"] + [
-            participant.id_number for participant in self.worksheet.valid_participants
+        self.participation_matrix_row_header = [
+            "Meeting ID / Participant ID"
+        ] + [
+            participant.id_number
+            for participant in self.worksheet.valid_participants
         ]
         self.participation_matrix_rows = []
         for meeting in self.worksheet.meetings:
             self.participation_matrix_rows.append(
                 [str(meeting.meeting_id)]
                 + [
-                    True if (participant in meeting.participants) else False
+                    True
+                    if (participant in meeting.participants)
+                    else False
                     for participant in self.worksheet.valid_participants
                 ]
             )

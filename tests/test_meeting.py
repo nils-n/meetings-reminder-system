@@ -44,7 +44,9 @@ def test_can_create_new_meeting(create_random_participants) -> None:
         ("create_random_participants", 42, pytest.raises(TypeError)),
     ],
 )
-def test_invalid_name_raises_type_error(fixture_name, new_name, expectation, request):
+def test_invalid_name_raises_type_error(
+    fixture_name, new_name, expectation, request
+):
     """test various correct and incorrect meeting names"""
     participants = request.getfixturevalue(fixture_name)
     random_meeting_id = 42
@@ -73,7 +75,9 @@ def test_invalid_name_raises_type_error(fixture_name, new_name, expectation, req
         ("create_random_participants", -1, pytest.raises(ValueError)),
     ],
 )
-def test_invalid_id_raises_type_error(fixture_name, new_id, expectation, request):
+def test_invalid_id_raises_type_error(
+    fixture_name, new_id, expectation, request
+):
     """test various correct and incorrect meeting IDs"""
     participants = request.getfixturevalue(fixture_name)
     random_name = "R2D2"
@@ -138,10 +142,16 @@ def test_invalid_notification_flag_raises_type_error(
             does_not_raise(),
         ),
         ("create_random_participants", datetime.now(), does_not_raise()),
-        ("create_random_participants", "00/00/00 00:00", pytest.raises(TypeError)),
+        (
+            "create_random_participants",
+            "00/00/00 00:00",
+            pytest.raises(TypeError),
+        ),
     ],
 )
-def test_invalid_time_raises_type_error(fixture_name, new_time, expectation, request):
+def test_invalid_time_raises_type_error(
+    fixture_name, new_time, expectation, request
+):
     """ensure that meeting time is correct datetime type"""
     participants = request.getfixturevalue(fixture_name)
     random_name = "Random Name"
@@ -208,7 +218,11 @@ def test_invalid_room_flag_raises_type_error(
     [
         ("create_random_participants", "", does_not_raise()),
         ("create_random_participants", "This is a note", does_not_raise()),
-        ("create_random_participants", "This is also a note", does_not_raise()),
+        (
+            "create_random_participants",
+            "This is also a note",
+            does_not_raise(),
+        ),
         ("create_random_participants", None, pytest.raises(TypeError)),
         ("create_random_participants", 1, pytest.raises(TypeError)),
     ],
@@ -268,9 +282,21 @@ def test_meeting_values_convert_correctly_to_table_row(
     "fixture_name, input_time_str, expectation",
     [
         ("create_random_participants", "23/05/23 10:00", does_not_raise()),
-        ("create_random_participants", "23/05/2023 10:00", pytest.raises(ValueError)),
-        ("create_random_participants", "23/05/2023", pytest.raises(ValueError)),
-        ("create_random_participants", "23.05.23 10:00", pytest.raises(ValueError)),
+        (
+            "create_random_participants",
+            "23/05/2023 10:00",
+            pytest.raises(ValueError),
+        ),
+        (
+            "create_random_participants",
+            "23/05/2023",
+            pytest.raises(ValueError),
+        ),
+        (
+            "create_random_participants",
+            "23.05.23 10:00",
+            pytest.raises(ValueError),
+        ),
         ("create_random_participants", "", pytest.raises(ValueError)),
         ("create_random_participants", -1, pytest.raises(TypeError)),
     ],
@@ -307,7 +333,11 @@ def test_add_participants_to_meeting(create_random_meeting) -> None:
     for i in range(num_added_participants):
         model.add_participant(
             Participant(
-                f"Test Participant {i}", f"testemail-{i}@fakemail.com", i, True, []
+                f"Test Participant {i}",
+                f"testemail-{i}@fakemail.com",
+                i,
+                True,
+                [],
             )
         )
 
@@ -331,7 +361,9 @@ def test_participant_table_rows_match_values_of_corresponding_participants(
     assert model.participant_table_rows[0][2] == "Email"
     assert model.participant_table_rows[0][3] == "confirmed"
     for i, participant in enumerate(model.participants):
-        assert model.participant_table_rows[i + 1][0] == participant.id_number
+        assert (
+            model.participant_table_rows[i + 1][0] == participant.id_number
+        )
         assert model.participant_table_rows[i + 1][1] == participant.name
         assert model.participant_table_rows[i + 1][2] == participant.email
 
@@ -344,7 +376,9 @@ def test_can_remove_participant_from_a_meeting_via_its_id(
     """
     model = create_random_meeting
     random_participant = 1
-    target_participant_id = model.participants[random_participant].id_number
+    target_participant_id = model.participants[
+        random_participant
+    ].id_number
 
     model.remove_participant_by_id(target_participant_id)
 
@@ -364,7 +398,8 @@ def test_removing_participant_with_wrong_id_raises_error(
     fixture_name, input_id, expectation, request
 ) -> None:
     """
-    Test if trying to remove a participant from a meeting that it is not part of
+    Test if trying to remove a participant from a meeting that it is not part
+    of
     raises the correct exception (and warning to the user)
     """
     model = request.getfixturevalue(fixture_name)
@@ -442,9 +477,15 @@ def test_removing_participant_with_wrong_id_raises_error(
     ],
 )
 def test_can_tell_if_meeting_is_within_time_range(
-    fixture_name, time_range, meeting_time, current_time, expectation, request
+    fixture_name,
+    time_range,
+    meeting_time,
+    current_time,
+    expectation,
+    request,
 ):
-    """Tests whether a meeting correctly returns True if the meeting is within a given time range,
+    """Tests whether a meeting correctly returns True if the meeting is
+    within a given time range,
     and False when the meeting is not"""
     model = request.getfixturevalue(fixture_name)
     model.validate_meeting_time(meeting_time)
@@ -459,12 +500,16 @@ def test_can_tell_if_meeting_is_within_time_range(
     [
         (
             "create_random_meeting",
-            Participant("New Participant 1", "new-email+1@test.com", 42, True),
+            Participant(
+                "New Participant 1", "new-email+1@test.com", 42, True
+            ),
             True,
         ),
         (
             "create_random_meeting",
-            Participant("New Participant 2", "new-email+2@test.com", 42, True),
+            Participant(
+                "New Participant 2", "new-email+2@test.com", 42, True
+            ),
             True,
         ),
         (
@@ -478,7 +523,8 @@ def test_adding_new_participant_changes_meeting_state_to_modified(
     fixture_name, new_participant, expectation, request
 ):
     """
-    test whether adding a participant to a meeting changes it state to 'modified'
+    test whether adding a participant to a meeting changes it
+      state to 'modified'
     """
     model = request.getfixturevalue(fixture_name)
 
@@ -498,7 +544,8 @@ def test_removing_valid_participant_changes_meeting_state_to_modified(
     fixture_name, target_id, expectation, request
 ):
     """
-    test whether remove a participant with a valid ID changes meeting state to modified
+    test whether remove a participant with a valid ID changes meeting
+    state to modified
     """
     model = request.getfixturevalue(fixture_name)
 
@@ -525,7 +572,8 @@ def test_removing_valid_participant_changes_meeting_state_to_modified(
 def test_changing_meeting_time_changes_state_to_modified(
     fixture_name, new_time, expectation, request
 ):
-    """Test whether changing meeting time changes meeting state to 'is_modified'"""
+    """Test whether changing meeting time changes meeting state to
+    'is_modified'"""
     model = request.getfixturevalue(fixture_name)
 
     model.validate_meeting_time(new_time)
@@ -543,7 +591,8 @@ def test_changing_meeting_time_changes_state_to_modified(
 def test_changing_meeting_name_changes_state_to_modified(
     fixture_name, new_name, expectation, request
 ):
-    """Test whether changing meeting name changes meeting state to 'is_modified'"""
+    """Test whether changing meeting name changes meeting state
+    to 'is_modified'"""
     model = request.getfixturevalue(fixture_name)
 
     model.validate_name(new_name)

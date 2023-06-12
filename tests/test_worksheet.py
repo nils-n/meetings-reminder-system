@@ -32,12 +32,18 @@ def test_can_read_values_from_worksheet(load_mock_worksheet) -> None:
     assert model[1][2] == "11/11/11 11:11"
 
 
-def test_can_read_all_valid_participants_from_worksheet(load_mock_worksheet) -> None:
+def test_can_read_all_valid_participants_from_worksheet(
+    load_mock_worksheet,
+) -> None:
     """test if the class can read all valid particpants from the worksheet"""
 
     valid_participants = [
         Participant(
-            f"Test User {i}", f"student.reminder.test.user+{i}@gmail.com", i, True, []
+            f"Test User {i}",
+            f"student.reminder.test.user+{i}@gmail.com",
+            i,
+            True,
+            [],
         )
         for i in range(1, 5)
     ]
@@ -55,21 +61,33 @@ def test_can_read_all_valid_participants_from_worksheet(load_mock_worksheet) -> 
         (
             "load_mock_worksheet",
             Participant(
-                "Test User 1", "student.reminder.test.user+1@gmail.com", 1, True, []
+                "Test User 1",
+                "student.reminder.test.user+1@gmail.com",
+                1,
+                True,
+                [],
             ),
             does_not_raise(),
         ),
         (
             "load_mock_worksheet",
             Participant(
-                "Test User 2", "student.reminder.test.user+2@gmail.com", 2, True, []
+                "Test User 2",
+                "student.reminder.test.user+2@gmail.com",
+                2,
+                True,
+                [],
             ),
             does_not_raise(),
         ),
         (
             "load_mock_worksheet",
             Participant(
-                "Test User 42", "student.reminder.test.user+42@gmail.com", 42, True, []
+                "Test User 42",
+                "student.reminder.test.user+42@gmail.com",
+                42,
+                True,
+                [],
             ),
             pytest.raises(ValueError),
         ),
@@ -90,22 +108,28 @@ def test_invalid_participant_should_raise_value_error(
 def test_can_read_meetings_from_worksheet(load_mock_worksheet) -> None:
     """
     this is a bit tricky: what to test first, reading or writing a meeting?
-    If we test read first -> How do we know during unit test what to expect on the editable sheet?
+    If we test read first -> How do we know during unit test what to expect
+    on the editable sheet?
     If we test write first -> How do we know during unit test that we
     actually edited the sheet correctly?
 
-    This could be done by mocking a database and i will explore that option in future.
+    This could be done by mocking a database and i will explore that option
+      in future.
 
-    Another option is to connect to a known database and test the code with those sheets:
+    Another option is to connect to a known database and test the code with
+    those sheets:
     https://stackoverflow.com/questions/1217736/how-to-write-unit-tests-for-database-calls
 
     I modify this idea by adding a fourth sheet 'unit-test' to our google sheet
     that is not used by the app,
-    just for the unit test, using same columns as the first (schedule) sheet. then i would assume:
-    if i can read/write to the fourth sheet, it should work for the first and second as well.
+    just for the unit test, using same columns as the first (schedule) sheet.
+      then i would assume:
+    if i can read/write to the fourth sheet, it should work for the first
+    and second as well.
 
     Update (5 june 2023): While the idea above was not bad per se,
-    it lead to a violation of Googles Terms and  Serives by using the API for spam-like usage,
+    it lead to a violation of Googles Terms and  Serives by using
+      the API for spam-like usage,
       see  https://developers.google.com/terms
     """
     unit_test_meetings = [
@@ -132,7 +156,8 @@ def test_can_add_meeting_to_worksheet(load_mock_worksheet) -> None:
     """
     this is a test if the unit test can write a meeting to the worksheet.
 
-    We use the tested reading method (see previous test) to confirm the writing method
+    We use the tested reading method (see previous test)
+      to confirm the writing method
 
     """
     model = load_mock_worksheet
@@ -148,7 +173,9 @@ def test_can_add_meeting_to_worksheet(load_mock_worksheet) -> None:
     assert new_meeting in meetings
 
 
-def test_can_delete_meeting_by_id_from_worksheet(load_mock_worksheet) -> None:
+def test_can_delete_meeting_by_id_from_worksheet(
+    load_mock_worksheet,
+) -> None:
     """
     this is a test if the unit test can delete a meeting to the worksheet.
 
@@ -167,9 +194,12 @@ def test_can_delete_meeting_by_id_from_worksheet(load_mock_worksheet) -> None:
     assert new_meeting not in meetings
 
 
-def xtest_can_push_all_local_meetings_to_worksheet(load_mock_sworksheet) -> None:
+def xtest_can_push_all_local_meetings_to_worksheet(
+    load_mock_sworksheet,
+) -> None:
     """
-    This is a test if one can push all local meetings to a worksheet to replace its content
+    This is a test if one can push all local meetings
+    to a worksheet to replace its content
 
     (note:  this test is disabled because of a design descision
       to purge all API calls from the unit test)
@@ -204,18 +234,26 @@ def xtest_can_push_all_local_meetings_to_worksheet(load_mock_sworksheet) -> None
         (
             "load_mock_worksheet",
             Participant(
-                "Test User 1", "student.reminder.test.user+1@gmail.com", 1, True
+                "Test User 1",
+                "student.reminder.test.user+1@gmail.com",
+                1,
+                True,
             ),
         ),
         (
             "load_mock_worksheet",
             Participant(
-                "Test User 2", "student.reminder.test.user+2@gmail.com", 2, True
+                "Test User 2",
+                "student.reminder.test.user+2@gmail.com",
+                2,
+                True,
             ),
         ),
     ],
 )
-def test_can_load_mock_participants(fixture_name, participant, request) -> None:
+def test_can_load_mock_participants(
+    fixture_name, participant, request
+) -> None:
     """
     Test to load mock participants
     """
@@ -256,7 +294,9 @@ def test_can_load_mock_participants(fixture_name, participant, request) -> None:
         ),
     ],
 )
-def test_can_load_mock_meetings(fixture_name, meeting, expected_index, request) -> None:
+def test_can_load_mock_meetings(
+    fixture_name, meeting, expected_index, request
+) -> None:
     """
     Test to load mock meetings
     """
@@ -268,9 +308,12 @@ def test_can_load_mock_meetings(fixture_name, meeting, expected_index, request) 
     assert model.meetings[expected_index].name == meeting.name
 
 
-def test_state_changes_to_modified_when_adding_meeting(load_mock_worksheet) -> None:
+def test_state_changes_to_modified_when_adding_meeting(
+    load_mock_worksheet,
+) -> None:
     """
-    this is a test that the state of the worksheet changes to modified when adding a meeting
+    this is a test that the state of the worksheet changes
+    to modified when adding a meeting
     """
     model = load_mock_worksheet
     new_meeting = Meeting(
@@ -284,9 +327,12 @@ def test_state_changes_to_modified_when_adding_meeting(load_mock_worksheet) -> N
     assert model.is_modified
 
 
-def test_state_changes_to_modified_when_removing_a_meeting(load_mock_worksheet) -> None:
+def test_state_changes_to_modified_when_removing_a_meeting(
+    load_mock_worksheet,
+) -> None:
     """
-    this is a test that the state of the worksheet changes to modified when adding a meeting
+    this is a test that the state of the worksheet changes to modified
+    when adding a meeting
     """
     model = load_mock_worksheet
     random_meeting_id = 1
@@ -300,7 +346,8 @@ def test_state_changes_to_modified_when_a_participant_is_added(
     load_mock_worksheet,
 ) -> None:
     """
-    this is a test that the state of the worksheet changes to modified when adding a participant
+    this is a test that the state of the worksheet changes
+    to modified when adding a participant
     """
     model = load_mock_worksheet
     random_meeting_id = 0
@@ -323,7 +370,8 @@ def test_state_changes_to_modified_when_a_participant_is_removed(
     load_mock_worksheet,
 ) -> None:
     """
-    this is a test that the state of the worksheet changes to modified when removing a participant
+    this is a test that the state of the worksheet changes to
+    modified when removing a participant
     """
     model = load_mock_worksheet
     random_meeting_id = 0
@@ -338,7 +386,9 @@ def test_state_changes_to_modified_when_a_participant_is_removed(
     model.meetings[random_meeting_id].add_participant(random_participant)
     model.is_modified = False
 
-    model.meetings[random_meeting_id].remove_participant_by_id(random_participant_id)
+    model.meetings[random_meeting_id].remove_participant_by_id(
+        random_participant_id
+    )
     model.check_if_modified()
 
     assert model.is_modified
