@@ -232,6 +232,7 @@ The `Schedule` class was tested for :
 - valid constructor calls
 - valid conversion between list of meetings and table rows 
 - ability to update and correctly print details of scheduled meetings
+- ability to detect whether schedule details have been modified 
 - correct functioning of the CRUD methods for the participation matrix and a check for its correct format
 
 All tests passed. 
@@ -247,6 +248,23 @@ All tests passed.
 
 
 #### Worksheet Class 
+
+The `Worksheet` class was tested for : 
+
+- valid constructor calls
+- valid CRUD functionality for both schedule and participant sheet (only testing the format - not the actual API I/O)
+- ability to detect whether worksheet details have been modified , and to reset its state 
+
+All tests passed. 
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Summary</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report-worksheet.png"; alt="results of automatic testing" >  </td>
+    </tr>
+</table>
 
 
 -----
