@@ -536,7 +536,7 @@ Your schedule is identical with the schedule on the remote sheet."
                     )
                 )
 
-        except (ValueError, APIError):
+        except (ValueError, AttributeError, APIError):
             self.app.push_screen(
                 WarningScreen(
                     "Could not connect to Google Sheet.\nLocal Changes are not saved! )"
