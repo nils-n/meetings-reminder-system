@@ -145,10 +145,10 @@ There were several issues found during Manual Testing that required refactoring 
 ## Automated Testing 
 
 This project has been implemented using a `test-driven` approach, where each bit of functionality was added incrementally using a `red-green-refactor` cycle.
-- One of the advantages of this approach that code changes at a later timepoint that negatively affect other parts of the codebase are flagged directly while implementing these changes 
-- While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saves time by reducing the time needed for finding bugs.
+- One of the advantages of this approach was that code changes that negatively affected other parts of the codebase were flagged immediatley while implementing these changes. It was also much easier to refactor methods and classes since functionality could continously be tested by keeping the test output in `green`. 
+- While it may slightly increase the time to develop the tests in parallel to the function, ultimately it saved time by reducing the time needed for finding bugs. It also greatly increased confidence that the code was doing exactly as intended. 
 - On the first approach, also the I/O access to the google sheets was included during the Unit Tests. This has turned out to a wrong approach and lead to Google flagging `bot-like` activity on the google sheets when running `pytest`.  A description of this (wrong) approach is left in an appendix Markdown file :  [Lesson learned for Automated Testing APIs.MD](APPENDIX.md) 
-- As a consequence, it was focussed on testing the correct functioning of each class and method used in this project. The only excepion were methods for I/O to the Google sheets, which were only tested during Manual testing. 
+- As a consequence, it was focussed on testing the correct functioning of each class and method used in this project. The only excepion were methods for direct I/O to the Google sheets, which were only tested during Manual testing. 
   
 ### Results of Automated Testing with Pytest
 
