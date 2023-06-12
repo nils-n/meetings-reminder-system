@@ -20,7 +20,9 @@ class Meeting:
     meeting_notes: str = ""
     table_row: Union[str, int] = field(default_factory=list)
     num_participants: int = 0
-    participant_table_rows: list[Union[str, int]] = field(default_factory=list)
+    participant_table_rows: list[Union[str, int]] = field(
+        default_factory=list
+    )
     is_modified: bool = False
 
     def __post_init__(self):
@@ -94,7 +96,8 @@ class Meeting:
                             ( {new_time_string} is not a string type)"
             )
         if not re.match(
-            r"^[0-9]{2}\/[0-9]{2}\/[0-9]{2}\s[0-9]{2}\:[0-9]{2}$", new_time_string
+            r"^[0-9]{2}\/[0-9]{2}\/[0-9]{2}\s[0-9]{2}\:[0-9]{2}$",
+            new_time_string,
         ):
             raise ValueError(
                 "Time Data is not in the right format DD/MM/YY HH:MM \
@@ -123,12 +126,21 @@ class Meeting:
 
     def convert_to_table_row(self):
         """
-        convert the meetings details into a table format that the TUI can display
+        convert the meetings details into a table format that the TUI can
+          display
         """
         self.table_row = []
-        self.table_row.append(("ID", "Name", "Time", "invited", "confirmed"))
         self.table_row.append(
-            (self.meeting_id, self.name, self.datetime, self.num_participants, 0)
+            ("ID", "Name", "Time", "invited", "confirmed")
+        )
+        self.table_row.append(
+            (
+                self.meeting_id,
+                self.name,
+                self.datetime,
+                self.num_participants,
+                0,
+            )
         )
 
     def add_participant(self, new_participant) -> None:
@@ -142,7 +154,8 @@ class Meeting:
 
     def convert_participants_to_table(self):
         """
-        convert the participant list into a table format that the TUI can display
+        convert the participant list into a table format that
+        the TUI can display
         """
         self.participant_table_rows = []
         self.participant_table_rows.append(
@@ -176,14 +189,16 @@ class Meeting:
         self.is_modified = True
 
     def is_within_time_range(self, current_time, time_range):
-        """returns True if the meeting is within the given time range from the current time"""
+        """returns True if the meeting is within the given time range from
+        the current time"""
         if time_range == "All Meetings":
             return True
         days_per_week = 7
         days_per_month = 31  # approximately
         time_until_meeting = self.datetime - current_time
         time_difference_in_days = time_until_meeting.days
-        # dont display meetings that are in the past - only if you want to see all meetings.
+        # dont display meetings that are in the past
+        # only if you want to see all meetings.
         if time_difference_in_days < 0:
             return False
         elif time_range == "Week":
