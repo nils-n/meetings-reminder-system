@@ -8,8 +8,11 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
 
 ![GitHub top language](https://img.shields.io/github/languages/top/nils-n/meetings-reminder-system?logo=GitHub&style=flat-square) ![GitHub contributors](https://img.shields.io/github/contributors/nils-n/meetings-reminder-system?color=oo&logo=Github) ![GitHub last commit](https://img.shields.io/github/last-commit/nils-n/meetings-reminder-system?logo=Github)
 
-
-
+<table style='width:80%; content-align:center'>
+    <tr>
+       <td> <img src="./assets/images/hero-image.png"; alt="hero image, example screenshots of the app" >  </td>
+    </tr>
+</table>
 
 
 --- 
