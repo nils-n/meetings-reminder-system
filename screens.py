@@ -1,3 +1,18 @@
+""" 
+The screens are moved into this sepearate file to keep main (run.py) better readable
+
+The starting point for this app was the Stopwatch Example of the Textualize Tutorial:
+https://textual.textualize.io/tutorial/
+
+Explanation that helped me understand how to use screens with textualize: 
+https://textual.textualize.io/guide/screens/
+
+All Widgets (such as Checkbox, Grid, Input, DataTable or reactive attribues) were based on 
+the Textualize documentation and then modified to fit the needs of this app. 
+Starting point for widgets : 
+https://textual.textualize.io/widget_gallery/
+
+"""
 from itertools import cycle
 from datetime import datetime
 from textual.app import ComposeResult
