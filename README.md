@@ -780,7 +780,8 @@ python run.py
 
 - Create a personal google account (if needed)
 - Go to Sheets
-- You can setup your own sheets as per instructions below, or use the example sheet [here](./assets/documentation/example.xlsx)
+- The easiest way is to create a copy of the sheet used for this Readme [Link To Sheet](https://docs.google.com/spreadsheets/d/1pbk9znlgRvAbx9pG4kN7Sw13rSA9FakJooiTok9UV_0/edit?usp=sharing)
+- Alternatively, you can setup your own sheets as per instructions below, or start from an example sheet [here](./assets/documentation/example.xlsx)
 - Create New Google Sheet Document and give it a name, i.e. `Meeting-Reminders` (or a name of your liking). This Sheet will have three sheets : 
     - A `schedule` sheet to keep track of the planned meetings 
     - A `valid-participants` sheet to list all allowed participants that could be invited to each meeting
