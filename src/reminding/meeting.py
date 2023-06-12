@@ -100,7 +100,10 @@ class Meeting:
                 "Time Data is not in the right format DD/MM/YY HH:MM \
                          ( ${new_time_string} is not in this format)"
             )
-        self.datetime = datetime.strptime(new_time_string, "%d/%m/%y %H:%M")
+        new_time = datetime.strptime(new_time_string, "%d/%m/%y %H:%M")
+        if self.datetime != new_time:
+            self.datetime = new_time
+            self.is_modified = True
 
     def validate_meeting_room_flag(self, new_room_flag):
         """validate that flag for meeting room is bool type"""
