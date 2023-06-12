@@ -57,8 +57,6 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
       - [How to Clone](#how-to-clone)
     - [(Optional) How to set up your local python environment](#optional-how-to-set-up-your-local-python-environment)
       - [Set Up Worksheets](#set-up-worksheets)
-    - [(Optional) Increase Security by protecting your Participant Worksheet](#optional-increase-security-by-protecting-your-participant-worksheet)
-    - [(Optional) Add Worksheet for Unittest with Pytest](#optional-add-worksheet-for-unittest-with-pytest)
     - [Link Google API to the application](#link-google-api-to-the-application)
     - [Deployment on Heroku](#deployment-on-heroku)
   - [Testing](#testing)
@@ -676,23 +674,19 @@ The schedule should be available even after the application is closed. This app 
 - [VS Code ](https://code.visualstudio.com/) as local IDE  
 - [ Code Anywhere ](.codeanywhere.com) as cloud IDE 
 - [Figma](https://www.figma.com/) for the Flowchart 
-- [W3 Validation Tools](https://validator.w3.org/) for Testing
 - [Shields.io](https://shields.io/) for Readme badges
-- [Markdown Beautifier](https://markdownbeautifier.com/#)  to format tables in this Readme
 - convert markdown tables to html via [HTML Table Converter](https://tableconvert.com/markdown-to-html)
-- Markdown [TOC Generator](https://ecotrust-canada.github.io/markdown-toc/)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) VS Code formatter 
 - [Pseudo](https://marketplace.visualstudio.com/items?itemName=willumz.generic-pseudocode) VS Code plugin to write pseudocode
 
 
 ### Languages 
 
-- HTML 
 - Python
 
 ### Frameworks 
 
-- 
+- Pytest for Unit Testing [Link to Homepage](https://docs.pytest.org/en/7.3.x/)
 
 ### Python Packages 
 
@@ -703,8 +697,13 @@ The schedule should be available even after the application is closed. This app 
         <th> Purpose </th>
     </tr>
         <tr>
-        <td> textual / rich </td>
+        <td> textual </td>
         <td> to create a terminal user interface</td>
+    </tr>
+    </tr>
+        <tr>
+        <td>  rich </td>
+        <td> to create markdown elements for textual</td>
     </tr>
     <tr>
         <td> black  </td>
@@ -714,11 +713,16 @@ The schedule should be available even after the application is closed. This app 
         <td> pytest </td>
         <td>   for unit tests  </td>
     </tr>  
+    </tr>  
        <tr>
+        <td> coverage </td>
+        <td>   to calculate code coverage of pytest </td>
+    </tr>  
+    <tr>
         <td> email_validator </td>
         <td>   to validate that email has correct form  </td>
     </tr>  
-    
+  
 </table>
 
 
@@ -759,14 +763,19 @@ Most of the features of this application run fine on a local computer (any inter
 - Create a personal google account (if needed)
 - Go to Sheets
 - You can setup your own sheets as per instructions below, or use the example sheet [here](./assets/documentation/example.xlsx)
-- Create New Sheet Document and give it a name, i.e. `Meeting-Reminders` (or a name of your liking)
+- Create New Google Sheet Document and give it a name, i.e. `Meeting-Reminders` (or a name of your liking). This Sheet will have three sheets : 
+    - A `schedule` sheet to keep track of the planned meetings 
+    - A `valid-participants` sheet to list all allowed participants that could be invited to each meeting
+    - A `participation-matrix` sheet that stores which meeting each allowed participant attends.
+
+- How to enter details: 
     - Rename first sheet to 'schedule'
     - Add the Headings as seen below 
-    - You could add some initial data but I would recommend filling the sheep from within the app to avoid mistakes, only adding the headings is enough.
+    - You could add some initial data but I would recommend filling the sheet from within the app to avoid mistakes, only adding the correct headings should be enough.
 
     <table style='width:80%'>
     <tr>
-       <th style='text-align:center'>Add Schedule Worksheet</th>
+       <th style='text-align:center'> Schedule Worksheet</th>
      </tr>
       <tr>
        <td> <img src="./assets/images/sheet-schedule.png"; alt="example of the schedule worksheet" >  </td>
@@ -775,12 +784,12 @@ Most of the features of this application run fine on a local computer (any inter
 
     - Add a new sheet to the Document and name it 'valid-participants'
     - Add Headings as seen below 
-    - I would recommend to add the values exactly as seen below. 
+    - I would recommend to add the values exactly as seen in the table below or from the example sheet [here](./assets/documentation/example.xlsx). 
     - Once familiar with the system, you can add your own data 
-    - (Optional) add some initial data (but can be done from within the app ) 
+  
     <table style='width:80%'>
     <tr>
-       <th style='text-align:center'>Add Participants Worksheet</th>
+       <th style='text-align:center'>Valid Participants Worksheet</th>
        </tr>
        <tr>
        <td> <img src="./assets/images/sheet-participant-pool.png"; alt="example of the  worksheet with valid participants" >  </td>
@@ -788,50 +797,20 @@ Most of the features of this application run fine on a local computer (any inter
     </table>
 
     - In the same Document, add a new sheet and name it 'participation-matrix'
-        - It is important that the columns exaclty match to match the pool of participants
-        - For the example above, copy the values from below 
+        - The easiest way is to copy the values from the example sheet [here](./assets/documentation/example.xlsx). 
+        - Just for information : Note that the columns match the valid participants that you entered above. In the example above, the first column is called `Meeting ID/ Participant ID` and is just informative. The next columns `1`, `2`,`3`,`4`,`5` match the `Participant ID` of the valid participants. Each column will indicate to which meeting a valid participant will attend.
         - If you have added a meeting manually, add a row for each meeting, starting with their `Meeting ID` and random values for each column (either `FALSE` or `TRUE`)
         - Note: i would recommend to either start without meetings in the schedule, or with the example sheet ( [here](./assets/documentation/example.xlsx)), and then start adding meetings from within the app.
 
     <table style='width:80%'>
        <tr>
-           <th style='text-align:center'>Add Participation Matrix Worksheet</th>
+           <th style='text-align:center'> Participation Matrix Worksheet</th>
        </tr>
        <tr>
        <td> <img src="./assets/images/sheet-participation-matrix.png"; alt="example of the  worksheet to store participation of valid participants in the meetings" >  </td>
         </tr>
     </table>
 
-
-### (Optional) Increase Security by protecting your Participant Worksheet
-
-- If you just want to test the application you can use a single account for setting up the worksheet and accessing it from the application. This however may allow the application to change data inside the woksheet. 
-- In order to protect the participant sheet from malicious changes, do following steps to lock the sheet from editing
-    - Click Data > Protect Sheet and ranges
-    - Select 'Add Sheet or Range' and select the 'valid-participants' sheet
-    - Restrict edit to 'only me' 
-- Crete a second google account for the application and invite it to the sheet (File > Share in the first account).
-- This second user can now only read the participant sheet, but not edit it (while still being able to edit and read data on the schedule and participation-matrix sheet, which are harmless)
-- Use this second user for API access from your application, and the first user only to manage the valid participants. 
-
---- 
-
-### (Optional) Add Worksheet for Unittest with Pytest
-
-- If you also want to pass all unit tests you need to add a fourth sheet 'unit-test' to the sheet
-- More details how this sheet is being used during unit testing in this document : [TESTING](./TESTING.md)
-- Go to your sheet `Meeting-Reminders` :
-    - add another sheet and name it 'unit-test'
-    - Enter the exact values from the sheet from the image. This is your expectation that pytest can now reference to within the unit test 
-
-<table style='width:80%'>
-    <tr>
-       <th style='text-align:center'>Unit Test Worksheet</th>
-    </tr>
-    <tr>
-       <td> <img src="./assets/images/sheet-unit-test.png"; alt="example of the  worksheet to test the read/write functions of the unit test" >  </td>
-    </tr>
-</table>
 
 ---- 
 ### Link Google API to the application 
@@ -872,8 +851,9 @@ Most of the features of this application run fine on a local computer (any inter
 - Choose a name i.e. my-meetings and region (EU) then click on `Create App`
 - Connect with your forked repository on github
 - Switch to `Settings` Tab
-    - Config Vars and add `PORT` with value `8000`
-    -  `NOTE FOR LATER` add here more credentials when adding config vars
+    - Under Config Vars
+        -  add `PORT` with value `8000`
+        - add `CREDS` and copy the entire content of your `creds.json` into this variable. The CI terminal will use this information to manage access to your google sheet.
     - On `Buildpacks` choose in that order (the order matters)
         -  `heroku/python` 
         -  `heroku/nodejs`
