@@ -4,15 +4,12 @@ This python-based terminal app is designed to organize personal meeting schedule
 
 Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku](https://meeting-reminders.herokuapp.com/)
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) 
 
-<br>
-<br>
-[<b>Add an image of the App Here </b>]
-<br>
-<br>
-<br>
-<br>
+![GitHub top language](https://img.shields.io/github/languages/top/nils-n/meetings-reminder-system?logo=GitHub&style=flat-square) ![GitHub contributors](https://img.shields.io/github/contributors/nils-n/meetings-reminder-system?color=oo&logo=Github) ![GitHub last commit](https://img.shields.io/github/last-commit/nils-n/meetings-reminder-system?logo=Github)
+
+
+
 
 
 --- 
