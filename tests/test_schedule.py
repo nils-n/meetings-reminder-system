@@ -1,10 +1,10 @@
 """
-These are unit tests for the schedule class. 
+These are unit tests for the schedule class.
 
-All unit tests are laid out in the form 
+All unit tests are laid out in the form
 
 A rrange
-A ct 
+A ct
 A ssert
 """
 from datetime import datetime

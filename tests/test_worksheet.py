@@ -1,10 +1,10 @@
 """
-This is a unit test for the worksheet class. 
+This is a unit test for the worksheet class.
 
-All unit tests are laid out in the form 
+All unit tests are laid out in the form
 
 A rrange
-A ct 
+A ct
 A ssert
 
 """
