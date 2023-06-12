@@ -199,7 +199,11 @@ Your schedule is identical with the schedule on the remote sheet."
         if result is not False:
             try:
                 self.schedule.validate_meeting_id(result)
-                self.schedule.remove_meeting(result)
+                self.schedule.worksheet.remove_meeting_by_id(int(result))
+                self.schedule.load_meetings()
+                self.schedule.calculate_participation_matrix()
+                self.schedule.load_participants()
+                self.schedule.convert_meetings_to_table(self.current_time_range)
                 self.update_sync_status(False)
                 self.load_meetings_table(self.current_time_range)
             except (ValueError, TypeError):

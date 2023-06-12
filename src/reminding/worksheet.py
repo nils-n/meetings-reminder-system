@@ -3,8 +3,10 @@ from dataclasses import dataclass, field
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
+from textual import log
 from reminding.participant import Participant
 from reminding.meeting import Meeting
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -206,17 +208,13 @@ class Worksheet:
             self.is_modified = True
 
     def remove_meeting_by_id(self, target_id) -> None:
-        """remove meeting with given ID from local copy of a worksheet"""
-        row_list = self.schedule_sheet_values
-        modified_row_list = []
-        for row in row_list:
-            if row[0] != str(target_id):
-                modified_row_list.append(row)
-            else:
-                self.is_modified = True
-        if self.is_modified:
-            self.schedule_sheet_values = modified_row_list
-            self.meetings = self.load_meetings()
+        """
+        remove meeting with given ID from local copy of a worksheet
+        """
+        self.meetings = [
+            meeting for meeting in self.meetings if meeting.meeting_id != target_id
+        ]
+        self.is_modified = True
 
     def push_participation_matrix(self, row_header, new_rows) -> None:
         """

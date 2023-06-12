@@ -87,12 +87,14 @@ class Schedule:
         also updates the table rows for the User Interface
         """
         self.worksheet.add_meeting(new_meeting)
+        self.calculate_participation_matrix()
 
     def remove_meeting(self, target_id):
         """
         removes a meeting from the schedule via its ID
         """
         self.worksheet.remove_meeting_by_id(target_id)
+        self.calculate_participation_matrix()
 
     def convert_meetings_to_table(self, time_range):
         """
@@ -104,11 +106,11 @@ class Schedule:
             if meeting.is_within_time_range(datetime.now(), time_range):
                 self.table_rows.append(
                     (
-                        meeting.meeting_id,
+                        str(meeting.meeting_id),
                         meeting.name,
-                        meeting.datetime,
-                        len(meeting.participants),
-                        meeting.num_participants,
+                        str(meeting.datetime),
+                        str(len(meeting.participants)),
+                        str(meeting.num_participants),
                     )
                 )
 
