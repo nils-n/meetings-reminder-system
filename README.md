@@ -55,8 +55,8 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
   - [Deployment and Local Development](#deployment-and-local-development)
       - [How to Fork](#how-to-fork)
       - [How to Clone](#how-to-clone)
-    - [(Optional) How to set up your local python environment](#optional-how-to-set-up-your-local-python-environment)
-      - [Set Up Worksheets](#set-up-worksheets)
+      - [(Optional) How to set up your local python environment](#optional-how-to-set-up-your-local-python-environment)
+    - [Set Up Worksheets](#set-up-worksheets)
     - [Link Google API to the application](#link-google-api-to-the-application)
     - [Deployment on Heroku](#deployment-on-heroku)
   - [Testing](#testing)
@@ -754,7 +754,7 @@ Most of the features of this application run fine on a local computer (any inter
 - in the terminal, type 'git clone ' followed by the link you copied
 - press enter to confirm
 
-### (Optional) How to set up your local python environment
+#### (Optional) How to set up your local python environment
 
 - If you want to run this application on your local computer
 - open terminal and clone repositor repository (see above)
@@ -774,9 +774,9 @@ pip install -r requirements.txt
 ```
 python run.py
 ```
+--- 
 
-
-#### Set Up Worksheets
+### Set Up Worksheets
 
 - Create a personal google account (if needed)
 - Go to Sheets
@@ -863,7 +863,8 @@ python run.py
 
 ### Deployment on Heroku 
 
-- Heroku will requires public access to the `reminding` package inside your forked repository. Basically i followed [this explanation from Heroku](https://devcenter.heroku.com/articles/python-pip) 
+- When running on Heroku, the application requires public access to your repository so that it can intall the `reminding` package from the `src` directory. This follows the advice from here: [ Heroku: Python Dependencies via Pip ](https://devcenter.heroku.com/articles/python-pip) 
+- This means that your forked repository will be need to be set to `public`. To do that, go to Settings > Change Visibility Settings and set visibility to `public` (Once the build is done with Heroku, you can set the visibility status to private again)
 - Create an account on [Heroku](https://dashboard.heroku.com/apps)
 - Log into Heroku 
 - Go to Dashboard and click on `New` > `New App`
@@ -1030,7 +1031,9 @@ Here is a list of the many bugs encountered during the implementation of the pro
     - Effective Python Testing with Pytest [Link](https://realpython.com/pytest-python-testing/)
     - Okken, Brian. "Python Testing with pytest." Pragmatic Bookshelf, 2022.
 - Console-based Terminal User Interface by William McGugan [GitHub Textual](https://github.com/textualize/textual/)
+- Code Formatting and General Tips for using Python Sweigart, Al. Beyond the Basic Stuff with Python: Best Practices for Writing Clean Code. No Starch Press, 2020.
 - How to setup up Google Gmail / EZGmail API [Al Sweikarts's ezgmail Github](https://github.com/asweigart/ezgmail)
+- Advice on how to deal with API interactions during pytest / unit testing [Jose Maria Valera Reales, To Mock or Not to Mock: How to escape the mocking hell](https://chemaclass.medium.com/to-mock-or-not-to-mock-af995072b22e)
 - Example Readme from Kera Cudmore [Kera's Github](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md)
 - Images from  [Pexels](https://pexels.com/)  in case you use a BG image (check this!)
 - explanation how to solve inheritance issues with dataclassess [Python dataclass inheritance, finally !](https://medium.com/@aniscampos/python-dataclass-inheritance-finally-686eaf60fbb5)
