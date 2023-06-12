@@ -456,7 +456,9 @@ class MeetingsApp(App):
 
     def on_mount(self) -> None:
         """called after mounting the screen"""
-        self.schedule.calculate_participation_matrix()
+        self.schedule.load_meetings()
+        self.schedule.load_participation_matrix()
+        self.schedule.load_participants()
         self.load_meetings_table(self.app.current_time_range)
         sync_status = self.query_one("#sync-status")
         sync_status.add_class("in-sync")
