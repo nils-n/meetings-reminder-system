@@ -30,7 +30,7 @@ The Manual Testing document can be found here : [Numbers Testing Results](./asse
 
 ### Results of Syntax Validation with PEP8
 
-The application has been tested that a pylinter does not flag any significant errors. All testes have passed.
+The application has been tested that a pylinter (VS Code) which does not flag any significant errors. All testes have passed.
 
 <table style='width:100%'>
     <tr>

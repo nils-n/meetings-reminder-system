@@ -27,7 +27,8 @@ class Participant:
         """validate that name is a string"""
         if not isinstance(name, str):
             raise TypeError(
-                f"Participant Name should be a string ( {name} is not a string)"
+                f"Participant Name should be a string ( {name} \
+                is not a string)"
             )
 
     def validate_meeting_id(self, id_number):
@@ -40,7 +41,8 @@ class Participant:
         if isinstance(id_number, int) and (id_number < 0):
             raise ValueError(
                 f"Meeting ID should be non-negative \
-                             ( {self.validate_meeting_id} is not a positive integer)"
+                             ( {self.validate_meeting_id} is not a positive \
+                                integer)"
             )
 
     def update_name(self, new_name):
@@ -60,8 +62,8 @@ class Participant:
 
     def convert_to_table_row(self):
         """
-        convert the participant details into a table format that the TUI can display
-        currently a table row is defined as :
+        convert the participant details into a table format that the TUI can
+        display. currently a table row is defined as :
         ID -  Name - Email - has confirmed - has been notified
         """
         self.table_row = []
