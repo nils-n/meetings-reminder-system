@@ -200,6 +200,31 @@ All tests passed.
 
 #### Meeting Class 
 
+The meeting class was tested for : 
+
+- valid constructor calls
+- valid input of Name, Time, Meeting ID
+- valid conversion into a row format for I/O of Google Sheets
+- ability to create, read, update and remove a meeting
+- ability to add, update and remove participants from a meeting
+- ability to select a correct time range (week/month/all meetings)
+- ability to detect whether meeting details have been modified 
+
+All tests passed. 
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Summary</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report-meeting-1.png"; alt="results of automatic testing" >  </td>
+    </tr>
+      <tr>
+       <td> <img src="./assets/documentation/report-meeting-2.png"; alt="results of automatic testing" >  </td>
+    </tr>
+</table>
+
+
 #### Schedule Class 
 
 #### Worksheet Class 
