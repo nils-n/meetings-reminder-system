@@ -32,6 +32,7 @@ Link to a live terminal (for demonstration purposes): [Meeting Manager on Heroku
     - [Implementation in Python](#implementation-in-python)
   - [Features](#features)
     - [General Features](#general-features)
+      - [How to navigate on a screen:](#how-to-navigate-on-a-screen)
     - [Main Screen](#main-screen)
       - [Filter Display of Upcoming Meetings](#filter-display-of-upcoming-meetings)
       - [Toggle Dark Mode](#toggle-dark-mode)
@@ -313,6 +314,14 @@ The application consists of three main screens using a terminal user interface (
 
 On each screen, confirmation dialogs and warning messages about invalid inputs are implemented as semi-transparent popup screens that are popped on top of the current screen.
 
+#### How to navigate on a screen:
+- Navgiation works entirely on the keyboard. 
+  - Switch Focus between buttons/input form elements :  *TAB* key. 
+  - For confirmation press enter *ENTER* 
+  - Ensure that the input field you want to enter details is focussed with the `TAB` key (Press multiple times *TAB* to see where the cursor is if you don't see it)
+  - On the Main Screen, there are more key bindings (see below)
+- On your local terminal, you can alternatively also use the mouse to select and click buttons (does not work on Heroku)
+
 
 --- 
 
@@ -321,12 +330,12 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 - This is the entry point when you start the application from the terminal.
 - For fast navigation to the other screen, key bindings are added as following :
-    - A: Opens a screen to add new Meeting 
-    - R: Opens a dialog to remove a meeting
-    - M: opens a screen to modify a meeting  
-    - P: push local changes to google sheets
-    - W: Filter table  : This Week / This Month / All Meetings 
-    - D: Toggle Dark Mode
+    - *A:* Opens a screen to add new Meeting 
+    - *R:* Opens a dialog to remove a meeting
+    - *M:* opens a screen to modify a meeting  
+    - *P:* push local changes to google sheets
+    - *W:* Filter table  : This Week / This Month / All Meetings 
+    - *D:* Toggle Dark Mode
 - If you run the app on a regular terminal (not the Heroku version), it has has clickable buttons (try clicking on footer elements on this page, or on a button when a dialog pops up)
 
 <table style="width:100%;">
@@ -406,6 +415,9 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 
 - The user can push local changes to the Google Sheet by pressing the `P` key on the Main Screen
 - After the operation is finished, a dialog pops up whether it was successful or not 
+- On the main screen, there is a visual guide that helps to see directly if there are modifications to the schedule.
+  - It will display a small red text "In Sync : False" if the schedule was modified 
+  - It will display a small green text "In Sync : True" if the schedule is the same as on the google worksheet 
 
 <table style="width:100%;">
     <tr>
@@ -425,7 +437,7 @@ On each screen, confirmation dialogs and warning messages about invalid inputs a
 - The user gets to this screen when pushing 'A' key on the Main screen
 - On top of the screen is a description of the expected Format for the Date `DD/MM/YY` and Time `HH:MM`
 - Using the `Tab` key, or using `mouse click` (not Heroku), the user can focus an Input and type the details of a new meeting
-- After submitting by pressing `Enter` while focussing any of the input forms, a dialog pops up with the input, where the user can either confirm, discard or try to enter again.
+- After submitting by pressing `Enter` while focussing any of the input forms or the 'submit' button, a dialog pops up with the input, where the user can either confirm, discard or try to enter again.
 - If the user inputs with an invalid input, he will get informed about his error, and what format was expected 
 
 
@@ -655,8 +667,8 @@ The schedule should be available even after the application is closed. This app 
 - Integration of this `MeetingsApp` with a `ReminderApp` that uses a shared database to send reminder Emails on a scheduled basis (such as 24hrs before a meeting), and a `ParticipantsApp` that handles the administration of the participants and approval requests for adding new participants from the `MeetingApp`
 - Integration of the meetings app for a more broad meaning of a schedule, such as adding other (personal) events or virtual meetings to a schedule  
 - Integration of a personal Meeting Schedule with a schedule from other another users, to allow for social interactions and messages / invitations to meetings or events, or shared calenders.
-- A visual cue that informs the user whether the synchronization of the local changes with the Google Sheets has been successful , and that the local repository differs from the Google sheets (Perhaps following a color code such as : Green/Yellow/Red for in sync/modified/error in the repository )
-- A Feedback dialog when the synchronization of the local changes with the remote database on Google sheets has finished. Additionally, I am not very happy that the application freezes while it synchronizes with Google Sheets - the next rework would address this problem, perhaps by not loading the entire sheet at a time and only sheets that are queried (for example, there is no need to load the unit-test sheet every time). 
+- A more refined visual cue that informs the user whether the synchronization of the local changes with the Google Sheets has been successful , and that the local repository differs from the Google sheets (Perhaps following a color code such as : Green/Yellow/Red for in sync/modified/error in the repository )
+- A Feedback dialog or waiting screen while the local changes are synchronized with the remote database on Google sheets has finished. Additionally, I am not very happy that the application freezes while it synchronizes with Google Sheets - the next rework would address this problem, perhaps by not loading the entire sheet at a time and only sheets that are queried (for example, there is no need to load the unit-test sheet every time), or by using asynchroneous methods. 
 
 
 ### Accessibility
