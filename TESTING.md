@@ -135,13 +135,13 @@ There were several issues found during Manual Testing that required refactoring 
     <tr>
       <td style="text-align:center"> TC14 </td>
       <td> Verify consistency of the “Push” option to update the remote database with the local changes </td>
-      <td> Not an error, but a note : It would be nice to have a dialog or some visual feedback that syncing of the local changes with the remote repository has been successful. Added to Future Implmenetations. 
+      <td> Not an error, but a note : It would be nice to have a dialog or some visual feedback that syncing of the local changes with the remote repository has been successful. Implemented in the latest version. 
       </td>
     </tr>
     <tr>
       <td style="text-align:center"> TC19 </td>
       <td> Validate that application handles the case when internet connection is lost  </td>
-      <td> An Error was discovered that the Application should display  to user that it could not connect to the database. Working on a refactoring of a code before submission. 
+      <td> An Error was discovered that the Application should display to user that it could not connect to the database. After refactoring, test passes. 
       </td>
     </tr>
  </table>
