@@ -757,6 +757,12 @@ Most of the features of this application run fine on a local computer (any inter
 ### (Optional) How to set up your local python environment
 
 - If you want to run this application on your local computer
+- Clone Repository (see above) and create local virtual environment 
+  ```
+  python -m venv work_env 
+  ```
+- install requirements from file 
+
 
 #### Set Up Worksheets
 
