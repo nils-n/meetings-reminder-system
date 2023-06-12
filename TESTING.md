@@ -181,7 +181,7 @@ The follwing section contains a summary of the results from Unit Testing using t
 
 #### Participant Class
 
-The participant class was tested for : 
+The `Participant` class was tested for : 
 - valid constructor calls
 - valid input of Name, Email, Participant ID
 - valid conversion into a row format for I/O of Google Sheets
@@ -200,7 +200,7 @@ All tests passed.
 
 #### Meeting Class 
 
-The meeting class was tested for : 
+The `Meeting` class was tested for : 
 
 - valid constructor calls
 - valid input of Name, Time, Meeting ID
@@ -226,6 +226,25 @@ All tests passed.
 
 
 #### Schedule Class 
+
+The `Schedule` class was tested for : 
+
+- valid constructor calls
+- valid conversion between list of meetings and table rows 
+- ability to update and correctly print details of scheduled meetings
+- correct functioning of the CRUD methods for the participation matrix and a check for its correct format
+
+All tests passed. 
+
+<table style='width:100%'>
+    <tr>
+        <th style='text-align:center'>Pytest Summary</th>
+    </tr>
+    <tr>
+       <td> <img src="./assets/documentation/report-schedule.png"; alt="results of automatic testing" >  </td>
+    </tr>
+</table>
+
 
 #### Worksheet Class 
 
