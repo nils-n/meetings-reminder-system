@@ -7,6 +7,7 @@ cachetools==5.3.1
 certifi==2023.5.7
 charset-normalizer==3.1.0
 click==8.1.3
+coverage==7.2.7
 dill==0.3.6
 dnspython==2.3.0
 email-validator==2.0.0.post2
@@ -33,12 +34,15 @@ packaging==23.1
 pathspec==0.11.1
 platformdirs==3.5.0
 pluggy==1.0.0
+py==1.11.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
 Pygments==2.15.1
 pylint==2.17.3
 pytest==7.3.1
--e git+https://github.com/nils-n/meetings-reminder-system.git@f8a7161546eb8555d3732343d1dc196949dc2e2a#egg=reminding
+pytest-html==3.2.0
+pytest-metadata==3.0.0
+-e git+https://github.com/nils-n/meetings-reminder-system.git@62ed58f269ff3c07fe5a97fbbcad85c86d209d25#egg=reminding
 requests==2.31.0
 requests-oauthlib==1.3.1
 rich==13.3.5
